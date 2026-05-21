@@ -6,14 +6,13 @@
     <title>About Us - Sunburst Outdoor Products</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        body { font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.8; color: #333; }
 
-        /* 这里是关键：给页面加上背景图和兜底纯色 */
+        /* 背景图+纯色兜底，路径已写对 */
         .page-banner {
             background: #fff0e4 url("../images/bg_about.jpg") center center / cover no-repeat;
             min-height: 100vh;
             padding: 80px 20px 20px;
-            color: #333;
         }
 
         .nav-wrap {
@@ -30,8 +29,28 @@
         }
         .logo { color: white; font-size: 18px; font-weight: bold; }
         .nav-wrap a { color: white; margin: 0 10px; text-decoration: none; }
-        .content { max-width: 800px; margin: 0 auto; background: rgba(255,255,255,0.9); padding: 30px; border-radius: 8px; }
-        h1 { color: #e67e22; margin-bottom: 20px; text-align: center; }
+        
+        /* 优化内容排版 */
+        .content { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px;
+        }
+        
+        h1 { 
+            color: #e67e22; 
+            margin-bottom: 30px; 
+            text-align: center; 
+            font-size: 2.2rem;
+            font-weight: 600;
+        }
+        
+        /* 段落样式优化 */
+        .content p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            text-align: justify;
+        }
     </style>
 </head>
 <body>
@@ -48,8 +67,11 @@
     <section class="page-banner">
         <div class="content">
             <h1>Company Introduction</h1>
-            <p>Founded in 2020, Sunburst Outdoor Products Co., Ltd is a professional enterprise engaged in the design, production and export of outdoor daily supplies.</p>
-            <p>Our main business covers outdoor furniture, homeware, parasols and other related outdoor series products. Adhering to the business philosophy of quality first and customer priority, we always use durable raw materials and implement rigorous quality control in every production procedure.</p>
+            
+            <p>Founded in 2017, Sunburst Outdoor Products Co., Ltd is a professional enterprise engaged in the design, production and export of outdoor daily supplies. Our core business covers outdoor furniture, homeware, parasols and other related outdoor series products.</p>
+
+            <p>Adhering to the business philosophy of "quality first and customer priority", we always use durable raw materials and implement rigorous quality control in every production procedure. This ensures that every product we deliver meets international standards and customer expectations.</p>
+
             <p>We warmly welcome global buyers to cooperate with us. Whether you need standard goods or customized products, we can provide you with satisfactory solutions. Our team keeps fast online response and provides stable and efficient delivery service for all partners.</p>
         </div>
     </section>
