@@ -5,58 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sunburst Outdoor Products Co., Ltd</title>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
-        body{color:#333;background:#fff8f2;}
-        header{background:#e68a47;padding:18px 5%;}
-        .nav-wrap{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;}
-        .logo{color:#fff;font-size:20px;font-weight:bold;}
-        .nav a{color:#fff;text-decoration:none;margin:0 12px;font-size:15px;}
-        .banner{background:#fff0e4;padding:80px 5%;text-align:center;}
-        .banner h1{font-size:36px;color:#d36f28;margin-bottom:15px;}
-        .banner p{font-size:17px;color:#666;max-width:800px;margin:0 auto 30px;line-height:1.8;}
-        .btn{display:inline-block;background:#e68a47;color:#fff;padding:12px 28px;border-radius:4px;text-decoration:none;}
-        .advantage{max-width:1200px;margin:60px auto;padding:0 5%;display:grid;grid-template-columns:repeat(3,1fr);gap:25px;}
-        .adv-box{background:#fff;padding:25px;border-radius:6px;box-shadow:0 2px 8px #f0e0d0;}
-        .adv-box h3{color:#d36f28;margin-bottom:12px;}
-        footer{background:#e68a47;color:#fff;text-align:center;padding:20px;margin-top:60px;font-size:14px;}
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; }
+        .banner {
+            /* 背景图 + 纯色兜底 */
+            background: #fff0e4 url("images/bg_home.jpg") center center / cover no-repeat;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            padding: 20px;
+        }
+        .banner-content h1 { font-size: 3rem; margin-bottom: 20px; }
+        .banner-content p { font-size: 1.2rem; max-width: 800px; margin: 0 auto 30px; }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #e67e22;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            padding: 20px;
+        }
+        nav a { color: white; margin: 0 10px; text-decoration: none; }
     </style>
 </head>
 <body>
-<header>
-    <div class="nav-wrap">
-        <div class="logo">Sunburst Outdoor Products Co., Ltd</div>
-        <div class="nav">
-            <a href="/">Home</a>
-            <a href="/about">About Us</a>
-            <a href="/products">Products</a>
-            <a href="/contact">Contact Us</a>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About Us</a>
+        <a href="/products">Products</a>
+        <a href="/contact">Contact Us</a>
+    </nav>
+
+    <section class="banner">
+        <div class="banner-content">
+            <h1>Professional Outdoor Products Manufacturer</h1>
+            <p>Established in 2020, Sunburst Outdoor Products Co., Ltd is a reliable supplier specializing in outdoor furniture, homeware and parasols. We focus on high-quality products, strict quality inspection and efficient global trade service.</p>
+            <a href="/contact" class="btn">Get In Touch</a>
         </div>
-    </div>
-</header>
-
-<section class="banner">
-    <h1>Professional Outdoor Products Manufacturer</h1>
-    <p>Established in 2020, Sunburst Outdoor Products Co., Ltd is a reliable supplier specializing in outdoor furniture, homeware and parasols. We focus on high-quality products, strict quality inspection and efficient global trade service.</p>
-    <a href="/contact" class="btn">Get In Touch</a>
-</section>
-
-<section class="advantage">
-    <div class="adv-box">
-        <h3>Custom Service</h3>
-        <p>We fully support OEM and ODM customization services to meet different market and customer personalized demands.</p>
-    </div>
-    <div class="adv-box">
-        <h3>Flexible MOQ</h3>
-        <p>We provide the lowest possible MOQ to help customers start business easily and reduce stocking pressure.</p>
-    </div>
-    <div class="adv-box">
-        <h3>Stable Delivery</h3>
-        <p>Fast customer response, strict production schedule control and reliable on-time delivery guarantee.</p>
-    </div>
-</section>
-
-<footer>
-    <p>© 2025 Sunburst Outdoor Products Co., Ltd All Rights Reserved</p>
-</footer>
+    </section>
 </body>
 </html>
