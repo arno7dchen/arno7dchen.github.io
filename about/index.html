@@ -8,11 +8,13 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.8; color: #333; }
 
-        /* 背景图+纯色兜底，路径已写对 */
+        /* 背景图 */
         .page-banner {
-            background: #fff0e4 url("../images/bg_about.jpg") center center / cover no-repeat;
+            background: url("../images/bg_about.jpg") center center / cover no-repeat;
             min-height: 100vh;
             padding: 80px 20px 20px;
+            display: flex;
+            align-items: center;
         }
 
         .nav-wrap {
@@ -30,11 +32,14 @@
         .logo { color: white; font-size: 18px; font-weight: bold; }
         .nav-wrap a { color: white; margin: 0 10px; text-decoration: none; }
         
-        /* 优化内容排版 */
+        /* --- 核心修改：半透明白色背景板 --- */
         .content { 
             max-width: 800px; 
             margin: 0 auto; 
-            padding: 20px;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.9); /* 半透明白色 */
+            border-radius: 10px; /* 圆角 */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* 阴影，更有立体感 */
         }
         
         h1 { 
