@@ -3,54 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sunburst Outdoor Products Co., Ltd</title>
+    <title>Sunburst Outdoor Products</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; }
+        body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; line-height: 1.8; color: #333; }
+
         .banner {
-            /* 背景图 + 纯色兜底 */
             background: #fff0e4 url("images/bg_home.jpg") center center / cover no-repeat;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: #fff;
             padding: 20px;
+            position: relative;
         }
-        .banner-content h1 { font-size: 3rem; margin-bottom: 20px; }
-        .banner-content p { font-size: 1.2rem; max-width: 800px; margin: 0 auto 30px; }
+
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            max-width: 900px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .banner-content p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- 核心修改：按钮颜色 --- */
         .btn {
             display: inline-block;
             padding: 12px 30px;
-            background: #e67e22;
+            background-color: #E67E22; /* 专业活力橙 */
             color: white;
             text-decoration: none;
-            border-radius: 4px;
-            font-size: 1rem;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
         }
-        nav {
+
+        .btn:hover {
+            background-color: #D35400; /* 鼠标悬停时颜色变深 */
+        }
+
+        .nav-wrap {
             position: fixed;
             top: 0;
+            left: 0;
             right: 0;
             background: rgba(0,0,0,0.7);
-            padding: 20px;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 999;
         }
-        nav a { color: white; margin: 0 10px; text-decoration: none; }
+        .logo { color: white; font-size: 18px; font-weight: bold; }
+        .nav-wrap a { color: white; margin: 0 10px; text-decoration: none; }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="/">Home</a>
-        <a href="/about">About Us</a>
-        <a href="/products">Products</a>
-        <a href="/contact">Contact Us</a>
-    </nav>
+    <div class="nav-wrap">
+        <div class="logo">Sunburst Outdoor Products Co., Ltd</div>
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/about/">About Us</a>
+            <a href="/products/">Products</a>
+            <a href="/contact/">Contact Us</a>
+        </div>
+    </div>
 
     <section class="banner">
         <div class="banner-content">
             <h1>Professional Outdoor Products Manufacturer</h1>
-            <p>Established in 2020, Sunburst Outdoor Products Co., Ltd is a reliable supplier specializing in outdoor furniture, homeware and parasols. We focus on high-quality products, strict quality inspection and efficient global trade service.</p>
+            <!-- --- 核心修改：年份已改为2017 --- -->
+            <p>Established in 2017, Sunburst Outdoor Products Co., Ltd is a reliable supplier specializing in outdoor furniture, homeware and parasols. We focus on high-quality products, strict quality inspection and efficient global trade service.</p>
             <a href="/contact" class="btn">Get In Touch</a>
         </div>
     </section>
