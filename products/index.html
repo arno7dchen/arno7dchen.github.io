@@ -17,7 +17,7 @@
             line-height: 1.5;
         }
 
-        /* 顶部导航样式（已对齐其他页面，不再改动） */
+        /* 导航栏：1:1匹配首页样式，包含悬停+固定高亮逻辑 */
         .site-header {
             position: absolute;
             width: 100%;
@@ -31,24 +31,26 @@
         }
         .site-header .logo {
             color: #fff;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 500;
         }
         .site-header .nav a {
             color: #fff;
             text-decoration: none;
             margin-left: 30px;
-            font-size: 17px;
+            font-size: 16px;
             transition: color 0.2s ease;
         }
+        /* 1. 当前页面固定高亮黄色 */
         .site-header .nav a.active {
             color: #ff6b35;
         }
+        /* 2. 鼠标悬停时临时变黄 */
         .site-header .nav a:hover {
             color: #ff6b35;
         }
 
-        /* 页面背景保持你满意的效果 */
+        /* 背景图保持你满意的效果，不再改动 */
         .hero-banner {
             background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), 
             url('../images/bg_product.jpg') center bottom / cover no-repeat;
@@ -84,7 +86,7 @@
             border-radius: 4px;
         }
 
-        /* 左侧产品分类交互：悬停临时高亮 + 点击固定高亮 */
+        /* 左侧产品分类交互：和导航栏逻辑一致 */
         .sidebar {
             width: 180px;
             flex-shrink: 0;
@@ -204,7 +206,6 @@
 
         <main class="products-area">
             <div class="product-grid">
-                <!-- 9张产品图：路径+后缀100%匹配你的文件 -->
                 <div class="product-card" data-category="garden-furniture-sets">
                     <img src="../images/garden01.webp" alt="3pc Patio Bistro Set">
                     <h4>3pc Patio Bistro Set</h4>
