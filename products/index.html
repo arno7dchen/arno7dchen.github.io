@@ -42,9 +42,9 @@
         .site-header .nav a.active {
             color: #ff6b35;
         }
-        /* 背景图：加上半透明遮罩，还原深色效果 */
+        /* 背景图：加深遮罩，还原你要的深色效果，同时保证文字清晰 */
         .hero-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../images/bg_product.jpg') center/cover no-repeat;
+            background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('../images/bg_product.jpg') center/cover no-repeat;
             height: 380px;
             display: flex;
             align-items: center;
@@ -55,15 +55,19 @@
         }
         .hero-banner h1 {
             font-size: 32px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
         }
         .hero-banner p {
-            font-size: 15px;
+            font-size: 16px;
             max-width: 100%;
-            opacity: 0.95;
+            opacity: 1;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
             white-space: nowrap;
         }
-        /* 主体容器：还原白色背景+浅灰阴影 */
+        /* 主体容器 */
         .content-wrapper {
             max-width: 1200px;
             margin: -40px auto 40px;
@@ -176,7 +180,7 @@
 
         <main class="products-area">
             <div class="product-grid">
-                <!-- 完全匹配你文件夹里的所有图片 -->
+                <!-- 100% 匹配你文件夹里的9张图片 -->
                 <div class="product-card" data-category="garden-furniture-sets">
                     <img src="../images/garden01.webp" alt="3pc Patio Bistro Set">
                     <h4>3pc Patio Bistro Set</h4>
