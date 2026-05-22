@@ -17,10 +17,10 @@
             line-height: 1.5;
         }
 
-        /* 顶部导航栏 */
+        /* ========== 导航栏：和你About Us页面完全一致的样式 ========== */
         header {
             width: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.55); /* 和你其他页面一致的深灰色半透明 */
             padding: 15px 30px;
             display: flex;
             justify-content: space-between;
@@ -48,18 +48,18 @@
         }
         nav ul li a:hover,
         nav ul li a.active {
-            color: #f58020;
+            color: #f58020; /* 橙色高亮，和你网站品牌色一致 */
         }
         .nav-spacer {
             height: 60px;
         }
 
-        /* 产品头部横幅 */
+        /* ========== 顶部Our Products标题区（背景图已按你文件名修正） ========== */
         .product-banner {
             width: 100%;
             padding: 80px 20px;
             text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url("../images/product-bg.jpg");
+            background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url("../images/bg_product.jpg");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -75,7 +75,7 @@
             color: #ffffff;
         }
 
-        /* 主体布局 */
+        /* ========== 整体左右布局 ========== */
         .product-wrap {
             max-width: 1450px;
             margin: 0 auto 80px;
@@ -84,7 +84,7 @@
             gap: 35px;
         }
 
-        /* 左侧分类导航 */
+        /* ========== 左侧分类导航 ========== */
         .left-category {
             width: 210px;
             flex-shrink: 0;
@@ -119,7 +119,7 @@
             color: #f58020;
         }
 
-        /* 右侧产品区域 */
+        /* ========== 右侧产品区域 ========== */
         .right-product-box {
             flex: 1;
         }
@@ -150,7 +150,7 @@
             border-color: #f58020;
         }
 
-        /* 移动端适配 */
+        /* ========== 移动端适配 ========== */
         @media (max-width: 768px) {
             header {
                 padding: 10px 15px;
@@ -202,14 +202,14 @@
 </head>
 <body>
 
-<!-- 顶部导航 路径适配文件夹结构 -->
+<!-- 顶部导航栏（和About Us页面完全一致） -->
 <header>
     <div class="logo">Sunburst Outdoor Products Co., Ltd</div>
     <nav>
         <ul>
             <li><a href="../index.html">Home</a></li>
             <li><a href="../about/index.html">About Us</a></li>
-            <li><a href="index.html" class="active">Products</a></li>
+            <li><a href="./index.html" class="active">Products</a></li>
             <li><a href="../contact/index.html">Contact Us</a></li>
         </ul>
     </nav>
@@ -217,14 +217,15 @@
 
 <div class="nav-spacer"></div>
 
-<!-- 产品横幅区域 -->
+<!-- 顶部Our Products标题区（背景图已正常适配） -->
 <section class="product-banner">
     <h1>Our Products</h1>
     <p>All products are made with durable materials and undergo strict quality control. OEM & ODM orders are welcome.</p>
 </section>
 
-<!-- 分类与产品主体 -->
+<!-- 主体分类+产品区域 -->
 <div class="product-wrap">
+    <!-- 左侧分类导航（已修正为Rattan Furniture Sets） -->
     <div class="left-category">
         <h3>Product Category</h3>
         <ul class="category-menu">
@@ -240,6 +241,7 @@
         </ul>
     </div>
 
+    <!-- 右侧空白产品占位区 -->
     <div class="right-product-box">
         <h2 class="product-list-title">All Products</h2>
         <div class="product-list">
@@ -274,6 +276,7 @@
     </div>
 </div>
 
+<!-- 筛选交互脚本 -->
 <script>
     let cateItem = document.querySelectorAll('.category-menu li');
     let proItem = document.querySelectorAll('.product-card');
