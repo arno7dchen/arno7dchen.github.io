@@ -17,7 +17,7 @@
             line-height: 1.5;
         }
 
-        /* 顶部导航栏 */
+        /* 导航栏样式 1:1 对齐 Contact Us 页面 */
         .site-header {
             position: absolute;
             width: 100%;
@@ -31,23 +31,23 @@
         }
         .site-header .logo {
             color: #fff;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 500;
         }
         .site-header .nav a {
             color: #fff;
             text-decoration: none;
-            margin-left: 24px;
-            font-size: 15px;
+            margin-left: 30px;
+            font-size: 17px;
         }
         .site-header .nav a.active {
             color: #ff6b35;
         }
 
-        /* 背景图：上侧裁切，泳池露出更多 */
+        /* 背景样式保持不变 */
         .hero-banner {
             background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), 
-            url('/images/bg_product.jpg') center bottom / cover no-repeat;
+            url('../images/bg_product.jpg') center bottom / cover no-repeat;
             height: 480px;
             display: flex;
             align-items: center;
@@ -81,7 +81,7 @@
             border-radius: 4px;
         }
 
-        /* 左侧分类导航 */
+        /* 左侧分类导航 点击固定+悬浮变色 */
         .sidebar {
             width: 180px;
             flex-shrink: 0;
@@ -120,12 +120,19 @@
             background: transparent;
             transition: all 0.2s ease;
         }
-        /* 点击激活样式：文字变黄+黄线跟随+底色 */
+        /* 点击选中固定样式 */
         .category-list a.active {
             color: #ff6b35;
             background-color: #fff3ee;
         }
         .category-list a.active::before {
+            background-color: #ff6b35;
+        }
+        /* 鼠标悬浮临时高亮 */
+        .category-list a:hover {
+            color: #ff6b35;
+        }
+        .category-list a:hover::before {
             background-color: #ff6b35;
         }
 
@@ -197,41 +204,41 @@
 
         <main class="products-area">
             <div class="product-grid">
-                <!-- 全部大写WEBP后缀 共9张图 -->
+                <!-- 相对路径 + 大写WEBP后缀 共9张图 -->
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="/images/garden01.WEBP" alt="3pc Patio Bistro Set">
+                    <img src="../images/garden01.WEBP" alt="3pc Patio Bistro Set">
                     <h4>3pc Patio Bistro Set</h4>
                 </div>
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="/images/garden02.WEBP" alt="3pc Patio Bistro Set">
+                    <img src="../images/garden02.WEBP" alt="3pc Patio Bistro Set">
                     <h4>3pc Patio Bistro Set</h4>
                 </div>
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="/images/garden03.WEBP" alt="3pc Patio Bistro Set">
+                    <img src="../images/garden03.WEBP" alt="3pc Patio Bistro Set">
                     <h4>3pc Patio Bistro Set</h4>
                 </div>
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="/images/garden04.WEBP" alt="3pc Patio Bistro Set">
+                    <img src="../images/garden04.WEBP" alt="3pc Patio Bistro Set">
                     <h4>3pc Patio Bistro Set</h4>
                 </div>
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="/images/garden05.WEBP" alt="4pc Patio Conversation Set">
+                    <img src="../images/garden05.WEBP" alt="4pc Patio Conversation Set">
                     <h4>4pc Patio Conversation Set</h4>
                 </div>
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="/images/garden06.WEBP" alt="4pc Patio Conversation Set">
+                    <img src="../images/garden06.WEBP" alt="4pc Patio Conversation Set">
                     <h4>4pc Patio Conversation Set</h4>
                 </div>
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="/images/garden07.WEBP" alt="4pc Patio Conversation Set">
+                    <img src="../images/garden07.WEBP" alt="4pc Patio Conversation Set">
                     <h4>4pc Patio Conversation Set</h4>
                 </div>
                 <div class="product-card" data-category="rattan-furniture-sets">
-                    <img src="/images/rattan01.WEBP" alt="Rattan 4pc Patio Conversation Set">
+                    <img src="../images/rattan01.WEBP" alt="Rattan 4pc Patio Conversation Set">
                     <h4>Rattan 4pc Patio Conversation Set</h4>
                 </div>
                 <div class="product-card" data-category="rattan-furniture-sets">
-                    <img src="/images/rattan02.WEBP" alt="Rattan 4pc Patio Conversation Set">
+                    <img src="../images/rattan02.WEBP" alt="Rattan 4pc Patio Conversation Set">
                     <h4>Rattan 4pc Patio Conversation Set</h4>
                 </div>
             </div>
@@ -246,18 +253,11 @@
             categoryLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    // 移除所有激活状态
                     categoryLinks.forEach(l => l.classList.remove('active'));
-                    // 给当前点击的加上激活状态
                     this.classList.add('active');
                     const selectedCategory = this.dataset.category;
-                    // 筛选产品
                     productCards.forEach(card => {
-                        if (selectedCategory === 'all' || card.dataset.category === selectedCategory) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
+                        card.style.display = (selectedCategory === 'all' || card.dataset.category === selectedCategory) ? 'block' : 'none';
                     });
                 });
             });
