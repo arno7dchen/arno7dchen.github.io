@@ -10,22 +10,39 @@
         .page-banner {
             background: url("../images/bg_contact.jpg") center center / cover no-repeat;
             min-height: 100vh;
-            padding: 80px 20px 20px;
+            padding: 0;
             display: flex;
             align-items: center;
+            justify-content: center;
+            position: relative;
         }
+        .content {
+            max-width: 800px;
+            padding: 40px;
+            background-color: rgba(255,255,255,0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        h1 {
+            color: #e67e22;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 600;
+        }
+        .contact-info { margin-top: 20px; line-height: 2; }
 
-        /* 导航统一样式 */
+        /* 👇 和 Home 完全一样 */
         .nav-wrap {
             position: absolute;
             width: 100%;
             top: 0;
             background: rgba(0,0,0,0.3);
-            padding: 16px 5%;
+            padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 100;
+            z-index: 9999;
         }
         .nav-wrap .logo {
             color: #fff;
@@ -35,36 +52,12 @@
         .nav-wrap a {
             color: #fff;
             text-decoration: none;
-            margin-left: 30px;
+            margin-left: 28px;
             font-size: 16px;
             transition: color 0.2s ease;
         }
-        .nav-wrap a.active {
-            color: #ff6b35;
-        }
-        .nav-wrap a:hover {
-            color: #ff6b35;
-        }
-
-        .content { 
-            max-width: 800px; 
-            margin: 0 auto; 
-            padding: 40px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        }
-        h1 { 
-            color: #e67e22; 
-            margin-bottom: 30px; 
-            text-align: center; 
-            font-size: 2.2rem;
-            font-weight: 600;
-        }
-        .contact-info {
-            margin-top: 20px;
-            line-height: 2;
-        }
+        .nav-wrap a.active { color: #ff6b35; }
+        .nav-wrap a:hover { color: #ff6b35; }
     </style>
 </head>
 <body>
@@ -87,7 +80,7 @@
                 <p><strong>Address:</strong> Hangzhou City, Zhejiang Province, China</p>
                 <p><strong>Working Hours:</strong> Monday - Friday, 9:00 AM - 6:00 PM (UTC+8)</p>
             </div>
-            <p style="margin-top: 20px;">Feel free to contact us anytime. We usually reply within 24 hours.</p>
+            <p style="margin-top:20px;">Feel free to contact us anytime. We usually reply within 24 hours.</p>
         </div>
     </section>
 </body>
