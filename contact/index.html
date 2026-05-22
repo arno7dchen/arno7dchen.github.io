@@ -1,83 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Sunburst Outdoor Products</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.8; color: #333; }
+<header class="site-header">
+    <div class="logo">Sunburst Outdoor Products Co., Ltd</div>
+    <nav class="nav">
+        <a href="../index.html">Home</a>
+        <a href="../about/index.html">About Us</a>
+        <a href="../products/index.html">Products</a>
+        <a href="./" class="active">Contact Us</a>
+    </nav>
+</header>
 
-        /* 背景图 */
-        .page-banner {
-            background: url("../images/bg_contact.jpg") center center / cover no-repeat;
-            min-height: 100vh;
-            padding: 80px 20px 20px;
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-wrap {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0,0,0,0.7);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 999;
-        }
-        .logo { color: white; font-size: 18px; font-weight: bold; }
-        .nav-wrap a { color: white; margin: 0 10px; text-decoration: none; }
-        
-        /* 半透明白色背景板 */
-        .content { 
-            max-width: 800px; 
-            margin: 0 auto; 
-            padding: 40px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        h1 { 
-            color: #e67e22; 
-            margin-bottom: 30px; 
-            text-align: center; 
-            font-size: 2.2rem;
-            font-weight: 600;
-        }
-        
-        .contact-info {
-            margin-top: 20px;
-            line-height: 2;
-        }
-    </style>
-</head>
-<body>
-    <div class="nav-wrap">
-        <div class="logo">Sunburst Outdoor Products Co., Ltd</div>
-        <div class="nav">
-            <a href="/">Home</a>
-            <a href="/about/">About Us</a>
-            <a href="/products/">Products</a>
-            <a href="/contact/">Contact Us</a>
-        </div>
-    </div>
-
-    <section class="page-banner">
-        <div class="content">
-            <h1>Contact Us</h1>
-            <div class="contact-info">
-                <p><strong>Email:</strong> arnold@sunburstltd.com</p>
-                <p><strong>WhatsApp/WeChat:</strong> +86 151 6833 8855</p>
-                <p><strong>Address:</strong> Hangzhou City, Zhejiang Province, China</p>
-                <p><strong>Working Hours:</strong> Monday - Friday, 9:00 AM - 6:00 PM (UTC+8)</p>
-            </div>
-            <p style="margin-top: 20px;">Feel free to contact us anytime. We usually reply within 24 hours.</p>
-        </div>
-    </section>
-</body>
-</html>
+<style>
+.site-header {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    background: rgba(0,0,0,0.3);
+    padding: 16px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+.site-header .logo {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+}
+.site-header .nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 30px;
+    font-size: 16px;
+    transition: color 0.2s ease;
+}
+.site-header .nav a.active {
+    color: #ff6b35;
+}
+.site-header .nav a:hover {
+    color: #ff6b35;
+}
+</style>
