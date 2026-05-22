@@ -17,25 +17,65 @@
             line-height: 1.5;
         }
 
-        /* 顶部标题区域 */
+        /* 顶部导航栏 */
+        header {
+            width: 100%;
+            background: rgba(0,0,0,0.7);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+        }
+        .logo {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: #f58020;
+        }
+        .nav-spacer {
+            height: 60px;
+        }
+
+        /* 产品头部横幅 */
         .product-banner {
             width: 100%;
-            padding: 50px 20px;
+            padding: 80px 20px;
             text-align: center;
-            background: #fff;
+            background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url("product-bg.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
         .product-banner h1 {
             font-size: 32px;
-            color: #111;
+            color: #ffffff;
             font-weight: 600;
             margin-bottom: 10px;
         }
         .product-banner p {
             font-size: 15px;
-            color: #666;
+            color: #ffffff;
         }
 
-        /* 整体左右布局 */
+        /* 主体布局 */
         .product-wrap {
             max-width: 1450px;
             margin: 0 auto 80px;
@@ -53,7 +93,7 @@
             padding: 25px 0;
             height: fit-content;
             position: sticky;
-            top: 30px;
+            top: 80px;
         }
         .left-category h3 {
             font-size: 17px;
@@ -112,6 +152,21 @@
 
         /* 移动端适配 */
         @media (max-width: 768px) {
+            header {
+                padding: 10px 15px;
+            }
+            .logo {
+                font-size: 15px;
+            }
+            nav ul {
+                gap: 15px;
+            }
+            nav ul li a {
+                font-size: 13px;
+            }
+            .nav-spacer {
+                height: 50px;
+            }
             .product-wrap {
                 flex-direction: column;
             }
@@ -147,15 +202,29 @@
 </head>
 <body>
 
-<!-- 顶部Our Products标题栏 -->
+<!-- 顶部导航 -->
+<header>
+    <div class="logo">Sunburst Outdoor Products Co., Ltd</div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="products.html" class="active">Products</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="nav-spacer"></div>
+
+<!-- 产品横幅区域 -->
 <section class="product-banner">
     <h1>Our Products</h1>
     <p>All products are made with durable materials and undergo strict quality control. OEM & ODM orders are welcome.</p>
 </section>
 
-<!-- 主体分类+产品区域 -->
+<!-- 分类与产品主体 -->
 <div class="product-wrap">
-    <!-- 左侧分类导航 完整分类含新增项 -->
     <div class="left-category">
         <h3>Product Category</h3>
         <ul class="category-menu">
@@ -164,18 +233,16 @@
             <li data-type="tables">Outdoor Tables</li>
             <li data-type="loungers">Outdoor Sun Lounger</li>
             <li data-type="garden-sets">Garden Furniture Sets</li>
-            <li data-type="patio-sets">Patio Furniture Sets</li>
+            <li data-type="rattan-sets">Rattan Furniture Sets</li>
             <li data-type="parasol">Garden/Beach Parasol</li>
             <li data-type="marketing-umbrella">Marketing Umbrella</li>
             <li data-type="camping">Camping Product</li>
         </ul>
     </div>
 
-    <!-- 右侧空白产品占位区 -->
     <div class="right-product-box">
         <h2 class="product-list-title">All Products</h2>
         <div class="product-list">
-            <!-- 空白占位卡片，后续直接替换图片和文字即可 -->
             <div class="product-card" data-tag="chairs">
                 待添加产品
             </div>
@@ -191,7 +258,7 @@
             <div class="product-card" data-tag="garden-sets">
                 待添加产品
             </div>
-            <div class="product-card" data-tag="patio-sets">
+            <div class="product-card" data-tag="rattan-sets">
                 待添加产品
             </div>
             <div class="product-card" data-tag="parasol">
@@ -207,7 +274,6 @@
     </div>
 </div>
 
-<!-- 筛选交互脚本 -->
 <script>
     let cateItem = document.querySelectorAll('.category-menu li');
     let proItem = document.querySelectorAll('.product-card');
