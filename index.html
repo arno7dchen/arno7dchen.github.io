@@ -7,7 +7,6 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; line-height: 1.8; color: #333; }
-
         .banner {
             background: #fff0e4 url("images/bg_home.jpg") center center / cover no-repeat;
             min-height: 100vh;
@@ -18,7 +17,6 @@
             padding: 20px;
             position: relative;
         }
-
         .banner::before {
             content: '';
             position: absolute;
@@ -29,73 +27,82 @@
             background: rgba(0, 0, 0, 0.3);
             z-index: 1;
         }
-
         .banner-content {
             position: relative;
             z-index: 2;
             color: white;
             max-width: 900px;
         }
-
         h1 {
             font-size: 2.5rem;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
-
         .banner-content p {
             font-size: 1.1rem;
             margin-bottom: 30px;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
         }
-
-        /* --- 核心修改：按钮颜色 --- */
         .btn {
             display: inline-block;
             padding: 12px 30px;
-            background-color: #E67E22; /* 专业活力橙 */
+            background-color: #E67E22;
             color: white;
             text-decoration: none;
             border-radius: 5px;
             font-weight: 600;
             transition: background-color 0.3s ease;
         }
-
         .btn:hover {
-            background-color: #D35400; /* 鼠标悬停时颜色变深 */
+            background-color: #D35400;
         }
 
+        /* 导航统一样式（和Products完全一致） */
         .nav-wrap {
-            position: fixed;
+            position: absolute;
+            width: 100%;
             top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0,0,0,0.7);
-            padding: 15px 20px;
+            background: rgba(0,0,0,0.3);
+            padding: 16px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 999;
+            z-index: 100;
         }
-        .logo { color: white; font-size: 18px; font-weight: bold; }
-        .nav-wrap a { color: white; margin: 0 10px; text-decoration: none; }
+        .nav-wrap .logo {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .nav-wrap a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 16px;
+            transition: color 0.2s ease;
+        }
+        .nav-wrap a.active {
+            color: #ff6b35;
+        }
+        .nav-wrap a:hover {
+            color: #ff6b35;
+        }
     </style>
 </head>
 <body>
     <div class="nav-wrap">
         <div class="logo">Sunburst Outdoor Products Co., Ltd</div>
         <div class="nav">
-            <a href="/">Home</a>
-            <a href="/about/">About Us</a>
-            <a href="/products/">Products</a>
-            <a href="/contact/">Contact Us</a>
+            <a href="./" class="active">Home</a>
+            <a href="./about/index.html">About Us</a>
+            <a href="./products/index.html">Products</a>
+            <a href="./contact/index.html">Contact Us</a>
         </div>
     </div>
 
     <section class="banner">
         <div class="banner-content">
             <h1>Professional Outdoor Products Manufacturer</h1>
-            <!-- --- 核心修改：年份已改为2017 --- -->
             <p>Established in 2017, Sunburst Outdoor Products Co., Ltd is a reliable supplier specializing in outdoor furniture, homeware and parasols. We focus on high-quality products, strict quality inspection and efficient global trade service.</p>
             <a href="/contact" class="btn">Get In Touch</a>
         </div>
