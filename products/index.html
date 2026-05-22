@@ -44,16 +44,16 @@
             color: #ff6b35;
         }
 
-        /* 背景图：恢复完整高度，泳池全显示，亮度适中 */
+        /* 背景图：上侧裁切，泳池露出更多 */
         .hero-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('../images/bg_product.jpg') center/cover no-repeat;
-            height: 450px; /* 调高高度，显示完整泳池 */
+            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), 
+            url('/images/bg_product.jpg') center bottom / cover no-repeat;
+            height: 480px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             text-align: center;
-            padding-top: 60px;
         }
         .hero-banner h1 {
             font-size: 32px;
@@ -63,7 +63,6 @@
         }
         .hero-banner p {
             font-size: 16px;
-            max-width: 100%;
             opacity: 1;
             color: #ffffff;
             text-shadow: 0 1px 3px rgba(0,0,0,0.5);
@@ -82,7 +81,7 @@
             border-radius: 4px;
         }
 
-        /* 左侧分类导航：可滚动+黄色竖线跟随 */
+        /* 左侧分类导航 */
         .sidebar {
             width: 180px;
             flex-shrink: 0;
@@ -95,8 +94,6 @@
         }
         .category-list {
             list-style: none;
-            max-height: 400px;
-            overflow-y: auto; /* 支持滚动 */
         }
         .category-list li {
             margin-bottom: 8px;
@@ -105,31 +102,31 @@
         .category-list a {
             display: block;
             padding: 8px 12px;
+            padding-left: 15px;
             text-decoration: none;
             color: #555;
             font-size: 15px;
-            transition: all 0.2s;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
-        /* 黄色竖线样式 */
+        /* 左侧黄色竖线 */
         .category-list a::before {
             content: '';
             position: absolute;
             left: 0;
             top: 0;
-            bottom: 0;
             width: 3px;
-            background-color: transparent;
-            transition: background-color 0.2s;
+            height: 100%;
+            background: transparent;
+            transition: all 0.2s ease;
         }
-        .category-list a.active::before {
-            background-color: #ff6b35;
-        }
-        .category-list a:hover {
-            background-color: #f8f8f8;
-        }
+        /* 点击激活样式：文字变黄+黄线跟随+底色 */
         .category-list a.active {
             color: #ff6b35;
             background-color: #fff3ee;
+        }
+        .category-list a.active::before {
+            background-color: #ff6b35;
         }
 
         /* 右侧产品网格 */
@@ -187,11 +184,11 @@
             <h3>Product Category</h3>
             <ul class="category-list">
                 <li><a href="#" class="active" data-category="all">All Products</a></li>
-                <li><a href="#" data-category="garden-furniture-sets">Garden Furniture Sets</a></li>
-                <li><a href="#" data-category="rattan-furniture-sets">Rattan Furniture Sets</a></li>
                 <li><a href="#" data-category="outdoor-chairs">Outdoor Chairs</a></li>
                 <li><a href="#" data-category="outdoor-tables">Outdoor Tables</a></li>
                 <li><a href="#" data-category="outdoor-sun-lounger">Outdoor Sun Lounger</a></li>
+                <li><a href="#" data-category="garden-furniture-sets">Garden Furniture Sets</a></li>
+                <li><a href="#" data-category="rattan-furniture-sets">Rattan Furniture Sets</a></li>
                 <li><a href="#" data-category="garden-beach-parasol">Garden/Beach Parasol</a></li>
                 <li><a href="#" data-category="marketing-umbrella">Marketing Umbrella</a></li>
                 <li><a href="#" data-category="camping-product">Camping Product</a></li>
@@ -200,41 +197,41 @@
 
         <main class="products-area">
             <div class="product-grid">
-                <!-- 100% 匹配你文件夹里的9张图片 -->
+                <!-- 全部大写WEBP后缀 共9张图 -->
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden01.webp" alt="3pc Patio Bistro Set">
+                    <img src="/images/garden01.WEBP" alt="3pc Patio Bistro Set">
                     <h4>3pc Patio Bistro Set</h4>
                 </div>
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden02.webp" alt="3pc Patio Bistro Set">
+                    <img src="/images/garden02.WEBP" alt="3pc Patio Bistro Set">
                     <h4>3pc Patio Bistro Set</h4>
                 </div>
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden03.webp" alt="3pc Patio Bistro Set">
+                    <img src="/images/garden03.WEBP" alt="3pc Patio Bistro Set">
                     <h4>3pc Patio Bistro Set</h4>
                 </div>
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden04.webp" alt="3pc Patio Bistro Set">
+                    <img src="/images/garden04.WEBP" alt="3pc Patio Bistro Set">
                     <h4>3pc Patio Bistro Set</h4>
                 </div>
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden05.webp" alt="4pc Patio Conversation Set">
+                    <img src="/images/garden05.WEBP" alt="4pc Patio Conversation Set">
                     <h4>4pc Patio Conversation Set</h4>
                 </div>
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden06.webp" alt="4pc Patio Conversation Set">
+                    <img src="/images/garden06.WEBP" alt="4pc Patio Conversation Set">
                     <h4>4pc Patio Conversation Set</h4>
                 </div>
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden07.webp" alt="4pc Patio Conversation Set">
+                    <img src="/images/garden07.WEBP" alt="4pc Patio Conversation Set">
                     <h4>4pc Patio Conversation Set</h4>
                 </div>
                 <div class="product-card" data-category="rattan-furniture-sets">
-                    <img src="../images/rattan01.webp" alt="Rattan 4pc Patio Conversation Set">
+                    <img src="/images/rattan01.WEBP" alt="Rattan 4pc Patio Conversation Set">
                     <h4>Rattan 4pc Patio Conversation Set</h4>
                 </div>
                 <div class="product-card" data-category="rattan-furniture-sets">
-                    <img src="../images/rattan02.webp" alt="Rattan 4pc Patio Conversation Set">
+                    <img src="/images/rattan02.WEBP" alt="Rattan 4pc Patio Conversation Set">
                     <h4>Rattan 4pc Patio Conversation Set</h4>
                 </div>
             </div>
