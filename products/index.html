@@ -16,6 +16,7 @@
             color: #333;
             line-height: 1.5;
         }
+        /* 导航栏 */
         .site-header {
             position: absolute;
             width: 100%;
@@ -41,8 +42,9 @@
         .site-header .nav a.active {
             color: #ff6b35;
         }
+        /* 背景图：加上半透明遮罩，还原深色效果 */
         .hero-banner {
-            background: url('../images/bg_product.jpg') center/cover no-repeat;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../images/bg_product.jpg') center/cover no-repeat;
             height: 380px;
             display: flex;
             align-items: center;
@@ -57,9 +59,11 @@
         }
         .hero-banner p {
             font-size: 15px;
-            max-width: 800px;
+            max-width: 100%;
             opacity: 0.95;
+            white-space: nowrap;
         }
+        /* 主体容器：还原白色背景+浅灰阴影 */
         .content-wrapper {
             max-width: 1200px;
             margin: -40px auto 40px;
@@ -70,6 +74,7 @@
             box-shadow: 0 1px 5px rgba(0,0,0,0.08);
             border-radius: 4px;
         }
+        /* 左侧分类菜单 */
         .sidebar {
             width: 180px;
             flex-shrink: 0;
@@ -103,6 +108,7 @@
         .category-list a:hover {
             background-color: #f8f8f8;
         }
+        /* 右侧产品网格 */
         .products-area {
             flex: 1;
         }
@@ -170,9 +176,13 @@
 
         <main class="products-area">
             <div class="product-grid">
-                <!-- Garden Furniture Sets -->
+                <!-- 完全匹配你文件夹里的所有图片 -->
                 <div class="product-card" data-category="garden-furniture-sets">
                     <img src="../images/garden01.webp" alt="3pc Patio Bistro Set">
+                    <h4>3pc Patio Bistro Set</h4>
+                </div>
+                <div class="product-card" data-category="garden-furniture-sets">
+                    <img src="../images/garden02.webp" alt="3pc Patio Bistro Set">
                     <h4>3pc Patio Bistro Set</h4>
                 </div>
                 <div class="product-card" data-category="garden-furniture-sets">
@@ -195,8 +205,6 @@
                     <img src="../images/garden07.webp" alt="4pc Patio Conversation Set">
                     <h4>4pc Patio Conversation Set</h4>
                 </div>
-
-                <!-- Rattan Furniture Sets -->
                 <div class="product-card" data-category="rattan-furniture-sets">
                     <img src="../images/rattan01.webp" alt="Rattan 4pc Patio Conversation Set">
                     <h4>Rattan 4pc Patio Conversation Set</h4>
