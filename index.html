@@ -5,56 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sunburst Outdoor Products</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; line-height: 1.8; color: #333; }
+
+        .banner {
+            background: #fff0e4 url("images/bg_home.jpg") center center / cover no-repeat;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
         }
-        /* 统一导航样式 */
-        .site-header {
+
+        .banner::before {
+            content: '';
             position: absolute;
-            width: 100%;
             top: 0;
-            background: rgba(0,0,0,0.3);
-            padding: 16px 5%;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            max-width: 900px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .banner-content p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- 核心修改：按钮颜色 --- */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #E67E22; /* 专业活力橙 */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #D35400; /* 鼠标悬停时颜色变深 */
+        }
+
+        .nav-wrap {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 100;
+            z-index: 999;
         }
-        .site-header .logo {
-            color: #fff;
-            font-size: 16px;
-            font-weight: 500;
-        }
-        .site-header .nav a {
-            color: #fff;
-            text-decoration: none;
-            margin-left: 30px;
-            font-size: 16px;
-            transition: color 0.2s ease;
-        }
-        .site-header .nav a.active {
-            color: #ff6b35;
-        }
-        .site-header .nav a:hover {
-            color: #ff6b35;
-        }
-        /* 下方原有页面样式原样保留 */
+        .logo { color: white; font-size: 18px; font-weight: bold; }
+        .nav-wrap a { color: white; margin: 0 10px; text-decoration: none; }
     </style>
 </head>
 <body>
-    <header class="site-header">
+    <div class="nav-wrap">
         <div class="logo">Sunburst Outdoor Products Co., Ltd</div>
-        <nav class="nav">
-            <a href="./" class="active">Home</a>
-            <a href="./about/index.html">About Us</a>
-            <a href="./products/index.html">Products</a>
-            <a href="./contact/index.html">Contact Us</a>
-        </nav>
-    </header>
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/about/">About Us</a>
+            <a href="/products/">Products</a>
+            <a href="/contact/">Contact Us</a>
+        </div>
+    </div>
 
-    <!-- 此处保留你原本首页所有内容、图片、文字 -->
+    <section class="banner">
+        <div class="banner-content">
+            <h1>Professional Outdoor Products Manufacturer</h1>
+            <!-- --- 核心修改：年份已改为2017 --- -->
+            <p>Established in 2017, Sunburst Outdoor Products Co., Ltd is a reliable supplier specializing in outdoor furniture, homeware and parasols. We focus on high-quality products, strict quality inspection and efficient global trade service.</p>
+            <a href="/contact" class="btn">Get In Touch</a>
+        </div>
+    </section>
 </body>
 </html>
