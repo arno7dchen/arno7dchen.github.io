@@ -11,10 +11,13 @@
             box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
+        /* 还原你原来的浅灰色背景 */
         body {
+            background-color: #f5f5f5;
             line-height: 1.6;
             color: #333;
         }
+        /* 导航栏样式（和你原来的半透明效果一致） */
         .header {
             background: rgba(0,0,0,0.5);
             color: white;
@@ -33,6 +36,7 @@
             margin-left: 25px;
             font-weight: 500;
         }
+        /* 顶部横幅样式（还原背景图效果） */
         .banner {
             background: url('../images/bg_product.jpg') center/cover no-repeat;
             height: 400px;
@@ -52,12 +56,18 @@
             font-size: 16px;
             max-width: 800px;
         }
+        /* 主体容器（浅灰色背景下的白色区域） */
         .container {
             display: flex;
             max-width: 1200px;
             margin: 40px auto;
             padding: 0 20px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
+        /* 左侧分类菜单（还原你原来的浅灰色和选中样式） */
         .sidebar {
             width: 200px;
             margin-right: 30px;
@@ -66,6 +76,7 @@
             margin-bottom: 15px;
             padding-bottom: 10px;
             border-bottom: 1px solid #eee;
+            font-size: 16px;
         }
         .category-list {
             list-style: none;
@@ -79,13 +90,18 @@
             text-decoration: none;
             color: #333;
             border-left: 3px solid transparent;
+            background-color: #f9f9f9;
             transition: all 0.3s;
+        }
+        .category-list a:hover {
+            background-color: #f0f0f0;
         }
         .category-list a.active {
             border-left-color: #ff5722;
             color: #ff5722;
-            background: #fff5f0;
+            background-color: #fff5f0;
         }
+        /* 右侧产品网格（还原卡片浅灰色边框和阴影） */
         .main-content {
             flex: 1;
         }
@@ -99,6 +115,7 @@
             border-radius: 6px;
             overflow: hidden;
             background: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             transition: 0.3s;
         }
         .product-card:hover {
@@ -108,16 +125,20 @@
             width: 100%;
             height: 200px;
             object-fit: cover;
+            background-color: #f5f5f5;
+            /* 给图片加个浅灰色背景，加载失败时也不会空着 */
         }
         .product-card h4 {
             padding: 12px;
             text-align: center;
             font-size: 14px;
             font-weight: normal;
+            color: #666;
         }
     </style>
 </head>
 <body>
+    <!-- 导航栏 -->
     <div class="header">
         <div class="logo">Sunburst Outdoor Products Co., Ltd</div>
         <div class="nav-links">
@@ -128,12 +149,15 @@
         </div>
     </div>
 
+    <!-- 顶部横幅 -->
     <div class="banner">
         <h1>Our Products</h1>
         <p>All products are made with durable materials and undergo strict quality control. OEM & ODM orders are welcome.</p>
     </div>
 
+    <!-- 主体内容（带白色容器+浅灰色阴影） -->
     <div class="container">
+        <!-- 左侧分类菜单 -->
         <div class="sidebar">
             <h3>Product Category</h3>
             <ul class="category-list">
@@ -149,40 +173,50 @@
             </ul>
         </div>
 
+        <!-- 右侧产品网格 -->
         <div class="main-content">
             <div class="product-grid">
+                <!-- 1. Garden Furniture Sets -->
                 <div class="product-card" data-category="garden-furniture-sets">
                     <img src="../images/garden-furniture-sets-4pc-patio-conversationset.webp" alt="4pc Patio Conversation Set">
                     <h4>4pc Patio Conversation Set</h4>
                 </div>
+                <!-- 2. Garden Furniture Sets -->
                 <div class="product-card" data-category="garden-furniture-sets">
                     <img src="../images/garden-furniture-sets-3pc-patio-bistro-set.webp" alt="3pc Patio Bistro Set">
                     <h4>3pc Patio Bistro Set</h4>
                 </div>
+                <!-- 3. Garden Furniture Sets -->
                 <div class="product-card" data-category="garden-furniture-sets">
                     <img src="../images/garden-furniture-sets-3pc-patio-bistro-set.webp" alt="3pc Patio Bistro Set">
                     <h4>3pc Patio Bistro Set</h4>
                 </div>
+                <!-- 4. Garden Furniture Sets -->
                 <div class="product-card" data-category="garden-furniture-sets">
                     <img src="../images/garden-furniture-sets-3pc-patio-bistro-set.webp" alt="3pc Patio Bistro Set">
                     <h4>3pc Patio Bistro Set</h4>
                 </div>
+                <!-- 5. Garden Furniture Sets -->
                 <div class="product-card" data-category="garden-furniture-sets">
                     <img src="../images/garden-furniture-sets-4pc-patio-conversationset.webp" alt="4pc Patio Conversation Set">
                     <h4>4pc Patio Conversation Set</h4>
                 </div>
+                <!-- 6. Garden Furniture Sets -->
                 <div class="product-card" data-category="garden-furniture-sets">
                     <img src="../images/garden-furniture-sets-4pc-patio-conversationset.webp" alt="4pc Patio Conversation Set">
                     <h4>4pc Patio Conversation Set</h4>
                 </div>
+                <!-- 7. Garden Furniture Sets -->
                 <div class="product-card" data-category="garden-furniture-sets">
                     <img src="../images/garden-furniture-sets-4pc-patio-conversationset.webp" alt="4pc Patio Conversation Set">
                     <h4>4pc Patio Conversation Set</h4>
                 </div>
+                <!-- 8. Rattan Furniture Sets -->
                 <div class="product-card" data-category="rattan-furniture-sets">
                     <img src="../images/rattan-furniture-sets-4pc-patio-conversationset.webp" alt="Rattan 4pc Patio Conversation Set">
                     <h4>Rattan 4pc Patio Conversation Set</h4>
                 </div>
+                <!-- 9. Rattan Furniture Sets -->
                 <div class="product-card" data-category="rattan-furniture-sets">
                     <img src="../images/rattan-furniture-sets-4pc-patio-conversationset.webp" alt="Rattan 4pc Patio Conversation Set">
                     <h4>Rattan 4pc Patio Conversation Set</h4>
@@ -191,6 +225,7 @@
         </div>
     </div>
 
+    <!-- 分类筛选JS -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const categoryLinks = document.querySelectorAll('.category-list a');
