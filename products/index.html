@@ -8,35 +8,35 @@
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',Roboto,Arial,sans-serif; }
         body { line-height:1.8; color:#333; }
 
-        /* 导航全局统一 */
-        .nav-wrap {
+        /* 导航100%统一 */
+        .nav-header {
             position: absolute;
-            width: 100%;
-            top: 0;
             left: 0;
+            top: 0;
+            width: 100%;
+            height: 60px;
             background: rgba(0,0,0,0.3);
-            padding: 16px 5%;
+            padding: 0 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 9999;
         }
-        .nav-wrap .logo {
+        .logo {
             color: #fff;
-            font-size: 19px;
+            font-size: 18px;
             font-weight: 500;
             white-space: nowrap;
         }
-        .nav-wrap .nav a {
+        .nav a {
             color: #fff;
             text-decoration: none;
             margin-left: 30px;
             font-size: 16px;
-            transition: color 0.2s;
             white-space: nowrap;
         }
-        .nav-wrap .nav a.active { color: #ff6b35; }
-        .nav-wrap .nav a:hover { color: #ff6b35; }
+        .nav a.active { color: #ff6b35; }
+        .nav a:hover { color: #ff6b35; }
 
         .hero-banner {
             background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('../images/bg_product.jpg') center bottom / cover no-repeat;
@@ -101,7 +101,7 @@
     </style>
 </head>
 <body>
-    <div class="nav-wrap">
+    <div class="nav-header">
         <div class="logo">Sunburst Outdoor Products Co., Ltd</div>
         <div class="nav">
             <a href="../index.html">Home</a>
@@ -136,42 +136,15 @@
 
         <main class="products-area">
             <div class="product-grid">
-                <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden01.webp" alt="3pc Patio Bistro Set">
-                    <h4>3pc Patio Bistro Set</h4>
-                </div>
-                <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden02.webp" alt="3pc Patio Bistro Set">
-                    <h4>3pc Patio Bistro Set</h4>
-                </div>
-                <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden03.webp" alt="3pc Patio Bistro Set">
-                    <h4>3pc Patio Bistro Set</h4>
-                </div>
-                <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden04.webp" alt="3pc Patio Bistro Set">
-                    <h4>3pc Patio Bistro Set</h4>
-                </div>
-                <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden05.webp" alt="4pc Patio Conversation Set">
-                    <h4>4pc Patio Conversation Set</h4>
-                </div>
-                <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden06.webp" alt="4pc Patio Conversation Set">
-                    <h4>4pc Patio Conversation Set</h4>
-                </div>
-                <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden07.webp" alt="4pc Patio Conversation Set">
-                    <h4>4pc Patio Conversation Set</h4>
-                </div>
-                <div class="product-card" data-category="rattan-furniture-sets">
-                    <img src="../images/rattan01.webp" alt="Rattan 4pc Patio Conversation Set">
-                    <h4>Rattan 4pc Patio Conversation Set</h4>
-                </div>
-                <div class="product-card" data-category="rattan-furniture-sets">
-                    <img src="../images/rattan02.webp" alt="Rattan 4pc Patio Conversation Set">
-                    <h4>Rattan 4pc Patio Conversation Set</h4>
-                </div>
+                <div class="product-card" data-category="garden-furniture-sets"><img src="../images/garden01.webp"><h4>3pc Patio Bistro Set</h4></div>
+                <div class="product-card" data-category="garden-furniture-sets"><img src="../images/garden02.webp"><h4>3pc Patio Bistro Set</h4></div>
+                <div class="product-card" data-category="garden-furniture-sets"><img src="../images/garden03.webp"><h4>3pc Patio Bistro Set</h4></div>
+                <div class="product-card" data-category="garden-furniture-sets"><img src="../images/garden04.webp"><h4>3pc Patio Bistro Set</h4></div>
+                <div class="product-card" data-category="garden-furniture-sets"><img src="../images/garden05.webp"><h4>4pc Patio Conversation Set</h4></div>
+                <div class="product-card" data-category="garden-furniture-sets"><img src="../images/garden06.webp"><h4>4pc Patio Conversation Set</h4></div>
+                <div class="product-card" data-category="garden-furniture-sets"><img src="../images/garden07.webp"><h4>4pc Patio Conversation Set</h4></div>
+                <div class="product-card" data-category="rattan-furniture-sets"><img src="../images/rattan01.webp"><h4>Rattan 4pc Patio Conversation Set</h4></div>
+                <div class="product-card" data-category="rattan-furniture-sets"><img src="../images/rattan02.webp"><h4>Rattan 4pc Patio Conversation Set</h4></div>
             </div>
         </main>
     </div>
