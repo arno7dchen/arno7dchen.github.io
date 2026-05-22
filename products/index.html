@@ -17,10 +17,10 @@
             line-height: 1.5;
         }
 
-        /* ========== 导航栏：和你About Us页面完全一致的样式 ========== */
+        /* ========== 导航栏：和你首页完全一致的半透明灰度 ========== */
         header {
             width: 100%;
-            background: rgba(0,0,0,0.55); /* 和你其他页面一致的深灰色半透明 */
+            background: rgba(0,0,0,0.4); /* 和首页一样的半透明深灰 */
             padding: 15px 30px;
             display: flex;
             justify-content: space-between;
@@ -48,21 +48,24 @@
         }
         nav ul li a:hover,
         nav ul li a.active {
-            color: #f58020; /* 橙色高亮，和你网站品牌色一致 */
-        }
-        .nav-spacer {
-            height: 60px;
+            color: #f58020; /* 橙色高亮，和首页品牌色一致 */
         }
 
-        /* ========== 顶部Our Products标题区（背景图已按你文件名修正） ========== */
+        /* ========== 顶部横幅：背景图直接延伸到导航栏下方，无缝衔接 ========== */
         .product-banner {
             width: 100%;
-            padding: 80px 20px;
+            height: 400px; /* 和首页横幅高度匹配 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
+            /* 背景图从顶部开始，覆盖整个横幅区域，包括导航栏后面 */
             background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url("../images/bg_product.jpg");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            padding-top: 60px; /* 导航栏高度，避免文字被挡住 */
         }
         .product-banner h1 {
             font-size: 32px;
@@ -73,9 +76,11 @@
         .product-banner p {
             font-size: 15px;
             color: #ffffff;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        /* ========== 整体左右布局 ========== */
+        /* ========== 主体左右布局 ========== */
         .product-wrap {
             max-width: 1450px;
             margin: 0 auto 80px;
@@ -164,8 +169,9 @@
             nav ul li a {
                 font-size: 13px;
             }
-            .nav-spacer {
-                height: 50px;
+            .product-banner {
+                height: 300px;
+                padding-top: 50px;
             }
             .product-wrap {
                 flex-direction: column;
@@ -202,7 +208,7 @@
 </head>
 <body>
 
-<!-- 顶部导航栏（和About Us页面完全一致） -->
+<!-- 顶部导航栏（和首页完全一致的半透明效果） -->
 <header>
     <div class="logo">Sunburst Outdoor Products Co., Ltd</div>
     <nav>
@@ -215,9 +221,7 @@
     </nav>
 </header>
 
-<div class="nav-spacer"></div>
-
-<!-- 顶部Our Products标题区（背景图已正常适配） -->
+<!-- 顶部横幅：背景图直接延伸到导航栏后面，无缝衔接 -->
 <section class="product-banner">
     <h1>Our Products</h1>
     <p>All products are made with durable materials and undergo strict quality control. OEM & ODM orders are welcome.</p>
