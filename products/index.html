@@ -5,24 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Products - Sunburst Outdoor Products</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-        }
-        body {
-            line-height: 1.8;
-            color: #333;
-        }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',Roboto,Arial,sans-serif; }
+        body { line-height:1.8; color:#333; }
 
-        /* ========== 导航 100% 和其他三页完全一样 ========== */
+        /* 导航全局统一 */
         .nav-wrap {
             position: absolute;
             width: 100%;
             top: 0;
+            left: 0;
             background: rgba(0,0,0,0.3);
-            padding: 15px 5%;
+            padding: 16px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -30,27 +23,23 @@
         }
         .nav-wrap .logo {
             color: #fff;
-            font-size: 16px;
+            font-size: 19px;
             font-weight: 500;
+            white-space: nowrap;
         }
-        .nav-wrap a {
+        .nav-wrap .nav a {
             color: #fff;
             text-decoration: none;
-            margin-left: 28px;
+            margin-left: 30px;
             font-size: 16px;
-            transition: color 0.2s ease;
+            transition: color 0.2s;
+            white-space: nowrap;
         }
-        .nav-wrap a.active {
-            color: #ff6b35;
-        }
-        .nav-wrap a:hover {
-            color: #ff6b35;
-        }
+        .nav-wrap .nav a.active { color: #ff6b35; }
+        .nav-wrap .nav a:hover { color: #ff6b35; }
 
-        /* 以下是产品页原有样式，完全不动 */
         .hero-banner {
-            background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), 
-            url('../images/bg_product.jpg') center bottom / cover no-repeat;
+            background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('../images/bg_product.jpg') center bottom / cover no-repeat;
             height: 480px;
             display: flex;
             align-items: center;
@@ -78,85 +67,40 @@
             box-shadow: 0 1px 5px rgba(0,0,0,0.08);
             border-radius: 4px;
         }
-        .sidebar {
-            width: 180px;
-            flex-shrink: 0;
-        }
-        .sidebar h3 {
-            font-size: 16px;
-            margin-bottom: 16px;
-            font-weight: 600;
-        }
-        .category-list {
-            list-style: none;
-        }
-        .category-list li {
-            margin-bottom: 8px;
-            position: relative;
-        }
+        .sidebar { width: 180px; flex-shrink:0; }
+        .sidebar h3 { font-size:16px; margin-bottom:16px; font-weight:600; }
+        .category-list { list-style:none; }
+        .category-list li { margin-bottom:8px; position:relative; }
         .category-list a {
-            display: block;
-            padding: 8px 12px;
-            padding-left: 15px;
-            text-decoration: none;
-            color: #555;
-            font-size: 15px;
-            transition: all 0.2s ease;
+            display:block; padding:8px 12px 8px 15px;
+            text-decoration:none; color:#555; font-size:15px;
+            transition:all 0.2s ease;
         }
         .category-list a::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 3px;
-            height: 100%;
-            background: transparent;
-            transition: all 0.2s ease;
+            content:''; position:absolute; left:0; top:0; width:3px; height:100%;
+            background:transparent; transition:all 0.2s;
         }
-        .category-list a.active {
-            color: #ff6b35;
-            background-color: #fff3ee;
-        }
-        .category-list a.active::before {
-            background-color: #ff6b35;
-        }
-        .category-list a:hover {
-            color: #ff6b35;
-        }
-        .products-area {
-            flex: 1;
-        }
+        .category-list a.active { color:#ff6b35; background:#fff3ee; }
+        .category-list a.active::before { background:#ff6b35; }
+        .category-list a:hover { color:#ff6b35; }
+        .products-area { flex:1; }
         .product-grid {
-            display: grid;
+            display:grid;
             grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-            gap: 20px;
+            gap:20px;
         }
         .product-card {
-            border: 1px solid #eee;
-            border-radius: 4px;
-            overflow: hidden;
-            background: #fff;
-            text-align: center;
-            padding-bottom: 12px;
+            border:1px solid #eee; border-radius:4px; overflow:hidden;
+            background:#fff; text-align:center; padding-bottom:12px;
         }
         .product-card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            display: block;
-            background-color: #f8f8f8;
+            width:100%; height:180px; object-fit:cover; display:block;
+            background:#f8f8f8;
         }
-        .product-card h4 {
-            margin-top: 10px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #444;
-        }
+        .product-card h4 { margin-top:10px; font-size:14px; font-weight:500; color:#444; }
     </style>
 </head>
 <body>
-
-    <!-- 导航结构 100% 统一 -->
     <div class="nav-wrap">
         <div class="logo">Sunburst Outdoor Products Co., Ltd</div>
         <div class="nav">
@@ -215,4 +159,21 @@
                 <div class="product-card" data-category="garden-furniture-sets">
                     <img src="../images/garden06.webp" alt="4pc Patio Conversation Set">
                     <h4>4pc Patio Conversation Set</h4>
-                </div>...
+                </div>
+                <div class="product-card" data-category="garden-furniture-sets">
+                    <img src="../images/garden07.webp" alt="4pc Patio Conversation Set">
+                    <h4>4pc Patio Conversation Set</h4>
+                </div>
+                <div class="product-card" data-category="rattan-furniture-sets">
+                    <img src="../images/rattan01.webp" alt="Rattan 4pc Patio Conversation Set">
+                    <h4>Rattan 4pc Patio Conversation Set</h4>
+                </div>
+                <div class="product-card" data-category="rattan-furniture-sets">
+                    <img src="../images/rattan02.webp" alt="Rattan 4pc Patio Conversation Set">
+                    <h4>Rattan 4pc Patio Conversation Set</h4>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
