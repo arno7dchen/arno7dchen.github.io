@@ -16,12 +16,13 @@
             color: #333;
             line-height: 1.5;
         }
-        /* 导航栏 */
+
+        /* 顶部导航栏 */
         .site-header {
             position: absolute;
             width: 100%;
             top: 0;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.3);
             padding: 16px 5%;
             display: flex;
             justify-content: space-between;
@@ -42,10 +43,11 @@
         .site-header .nav a.active {
             color: #ff6b35;
         }
-        /* 背景图：加深遮罩，还原你要的深色效果，同时保证文字清晰 */
+
+        /* 背景图：恢复完整高度，泳池全显示，亮度适中 */
         .hero-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('../images/bg_product.jpg') center/cover no-repeat;
-            height: 380px;
+            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('../images/bg_product.jpg') center/cover no-repeat;
+            height: 450px; /* 调高高度，显示完整泳池 */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -57,16 +59,17 @@
             font-size: 32px;
             margin-bottom: 12px;
             color: #ffffff;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
         }
         .hero-banner p {
             font-size: 16px;
             max-width: 100%;
             opacity: 1;
             color: #ffffff;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
             white-space: nowrap;
         }
+
         /* 主体容器 */
         .content-wrapper {
             max-width: 1200px;
@@ -78,7 +81,8 @@
             box-shadow: 0 1px 5px rgba(0,0,0,0.08);
             border-radius: 4px;
         }
-        /* 左侧分类菜单 */
+
+        /* 左侧分类导航：可滚动+黄色竖线跟随 */
         .sidebar {
             width: 180px;
             flex-shrink: 0;
@@ -91,9 +95,12 @@
         }
         .category-list {
             list-style: none;
+            max-height: 400px;
+            overflow-y: auto; /* 支持滚动 */
         }
         .category-list li {
             margin-bottom: 8px;
+            position: relative;
         }
         .category-list a {
             display: block;
@@ -101,17 +108,30 @@
             text-decoration: none;
             color: #555;
             font-size: 15px;
-            border-left: 3px solid transparent;
             transition: all 0.2s;
         }
-        .category-list a.active {
-            border-left-color: #ff6b35;
-            color: #ff6b35;
-            background-color: #fff3ee;
+        /* 黄色竖线样式 */
+        .category-list a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: transparent;
+            transition: background-color 0.2s;
+        }
+        .category-list a.active::before {
+            background-color: #ff6b35;
         }
         .category-list a:hover {
             background-color: #f8f8f8;
         }
+        .category-list a.active {
+            color: #ff6b35;
+            background-color: #fff3ee;
+        }
+
         /* 右侧产品网格 */
         .products-area {
             flex: 1;
@@ -229,9 +249,12 @@
             categoryLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
+                    // 移除所有激活状态
                     categoryLinks.forEach(l => l.classList.remove('active'));
+                    // 给当前点击的加上激活状态
                     this.classList.add('active');
                     const selectedCategory = this.dataset.category;
+                    // 筛选产品
                     productCards.forEach(card => {
                         if (selectedCategory === 'all' || card.dataset.category === selectedCategory) {
                             card.style.display = 'block';
