@@ -17,7 +17,7 @@
             line-height: 1.5;
         }
 
-        /* 导航栏样式 1:1 对齐 Contact Us 页面 */
+        /* 顶部导航样式（已对齐其他页面，不再改动） */
         .site-header {
             position: absolute;
             width: 100%;
@@ -39,12 +39,16 @@
             text-decoration: none;
             margin-left: 30px;
             font-size: 17px;
+            transition: color 0.2s ease;
         }
         .site-header .nav a.active {
             color: #ff6b35;
         }
+        .site-header .nav a:hover {
+            color: #ff6b35;
+        }
 
-        /* 背景样式保持不变 */
+        /* 页面背景保持你满意的效果 */
         .hero-banner {
             background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), 
             url('../images/bg_product.jpg') center bottom / cover no-repeat;
@@ -69,7 +73,6 @@
             white-space: nowrap;
         }
 
-        /* 主体容器 */
         .content-wrapper {
             max-width: 1200px;
             margin: -40px auto 40px;
@@ -81,7 +84,7 @@
             border-radius: 4px;
         }
 
-        /* 左侧分类导航 点击固定+悬浮变色 */
+        /* 左侧产品分类交互：悬停临时高亮 + 点击固定高亮 */
         .sidebar {
             width: 180px;
             flex-shrink: 0;
@@ -109,7 +112,6 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        /* 左侧黄色竖线 */
         .category-list a::before {
             content: '';
             position: absolute;
@@ -120,7 +122,6 @@
             background: transparent;
             transition: all 0.2s ease;
         }
-        /* 点击选中固定样式 */
         .category-list a.active {
             color: #ff6b35;
             background-color: #fff3ee;
@@ -128,7 +129,6 @@
         .category-list a.active::before {
             background-color: #ff6b35;
         }
-        /* 鼠标悬浮临时高亮 */
         .category-list a:hover {
             color: #ff6b35;
         }
@@ -136,7 +136,7 @@
             background-color: #ff6b35;
         }
 
-        /* 右侧产品网格 */
+        /* 产品展示区域 */
         .products-area {
             flex: 1;
         }
@@ -204,41 +204,41 @@
 
         <main class="products-area">
             <div class="product-grid">
-                <!-- 相对路径 + 大写WEBP后缀 共9张图 -->
+                <!-- 9张产品图：路径+后缀100%匹配你的文件 -->
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden01.WEBP" alt="3pc Patio Bistro Set">
+                    <img src="../images/garden01.webp" alt="3pc Patio Bistro Set">
                     <h4>3pc Patio Bistro Set</h4>
                 </div>
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden02.WEBP" alt="3pc Patio Bistro Set">
+                    <img src="../images/garden02.webp" alt="3pc Patio Bistro Set">
                     <h4>3pc Patio Bistro Set</h4>
                 </div>
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden03.WEBP" alt="3pc Patio Bistro Set">
+                    <img src="../images/garden03.webp" alt="3pc Patio Bistro Set">
                     <h4>3pc Patio Bistro Set</h4>
                 </div>
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden04.WEBP" alt="3pc Patio Bistro Set">
+                    <img src="../images/garden04.webp" alt="3pc Patio Bistro Set">
                     <h4>3pc Patio Bistro Set</h4>
                 </div>
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden05.WEBP" alt="4pc Patio Conversation Set">
+                    <img src="../images/garden05.webp" alt="4pc Patio Conversation Set">
                     <h4>4pc Patio Conversation Set</h4>
                 </div>
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden06.WEBP" alt="4pc Patio Conversation Set">
+                    <img src="../images/garden06.webp" alt="4pc Patio Conversation Set">
                     <h4>4pc Patio Conversation Set</h4>
                 </div>
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden07.WEBP" alt="4pc Patio Conversation Set">
+                    <img src="../images/garden07.webp" alt="4pc Patio Conversation Set">
                     <h4>4pc Patio Conversation Set</h4>
                 </div>
                 <div class="product-card" data-category="rattan-furniture-sets">
-                    <img src="../images/rattan01.WEBP" alt="Rattan 4pc Patio Conversation Set">
+                    <img src="../images/rattan01.webp" alt="Rattan 4pc Patio Conversation Set">
                     <h4>Rattan 4pc Patio Conversation Set</h4>
                 </div>
                 <div class="product-card" data-category="rattan-furniture-sets">
-                    <img src="../images/rattan02.WEBP" alt="Rattan 4pc Patio Conversation Set">
+                    <img src="../images/rattan02.webp" alt="Rattan 4pc Patio Conversation Set">
                     <h4>Rattan 4pc Patio Conversation Set</h4>
                 </div>
             </div>
@@ -246,22 +246,21 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const categoryLinks = document.querySelectorAll('.category-list a');
-            const productCards = document.querySelectorAll('.product-card');
-
-            categoryLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
+        document.addEventListener('DOMContentLoaded', function(){
+            const links = document.querySelectorAll('.category-list a');
+            const items = document.querySelectorAll('.product-card');
+            links.forEach(link=>{
+                link.addEventListener('click',function(e){
                     e.preventDefault();
-                    categoryLinks.forEach(l => l.classList.remove('active'));
+                    links.forEach(l=>l.classList.remove('active'));
                     this.classList.add('active');
-                    const selectedCategory = this.dataset.category;
-                    productCards.forEach(card => {
-                        card.style.display = (selectedCategory === 'all' || card.dataset.category === selectedCategory) ? 'block' : 'none';
+                    let type = this.dataset.category;
+                    items.forEach(item=>{
+                        item.style.display = (type === 'all' || item.dataset.category === type) ? 'block' : 'none';
                     });
-                });
-            });
-        });
+                })
+            })
+        })
     </script>
 </body>
 </html>
