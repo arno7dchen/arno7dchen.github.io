@@ -9,156 +9,151 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
         }
-        /* 还原你原来的浅灰色背景 */
         body {
-            background-color: #f5f5f5;
-            line-height: 1.6;
+            background-color: #f0f0f0;
             color: #333;
+            line-height: 1.5;
         }
-        /* 导航栏样式（和你原来的半透明效果一致） */
-        .header {
-            background: rgba(0,0,0,0.5);
-            color: white;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .site-header {
             position: absolute;
             width: 100%;
             top: 0;
+            background: rgba(0,0,0,0.5);
+            padding: 16px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             z-index: 100;
         }
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            margin-left: 25px;
+        .site-header .logo {
+            color: #fff;
+            font-size: 16px;
             font-weight: 500;
         }
-        /* 顶部横幅样式（还原背景图效果） */
-        .banner {
+        .site-header .nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 24px;
+            font-size: 15px;
+        }
+        .site-header .nav a.active {
+            color: #ff6b35;
+        }
+        .hero-banner {
             background: url('../images/bg_product.jpg') center/cover no-repeat;
-            height: 400px;
+            height: 380px;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             color: white;
             text-align: center;
             padding-top: 60px;
         }
-        .banner h1 {
-            font-size: 36px;
+        .hero-banner h1 {
+            font-size: 32px;
             margin-bottom: 10px;
         }
-        .banner p {
-            font-size: 16px;
+        .hero-banner p {
+            font-size: 15px;
             max-width: 800px;
+            opacity: 0.95;
         }
-        /* 主体容器（浅灰色背景下的白色区域） */
-        .container {
-            display: flex;
+        .content-wrapper {
             max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-            background-color: #fff;
+            margin: -40px auto 40px;
+            background: #fff;
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 30px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.08);
+            border-radius: 4px;
         }
-        /* 左侧分类菜单（还原你原来的浅灰色和选中样式） */
         .sidebar {
-            width: 200px;
-            margin-right: 30px;
+            width: 180px;
+            flex-shrink: 0;
         }
         .sidebar h3 {
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
             font-size: 16px;
+            margin-bottom: 16px;
+            color: #333;
+            font-weight: 600;
         }
         .category-list {
             list-style: none;
         }
         .category-list li {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .category-list a {
             display: block;
-            padding: 8px 10px;
+            padding: 8px 12px;
             text-decoration: none;
-            color: #333;
+            color: #555;
+            font-size: 15px;
             border-left: 3px solid transparent;
-            background-color: #f9f9f9;
-            transition: all 0.3s;
-        }
-        .category-list a:hover {
-            background-color: #f0f0f0;
+            transition: all 0.2s;
         }
         .category-list a.active {
-            border-left-color: #ff5722;
-            color: #ff5722;
-            background-color: #fff5f0;
+            border-left-color: #ff6b35;
+            color: #ff6b35;
+            background-color: #fff3ee;
         }
-        /* 右侧产品网格（还原卡片浅灰色边框和阴影） */
-        .main-content {
+        .category-list a:hover {
+            background-color: #f8f8f8;
+        }
+        .products-area {
             flex: 1;
         }
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 20px;
         }
         .product-card {
             border: 1px solid #eee;
-            border-radius: 6px;
+            border-radius: 4px;
             overflow: hidden;
             background: #fff;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            transition: 0.3s;
-        }
-        .product-card:hover {
-            box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+            text-align: center;
+            padding-bottom: 12px;
         }
         .product-card img {
             width: 100%;
-            height: 200px;
+            height: 180px;
             object-fit: cover;
-            background-color: #f5f5f5;
-            /* 给图片加个浅灰色背景，加载失败时也不会空着 */
+            display: block;
+            background-color: #f8f8f8;
         }
         .product-card h4 {
-            padding: 12px;
-            text-align: center;
+            margin-top: 10px;
             font-size: 14px;
-            font-weight: normal;
-            color: #666;
+            font-weight: 500;
+            color: #444;
         }
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
-    <div class="header">
+    <header class="site-header">
         <div class="logo">Sunburst Outdoor Products Co., Ltd</div>
-        <div class="nav-links">
+        <nav class="nav">
             <a href="../index.html">Home</a>
             <a href="../about/index.html">About Us</a>
-            <a href="#" style="color: #ff5722;">Products</a>
+            <a href="#" class="active">Products</a>
             <a href="../contact/index.html">Contact Us</a>
+        </nav>
+    </header>
+
+    <section class="hero-banner">
+        <div>
+            <h1>Our Products</h1>
+            <p>All products are made with durable materials and undergo strict quality control. OEM & ODM orders are welcome.</p>
         </div>
-    </div>
+    </section>
 
-    <!-- 顶部横幅 -->
-    <div class="banner">
-        <h1>Our Products</h1>
-        <p>All products are made with durable materials and undergo strict quality control. OEM & ODM orders are welcome.</p>
-    </div>
-
-    <!-- 主体内容（带白色容器+浅灰色阴影） -->
-    <div class="container">
-        <!-- 左侧分类菜单 -->
-        <div class="sidebar">
+    <div class="content-wrapper">
+        <aside class="sidebar">
             <h3>Product Category</h3>
             <ul class="category-list">
                 <li><a href="#" class="active" data-category="all">All Products</a></li>
@@ -171,61 +166,49 @@
                 <li><a href="#" data-category="marketing-umbrella">Marketing Umbrella</a></li>
                 <li><a href="#" data-category="camping-product">Camping Product</a></li>
             </ul>
-        </div>
+        </aside>
 
-        <!-- 右侧产品网格 -->
-        <div class="main-content">
+        <main class="products-area">
             <div class="product-grid">
-                <!-- 1. Garden Furniture Sets -->
+                <!-- Garden Furniture Sets -->
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden-furniture-sets-4pc-patio-conversationset.webp" alt="4pc Patio Conversation Set">
-                    <h4>4pc Patio Conversation Set</h4>
-                </div>
-                <!-- 2. Garden Furniture Sets -->
-                <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden-furniture-sets-3pc-patio-bistro-set.webp" alt="3pc Patio Bistro Set">
+                    <img src="../images/garden01.webp" alt="3pc Patio Bistro Set">
                     <h4>3pc Patio Bistro Set</h4>
                 </div>
-                <!-- 3. Garden Furniture Sets -->
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden-furniture-sets-3pc-patio-bistro-set.webp" alt="3pc Patio Bistro Set">
+                    <img src="../images/garden03.webp" alt="3pc Patio Bistro Set">
                     <h4>3pc Patio Bistro Set</h4>
                 </div>
-                <!-- 4. Garden Furniture Sets -->
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden-furniture-sets-3pc-patio-bistro-set.webp" alt="3pc Patio Bistro Set">
+                    <img src="../images/garden04.webp" alt="3pc Patio Bistro Set">
                     <h4>3pc Patio Bistro Set</h4>
                 </div>
-                <!-- 5. Garden Furniture Sets -->
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden-furniture-sets-4pc-patio-conversationset.webp" alt="4pc Patio Conversation Set">
+                    <img src="../images/garden05.webp" alt="4pc Patio Conversation Set">
                     <h4>4pc Patio Conversation Set</h4>
                 </div>
-                <!-- 6. Garden Furniture Sets -->
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden-furniture-sets-4pc-patio-conversationset.webp" alt="4pc Patio Conversation Set">
+                    <img src="../images/garden06.webp" alt="4pc Patio Conversation Set">
                     <h4>4pc Patio Conversation Set</h4>
                 </div>
-                <!-- 7. Garden Furniture Sets -->
                 <div class="product-card" data-category="garden-furniture-sets">
-                    <img src="../images/garden-furniture-sets-4pc-patio-conversationset.webp" alt="4pc Patio Conversation Set">
+                    <img src="../images/garden07.webp" alt="4pc Patio Conversation Set">
                     <h4>4pc Patio Conversation Set</h4>
                 </div>
-                <!-- 8. Rattan Furniture Sets -->
+
+                <!-- Rattan Furniture Sets -->
                 <div class="product-card" data-category="rattan-furniture-sets">
-                    <img src="../images/rattan-furniture-sets-4pc-patio-conversationset.webp" alt="Rattan 4pc Patio Conversation Set">
+                    <img src="../images/rattan01.webp" alt="Rattan 4pc Patio Conversation Set">
                     <h4>Rattan 4pc Patio Conversation Set</h4>
                 </div>
-                <!-- 9. Rattan Furniture Sets -->
                 <div class="product-card" data-category="rattan-furniture-sets">
-                    <img src="../images/rattan-furniture-sets-4pc-patio-conversationset.webp" alt="Rattan 4pc Patio Conversation Set">
+                    <img src="../images/rattan02.webp" alt="Rattan 4pc Patio Conversation Set">
                     <h4>Rattan 4pc Patio Conversation Set</h4>
                 </div>
             </div>
-        </div>
+        </main>
     </div>
 
-    <!-- 分类筛选JS -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const categoryLinks = document.querySelectorAll('.category-list a');
@@ -236,13 +219,12 @@
                     e.preventDefault();
                     categoryLinks.forEach(l => l.classList.remove('active'));
                     this.classList.add('active');
-                    let type = this.dataset.category;
-
-                    productCards.forEach(item => {
-                        if(type === 'all' || item.dataset.category === type){
-                            item.style.display = 'block';
-                        }else{
-                            item.style.display = 'none';
+                    const selectedCategory = this.dataset.category;
+                    productCards.forEach(card => {
+                        if (selectedCategory === 'all' || card.dataset.category === selectedCategory) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
                         }
                     });
                 });
