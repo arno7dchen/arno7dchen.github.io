@@ -3,81 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products - Sunburst Outdoor Products</title>
+    <title>Our Products | Sunburst Outdoor Products Co., Ltd</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.8; color: #333; }
-
-        /* 背景图 */
-        .page-banner {
-            background: url("../images/bg_product.jpg") center center / cover no-repeat;
-            min-height: 100vh;
-            padding: 80px 20px 20px;
-            display: flex;
-            align-items: center;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        body {
+            background: #ffffff;
+            color: #222;
+            line-height: 1.5;
         }
 
-        .nav-wrap {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0,0,0,0.7);
-            padding: 15px 20px;
+        /* 顶部标题区域 */
+        .product-banner {
+            width: 100%;
+            padding: 50px 20px;
+            text-align: center;
+            background: #fff;
+        }
+        .product-banner h1 {
+            font-size: 32px;
+            color: #111;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .product-banner p {
+            font-size: 15px;
+            color: #666;
+        }
+
+        /* 整体左右布局 */
+        .product-wrap {
+            max-width: 1450px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 999;
+            gap: 35px;
         }
-        .logo { color: white; font-size: 18px; font-weight: bold; }
-        .nav-wrap a { color: white; margin: 0 10px; text-decoration: none; }
-        
-        /* 半透明白色背景板 */
-        .content { 
-            max-width: 800px; 
-            margin: 0 auto; 
-            padding: 40px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+
+        /* 左侧分类导航 */
+        .left-category {
+            width: 210px;
+            flex-shrink: 0;
+            background: #f7f7f7;
+            border-radius: 4px;
+            padding: 25px 0;
+            height: fit-content;
+            position: sticky;
+            top: 30px;
         }
-        
-        h1 { 
-            color: #e67e22; 
-            margin-bottom: 30px; 
-            text-align: center; 
-            font-size: 2.2rem;
+        .left-category h3 {
+            font-size: 17px;
+            padding: 0 22px 15px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            color: #333;
+        }
+        .category-menu {
+            list-style: none;
+        }
+        .category-menu li {
+            padding: 11px 22px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.25s ease;
+            border-left: 3px solid transparent;
+        }
+        .category-menu li.active,
+        .category-menu li:hover {
+            background: #fff;
+            border-left-color: #f58020;
+            color: #f58020;
+        }
+
+        /* 右侧产品区域 */
+        .right-product-box {
+            flex: 1;
+        }
+        .product-list-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #333;
             font-weight: 600;
         }
-        
         .product-list {
-            margin-top: 20px;
-            line-height: 2;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+            gap: 28px;
+        }
+        .product-card {
+            background: #f9f9f9;
+            border: 1px dashed #cccccc;
+            border-radius: 4px;
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .product-card:hover {
+            border-color: #f58020;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .product-wrap {
+                flex-direction: column;
+            }
+            .left-category {
+                width: 100%;
+                position: static;
+                padding: 20px;
+            }
+            .category-menu {
+                display: flex;
+                overflow-x: auto;
+                gap: 8px;
+                padding-bottom: 8px;
+            }
+            .category-menu li {
+                white-space: nowrap;
+                border-left: none;
+                padding: 8px 14px;
+                border-radius: 20px;
+                background: #eee;
+            }
+            .category-menu li.active,
+            .category-menu li:hover {
+                border-left: none;
+                background: #f58020;
+                color: #fff;
+            }
+            .product-banner h1 {
+                font-size: 26px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="nav-wrap">
-        <div class="logo">Sunburst Outdoor Products Co., Ltd</div>
-        <div class="nav">
-            <a href="/">Home</a>
-            <a href="/about/">About Us</a>
-            <a href="/products/">Products</a>
-            <a href="/contact/">Contact Us</a>
-        </div>
+
+<!-- 顶部Our Products标题栏 -->
+<section class="product-banner">
+    <h1>Our Products</h1>
+    <p>All products are made with durable materials and undergo strict quality control. OEM & ODM orders are welcome.</p>
+</section>
+
+<!-- 主体分类+产品区域 -->
+<div class="product-wrap">
+    <!-- 左侧分类导航 完整分类含新增项 -->
+    <div class="left-category">
+        <h3>Product Category</h3>
+        <ul class="category-menu">
+            <li class="active" data-type="all">All Products</li>
+            <li data-type="chairs">Outdoor Chairs</li>
+            <li data-type="tables">Outdoor Tables</li>
+            <li data-type="loungers">Outdoor Sun Lounger</li>
+            <li data-type="garden-sets">Garden Furniture Sets</li>
+            <li data-type="patio-sets">Patio Furniture Sets</li>
+            <li data-type="parasol">Garden/Beach Parasol</li>
+            <li data-type="marketing-umbrella">Marketing Umbrella</li>
+            <li data-type="camping">Camping Product</li>
+        </ul>
     </div>
 
-    <section class="page-banner">
-        <div class="content">
-            <h1>Our Products</h1>
-            <div class="product-list">
-                <p>• Outdoor Furniture (Chairs, Tables, Loungers)</p>
-                <p>• Garden Parasols & Umbrellas</p>
-                <p>• Homeware & Decorative Items</p>
-                <p>• Customized Outdoor Series Products</p>
+    <!-- 右侧空白产品占位区 -->
+    <div class="right-product-box">
+        <h2 class="product-list-title">All Products</h2>
+        <div class="product-list">
+            <!-- 空白占位卡片，后续直接替换图片和文字即可 -->
+            <div class="product-card" data-tag="chairs">
+                待添加产品
             </div>
-            <p style="margin-top: 20px;">All products are made with durable materials and undergo strict quality control. OEM & ODM orders are welcome.</p>
+            <div class="product-card" data-tag="chairs">
+                待添加产品
+            </div>
+            <div class="product-card" data-tag="tables">
+                待添加产品
+            </div>
+            <div class="product-card" data-tag="loungers">
+                待添加产品
+            </div>
+            <div class="product-card" data-tag="garden-sets">
+                待添加产品
+            </div>
+            <div class="product-card" data-tag="patio-sets">
+                待添加产品
+            </div>
+            <div class="product-card" data-tag="parasol">
+                待添加产品
+            </div>
+            <div class="product-card" data-tag="marketing-umbrella">
+                待添加产品
+            </div>
+            <div class="product-card" data-tag="camping">
+                待添加产品
+            </div>
         </div>
-    </section>
+    </div>
+</div>
+
+<!-- 筛选交互脚本 -->
+<script>
+    let cateItem = document.querySelectorAll('.category-menu li');
+    let proItem = document.querySelectorAll('.product-card');
+    let titleEl = document.querySelector('.product-list-title');
+
+    cateItem.forEach(item => {
+        item.addEventListener('click',function(){
+            cateItem.forEach(li => li.classList.remove('active'));
+            this.classList.add('active');
+            let chooseType = this.dataset.type;
+            let chooseText = this.textContent;
+            titleEl.textContent = chooseText;
+
+            proItem.forEach(pro => {
+                if(chooseType === 'all' || pro.dataset.tag === chooseType){
+                    pro.style.display = 'block';
+                }else{
+                    pro.style.display = 'none';
+                }
+            })
+        })
+    })
+</script>
+
 </body>
 </html>
