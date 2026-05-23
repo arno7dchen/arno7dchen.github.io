@@ -12,6 +12,29 @@
   }
 })();
 </script> 
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const categoryLinks = document.querySelectorAll('.category-list a');
+  const productCards = document.querySelectorAll('.product-card');
+
+  categoryLinks.forEach(link => {
+    link.addEventListener('click', function() {
+      categoryLinks.forEach(l => l.classList.remove('active'));
+      this.classList.add('active');
+
+      const filter = this.getAttribute('data-category');
+
+      productCards.forEach(card => {
+        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+});
+</script> 
     <style>
         * {
             margin: 0;
@@ -160,7 +183,14 @@
             font-size: 14px;
             font-weight: 500;
             color: #444;
-        }
+        } 
+      .category-list a.active::before {
+  background: #ff6b6b;
+}
+.category-list a.active {
+  color: #ff6b6b;
+  font-weight: 500;
+}  
     </style>
 </head>
 <body>
@@ -185,15 +215,15 @@
         <aside class="sidebar">
             <h3>Product Category</h3>
             <ul class="category-list">
-                <li><a href="#" class="active" data-category="all">All Products</a></li>
-                <li><a href="#" data-category="outdoor-chairs">Outdoor Chairs</a></li>
-                <li><a href="#" data-category="outdoor-tables">Outdoor Tables</a></li>
-                <li><a href="#" data-category="outdoor-sun-lounger">Outdoor Sun Lounger</a></li>
-                <li><a href="#" data-category="garden-furniture-sets">Garden Furniture Sets</a></li>
-                <li><a href="#" data-category="rattan-furniture-sets">Rattan Furniture Sets</a></li>
-                <li><a href="#" data-category="garden-beach-parasol">Garden/Beach Parasol</a></li>
-                <li><a href="#" data-category="marketing-umbrella">Marketing Umbrella</a></li>
-                <li><a href="#" data-category="camping-product">Camping Product</a></li>
+    <li><a href="javascript:void(0)" class="active" data-category="all">All Products</a></li>
+    <li><a href="javascript:void(0)" data-category="outdoor-chairs">Outdoor Chairs</a></li>
+    <li><a href="javascript:void(0)" data-category="outdoor-tables">Outdoor Tables</a></li>
+    <li><a href="javascript:void(0)" data-category="outdoor-sun-lounger">Outdoor Sun Lounger</a></li>
+    <li><a href="javascript:void(0)" data-category="garden-furniture-sets">Garden Furniture Sets</a></li>
+    <li><a href="javascript:void(0)" data-category="rattan-furniture-sets">Rattan Furniture Sets</a></li>
+    <li><a href="javascript:void(0)" data-category="garden-beach-parasol">Garden/Beach Parasol</a></li>
+    <li><a href="javascript:void(0)" data-category="marketing-umbrella">Marketing Umbrella</a></li>
+    <li><a href="javascript:void(0)" data-category="camping-product">Camping Product</a></li>
             </ul>
         </aside>
 
