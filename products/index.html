@@ -256,6 +256,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="product-card" data-category="rattan-furniture-sets"><img src="../images/4pc-patio-salon-set.webp"><h4>4pc-patio-salon-set</h4></div>
             </div>
         </main>
-    </div>
+    </div> 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.product-card h4').forEach(function(title) {
+    title.textContent = title.textContent.replace(/-/g, ' ');
+  });
+});
+</script> 
 </body>
 </html>
