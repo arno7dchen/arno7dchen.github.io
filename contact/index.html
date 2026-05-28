@@ -11,12 +11,12 @@
             height: 100%;
             min-height: 100vh;
         }
-        /* 路径改为根目录下的 images 文件夹：../images/bg-contact.jpg */
+        /* 关键路径：../images/ 才能访问到根目录的 images 文件夹 */
         body {
             background: url('../images/bg-contact.jpg') center/cover no-repeat fixed;
             color: #333;
         }
-        /* 导航栏样式（和首页保持一致） */
+        /* 导航栏样式，和你首页保持一致 */
         .nav-header {
             position: fixed;
             top: 0;
@@ -44,7 +44,7 @@
         .nav a.active, .nav a:hover {
             color: #F39C12;
         }
-        /* 半透明白色卡片（透明度 0.6，和 About 页面完全一致） */
+        /* 半透明白色卡片，透明度 0.6，和 About 页面完全一致 */
         .contact-card {
             background: rgba(255, 255, 255, 0.6);
             max-width: 600px;
@@ -126,10 +126,10 @@
     <div class="nav-header">
         <div class="logo">Sunburst Outdoor Products Co., Ltd</div>
         <div class="nav">
-            <a href="/">Home</a>
-            <a href="/about/">About Us</a>
-            <a href="/products/">Products</a>
-            <a href="/contact/" class="active">Contact Us</a>
+            <a href="../">Home</a>
+            <a href="../about/">About Us</a>
+            <a href="../products/">Products</a>
+            <a href="./" class="active">Contact Us</a>
         </div>
     </div>
 
@@ -169,7 +169,7 @@
                 </div>
                 <button type="submit" class="submit-btn">Send Inquiry</button>
             </form>
-        </div>
+        </div> 
     </div>
 </body>
-</html> 
+</html>
