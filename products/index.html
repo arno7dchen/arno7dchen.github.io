@@ -262,6 +262,16 @@ document.addEventListener('DOMContentLoaded', function() {
     padding: 0 15px;
   }
 } 
+        /* 产品页手机端标题适配，防止文字被裁切 */
+@media (max-width: 768px) {
+  .hero-banner h1 {
+    font-size: 1.4rem !important;
+    line-height: 1.4 !important;
+    padding: 0 15px;
+    white-space: normal !important;
+    word-break: break-word;
+  }
+} 
     </style>
 </head>
 <body>
