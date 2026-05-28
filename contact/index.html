@@ -117,6 +117,20 @@
                 margin: 80px 20px 30px;
                 padding: 30px;
             }
+            /* Why Choose Us 对勾强制左对齐 */
+.choose-us .why-item {
+    display: flex;
+    align-items: flex-start;
+    margin: 8px 0;
+}
+.choose-us .check-icon {
+    flex: 0 0 24px; /* 固定对勾宽度，保证所有图标位置一致 */
+    color: #28a745; /* 保持绿色 */
+    font-size: 16px;
+}
+.choose-us .why-text {
+    line-height: 1.5;
+}
         }
     </style>
 </head>
@@ -142,14 +156,29 @@
             <p>Feel free to contact us anytime. We usually reply within 24 hours.</p>
         </div>
 
-        <div class="choose-us">
-            <h3>Why Choose Us</h3>
-            <p>✅ Factory Direct Price</p>
-            <p>✅ OEM & ODM Available</p>
-            <p>✅ Strict Quality Control</p>
-            <p>✅ Reply within 24 Hours</p>
-            <p>✅ Global Shipping Service</p>
-        </div>
+<div class="choose-us">
+    <h3>Why Choose Us</h3>
+    <div class="why-item">
+        <span class="check-icon">✅</span>
+        <span class="why-text">Factory Direct Price</span>
+    </div>
+    <div class="why-item">
+        <span class="check-icon">✅</span>
+        <span class="why-text">OEM & ODM Available</span>
+    </div>
+    <div class="why-item">
+        <span class="check-icon">✅</span>
+        <span class="why-text">Strict Quality Control</span>
+    </div>
+    <div class="why-item">
+        <span class="check-icon">✅</span>
+        <span class="why-text">Reply within 24 Hours</span>
+    </div>
+    <div class="why-item">
+        <span class="check-icon">✅</span>
+        <span class="why-text">Global Shipping Service</span>
+    </div>
+</div> 
 
         <div class="contact-form">
             <form action="https://formsubmit.co/arnold@sunburstltd.com" method="POST">
