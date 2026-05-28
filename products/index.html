@@ -208,7 +208,52 @@ document.addEventListener('DOMContentLoaded', function() {
     font-weight: 600;
     color: #ffffff;
     opacity: 0.95;
-}      
+}    
+        /* 汉堡菜单样式 仅手机端显示 */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+.menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+}
+
+/* 手机端导航折叠适配 */
+@media (max-width: 768px) {
+    .nav-header {
+        padding: 0 15px;
+        height: 50px;
+    }
+    .logo {
+        font-size: 16px;
+    }
+    .nav {
+        position: absolute;
+        top: 50px;
+        left: 0;
+        width: 100%;
+        background: rgba(0,0,0,0.8);
+        flex-direction: column;
+        padding: 15px 0;
+        display: none;
+    }
+    .nav.active {
+        display: flex;
+    }
+    .nav a {
+        margin: 10px 0;
+        font-size: 16px;
+        margin-left: 0;
+    }
+    .menu-toggle {
+        display: flex;
+    }
+} 
     </style>
 </head>
 <body>
