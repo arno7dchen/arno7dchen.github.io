@@ -272,6 +272,16 @@ document.addEventListener('DOMContentLoaded', function() {
     word-break: break-word;
   }
 } 
+        /* 手机端所有h1标题强制适配，防止文字被裁切 */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.4rem !important;
+    line-height: 1.4 !important;
+    padding: 0 15px;
+    white-space: normal !important;
+    word-break: break-word;
+  }
+}
     </style>
 </head>
 <body>
