@@ -3,97 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | Sunburst Outdoor Products</title> 
-    <!-- Favicon -->
-<link rel="icon" href="/favicon.png" type="image/png">
-<link rel="apple-touch-icon" href="/favicon.png"> 
-
+    <title>About Sunburst Outdoor | Outdoor Furniture Manufacturer</title>
+    <meta name="description" content="Learn about Sunburst Outdoor Products Co., Ltd., a professional manufacturer and exporter of high-quality outdoor furniture since 2017.">
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; line-height:1.8; color:#333; }
-
-        /* 导航和首页完全一样 */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        html, body {
+            height: 100%;
+            min-height: 100vh;
+        }
+        body {
+            background: url('../images/bg-about.jpg') center/cover no-repeat fixed;
+            color: #333;
+        }
         .nav-header {
-            position: absolute;
-            left: 0;
+            position: fixed;
             top: 0;
             width: 100%;
-            height: 60px;
-            background: rgba(0,0,0,0.3);
-            padding: 0 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 9999;
+            padding: 15px 50px;
+            background: rgba(0,0,0,0.3);
+            color: white;
+            z-index: 100;
         }
         .logo {
-            color: #ff6b35;
             font-size: 20px;
-            font-weight: 600;
-            white-space: nowrap;
+            font-weight: bold;
         }
         .nav a {
-            color: #fff;
+            color: white;
             text-decoration: none;
             margin-left: 30px;
-            font-size: 16px;
-            white-space: nowrap;
+            font-weight: 700 !important;
+            font-size: 17px !important;
+            transition: color 0.3s ease;
         }
-        .nav a.active { color: #ff6b35; }
-        .nav a:hover { color: #ff6b35; }
-
-        .page-banner {
-            background: url("../images/bg-about.webp") center center / cover no-repeat;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
+        .nav a.active, .nav a:hover {
+            color: #F39C12;
         }
-        .content {
+        /* 关键修改: 将 margin-top 从 120px 改为 80px，使卡片顶部下移 */
+        .about-card {
+            background: rgba(255, 255, 255, 0.6);
             max-width: 800px;
+            margin: 80px auto 50px;
             padding: 40px;
-            background-color: rgba(255,255,255,0.6);
             border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            text-align: left;
         }
         h1 {
-            color: #e67e22;
+            color: #E67E22;
             margin-bottom: 30px;
-            text-align: center;
             font-size: 2.2rem;
             font-weight: 600;
+            text-align: center;
         }
-        .content p {
+        .about-content p {
             margin-bottom: 20px;
-            font-size: 1.05rem;
-            text-align: justify;
+            line-height: 1.8;
+            font-size: 16px;
         }
-        /* 导航文字加粗+调大字号 */
-.nav a {
-    font-weight: 700 !important;
-    font-size: 17px !important;
-} 
+        @media (max-width: 768px) {
+            .nav-header {
+                padding: 15px 20px;
+            }
+            .nav a {
+                margin-left: 15px;
+                font-size: 15px !important;
+            }
+            .about-card {
+                margin: 80px 20px 30px;
+                padding: 30px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="nav-header">
         <div class="logo">Sunburst Outdoor Products Co., Ltd</div>
         <div class="nav">
-  <a href="/">Home</a>
-  <a href="/about" class="active">About Us</a>
-  <a href="/products">Products</a>
-  <a href="/contact">Contact Us</a> 
+            <a href="../">Home</a>
+            <a href="./" class="active">About Us</a>
+            <a href="../products/">Products</a>
+            <a href="../contact/">Contact Us</a>
         </div>
     </div>
 
-    <section class="page-banner">
-        <div class="content">
-            <h1>About Sunburst Outdoor | Outdoor Furniture Manufacturer</h1>
-            <p>Founded in 2017, Sunburst Outdoor Products Co., Ltd. is a professional enterprise engaged in the production and export of outdoor daily supplies. Our core business covers outdoor furniture, homeware, parasols and other related outdoor series products.</p> 
-            <p>Adhering to the business philosophy of "Better, All-Ways", we always use durable raw materials and implement rigorous quality control in every production procedure. This ensures that every product we deliver meets international standards and customer expectations.</p>
+    <div class="about-card">
+        <h1>About Sunburst Outdoor | Outdoor Furniture Manufacturer</h1>
+        <div class="about-content">
+            <p>Founded in 2017, Sunburst Outdoor Products Co., Ltd. is a professional enterprise engaged in the production and export of outdoor daily supplies. Our core business covers outdoor furniture, outdoor parasols and other related outdoor series products.</p>
+            <p>Adhering to the business philosophy of "Better, All Ways", we always use durable raw materials and implement rigorous quality control in every production procedure. This ensures that every product we deliver meets international standards and customer expectations.</p>
             <p>We warmly welcome global buyers to cooperate with us. We offer both standard products and customized solutions to meet your diverse needs. Our team keeps fast online response and provides stable and efficient delivery service for all partners.</p>
         </div>
-    </section>
+    </div>
 </body>
-</html>
+</html> 
