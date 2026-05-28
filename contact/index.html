@@ -117,19 +117,28 @@
                 margin: 80px 20px 30px;
                 padding: 30px;
             }
-            /* Why Choose Us 对勾强制左对齐 */
+ /* Why Choose Us 对勾强制左对齐（强化版） */
+.choose-us {
+  padding-left: 0;
+}
 .choose-us .why-item {
-    display: flex;
-    align-items: flex-start;
-    margin: 8px 0;
+  display: flex !important;
+  align-items: center !important; /* 改成垂直居中，避免文字基线导致的偏移 */
+  margin: 6px 0 !important;
+  padding-left: 0 !important;
 }
 .choose-us .check-icon {
-    flex: 0 0 24px; /* 固定对勾宽度，保证所有图标位置一致 */
-    color: #28a745; /* 保持绿色 */
-    font-size: 16px;
+  flex: 0 0 20px !important; /* 固定宽度，这里可以微调 */
+  width: 20px !important;    /* 额外加个固定宽度保险 */
+  color: #28a745 !important;
+  font-size: 16px !important;
+  margin-right: 8px !important; /* 对勾和文字的间距 */
+  text-align: center !important; /* 让对勾图标自己居中 */
 }
 .choose-us .why-text {
-    line-height: 1.5;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
         }
     </style>
