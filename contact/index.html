@@ -117,29 +117,34 @@
                 margin: 80px 20px 30px;
                 padding: 30px;
             }
- /* Why Choose Us 对勾强制左对齐（强化版） */
+/* 强制对齐 Why Choose Us 对勾（终极版） */
 .choose-us {
-  padding-left: 0;
+  list-style: none;
+  padding: 0 !important;
+  margin: 20px 0 !important;
 }
-.choose-us .why-item {
+.choose-us-item {
   display: flex !important;
-  align-items: center !important; /* 改成垂直居中，避免文字基线导致的偏移 */
-  margin: 6px 0 !important;
+  align-items: center !important;
+  margin: 8px 0 !important;
   padding-left: 0 !important;
 }
-.choose-us .check-icon {
-  flex: 0 0 20px !important; /* 固定宽度，这里可以微调 */
-  width: 20px !important;    /* 额外加个固定宽度保险 */
+.choose-us-check {
+  flex: 0 0 22px !important;
+  width: 22px !important;
+  height: 22px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-right: 10px !important;
   color: #28a745 !important;
   font-size: 16px !important;
-  margin-right: 8px !important; /* 对勾和文字的间距 */
-  text-align: center !important; /* 让对勾图标自己居中 */
 }
-.choose-us .why-text {
+.choose-us-text {
   line-height: 1.5 !important;
   margin: 0 !important;
   padding: 0 !important;
-}
+} 
         }
     </style>
 </head>
@@ -167,25 +172,25 @@
 
 <div class="choose-us">
     <h3>Why Choose Us</h3>
-    <div class="why-item">
-        <span class="check-icon">✅</span>
-        <span class="why-text">Factory Direct Price</span>
+    <div class="choose-us-item">
+        <span class="choose-us-check">✅</span>
+        <span class="choose-us-text">Factory Direct Price</span>
     </div>
-    <div class="why-item">
-        <span class="check-icon">✅</span>
-        <span class="why-text">OEM & ODM Available</span>
+    <div class="choose-us-item">
+        <span class="choose-us-check">✅</span>
+        <span class="choose-us-text">OEM & ODM Available</span>
     </div>
-    <div class="why-item">
-        <span class="check-icon">✅</span>
-        <span class="why-text">Strict Quality Control</span>
+    <div class="choose-us-item">
+        <span class="choose-us-check">✅</span>
+        <span class="choose-us-text">Strict Quality Control</span>
     </div>
-    <div class="why-item">
-        <span class="check-icon">✅</span>
-        <span class="why-text">Reply within 24 Hours</span>
+    <div class="choose-us-item">
+        <span class="choose-us-check">✅</span>
+        <span class="choose-us-text">Reply within 24 Hours</span>
     </div>
-    <div class="why-item">
-        <span class="check-icon">✅</span>
-        <span class="why-text">Global Shipping Service</span>
+    <div class="choose-us-item">
+        <span class="choose-us-check">✅</span>
+        <span class="choose-us-text">Global Shipping Service</span>
     </div>
 </div> 
 
