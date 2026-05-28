@@ -6,77 +6,73 @@
     <title>Contact Sunburst Outdoor | Get a Free Quote</title>
     <meta name="description" content="Get in touch with Sunburst Outdoor Products Co., Ltd. for wholesale outdoor furniture inquiries, custom quotes and fast delivery solutions.">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif; line-height: 1.8; color: #333; }
         html, body {
             height: 100%;
             min-height: 100vh;
         }
-        /* 关键路径：../images/ 才能访问到根目录的 images 文件夹 */
         body {
             background: url('../images/bg-contact.webp') center/cover no-repeat fixed;
-            color: #333;
         }
-        /* 导航栏样式，和你首页保持一致 */
+        /* 完全复制主页导航样式，阴影高度/宽度100%一致 */
         .nav-header {
-            position: fixed;
+            position: absolute;
+            left: 0;
             top: 0;
             width: 100%;
+            height: 60px;
+            background: rgba(0,0,0,0.3);
+            padding: 0 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 50px;
-            background: rgba(0,0,0,0.3);
-            color: white;
-            z-index: 100;
+            z-index: 9999;
         }
         .logo {
             font-size: 20px;
-            font-weight: bold;
+            font-weight: 600;
+            color: #ff6b35;
+            white-space: nowrap;
         }
         .nav a {
             color: white;
             text-decoration: none;
             margin-left: 30px;
-            font-weight: 700 !important;
-            font-size: 17px !important;
+            font-weight: 700;
+            font-size: 17px;
             transition: color 0.3s ease;
         }
         .nav a.active, .nav a:hover {
-            color: #F39C12;
+            color: #ff6b35;
         }
-        /* 半透明白色卡片，透明度 0.6，和 About 页面完全一致 */
+        /* 卡片下移到导航下方，避免被挡住 */
         .contact-card {
             background: rgba(255, 255, 255, 0.6);
             max-width: 600px;
-            margin: 120px auto 50px;
+            margin: 80px auto 50px;
             padding: 40px;
             border-radius: 10px;
             text-align: center;
         }
         h1 {
-            color: #E67E22;
+            color: #ff6b35;
             margin-bottom: 30px;
             font-size: 2.2rem;
             font-weight: 600;
         }
-        /* 联系信息 */
         .contact-info {
             margin-bottom: 25px;
-            line-height: 2;
             font-size: 16px;
         }
-        /* Why Choose Us 板块 */
         .choose-us {
             margin: 30px 0;
-            line-height: 1.8;
             font-size: 16px;
         }
         .choose-us h3 {
-            color: #E67E22;
+            color: #ff6b35;
             margin-bottom: 15px;
             font-size: 18px;
         }
-        /* 询盘表单 */
         .contact-form {
             margin-top: 20px;
             text-align: left;
@@ -94,7 +90,7 @@
         .submit-btn {
             width: 100%;
             padding: 15px;
-            background-color: #E67E22;
+            background-color: #ff6b35;
             color: white;
             border: none;
             border-radius: 5px;
@@ -104,19 +100,18 @@
             transition: background-color 0.3s ease;
         }
         .submit-btn:hover {
-            background-color: #D35400;
+            background-color: #e55a2b;
         }
-        /* 移动端适配 */
         @media (max-width: 768px) {
             .nav-header {
-                padding: 15px 20px;
+                padding: 0 20px;
             }
             .nav a {
                 margin-left: 15px;
-                font-size: 15px !important;
+                font-size: 15px;
             }
             .contact-card {
-                margin: 100px 20px 30px;
+                margin: 80px 20px 30px;
                 padding: 30px;
             }
         }
@@ -139,7 +134,7 @@
         <div class="contact-info">
             <p><strong>Email:</strong> info@sunburstltd.com</p>
             <p><strong>WhatsApp/WeChat:</strong> +86 151 6833 8855</p>
-            <p><strong>Address:</strong> XS Industrial Park, Hangzhou City, Zhejiang Province, China</p>
+            <p><strong>Address:</strong> Xiaoshan Industrial Park, Hangzhou City, Zhejiang Province, China</p>
             <p><strong>Working Hours:</strong> Monday - Saturday, 8:00 AM - 5:00 PM (UTC+8)</p>
             <p>Feel free to contact us anytime. We usually reply within 24 hours.</p>
         </div>
@@ -169,7 +164,7 @@
                 </div>
                 <button type="submit" class="submit-btn">Send Inquiry</button>
             </form>
-        </div> 
+        </div>
     </div>
 </body>
-</html>
+</html> 
