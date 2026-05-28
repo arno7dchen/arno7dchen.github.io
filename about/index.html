@@ -34,6 +34,10 @@
             color: #ff6b35;
             white-space: nowrap;
         }
+        .nav {
+            display: flex;
+            align-items: center;
+        }
         .nav a {
             color: white;
             text-decoration: none;
@@ -65,17 +69,57 @@
             margin-bottom: 20px;
             font-size: 16px;
         }
+
+        /* 汉堡菜单样式 仅手机端显示 */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+        }
+
+        /* 手机端整体适配 */
         @media (max-width: 768px) {
             .nav-header {
-                padding: 0 20px;
+                padding: 0 15px;
+                height: 50px;
+            }
+            .logo {
+                font-size: 16px;
+            }
+            .nav {
+                position: absolute;
+                top: 50px;
+                left: 0;
+                width: 100%;
+                background: rgba(0,0,0,0.8);
+                flex-direction: column;
+                padding: 15px 0;
+                display: none;
+            }
+            .nav.active {
+                display: flex;
             }
             .nav a {
-                margin-left: 15px;
-                font-size: 15px;
+                margin: 10px 0;
+                font-size: 16px;
+                margin-left: 0;
+            }
+            .menu-toggle {
+                display: flex;
             }
             .about-card {
-                margin: 80px 20px 30px;
-                padding: 30px;
+                margin: 70px 15px 30px;
+                padding: 25px 20px;
+            }
+            h1 {
+                font-size: 1.6rem;
             }
         }
     </style>
@@ -83,21 +127,36 @@
 <body>
     <div class="nav-header">
         <div class="logo">Sunburst Outdoor Products Co., Ltd</div>
-        <div class="nav">
-            <a href="../">Home</a>
-            <a href="./" class="active">About Us</a>
-            <a href="../products/">Products</a>
-            <a href="../contact/">Contact Us</a>
+        <!-- 汉堡菜单按钮 -->
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav" id="navMenu">
+            <a href=" ">Home</a >
+            <a href="./" class="active">About Us</a >
+            <a href="../products/">Products</a >
+            <a href="../contact/">Contact Us</a >
         </div>
     </div>
 
     <div class="about-card">
         <h1>About Sunburst Outdoor | Outdoor Furniture Manufacturer</h1>
         <div class="about-content">
-            <p>Founded in 2017, Sunburst Outdoor Products Co., Ltd. is a professional enterprise engaged in the production and export of outdoor daily supplies. Our core business covers outdoor furniture, homeware, parasols and other related outdoor series products.</p>
-            <p>Adhering to the business philosophy of "Better, all-ways", we always use durable raw materials and implement rigorous quality control in every production procedure. This ensures that every product we deliver meets international standards and customer expectations.</p>
-            <p>We warmly welcome global buyers to cooperate with us. We offer both standard products and customized solutions to meet your diverse needs. Our team keeps fast online response and provides stable and efficient delivery service for all partners.</p>
+            <p>Founded in 2017, Sunburst Outdoor Products Co., Ltd. is a professional enterprise engaged in the production and export of outdoor daily supplies. Our core business covers outdoor furniture, homeware, parasols and other related outdoor series products.</p >
+            <p>Adhering to the business philosophy of "Better, all-ways", we always use durable raw materials and implement rigorous quality control in every production procedure. This ensures that every product we deliver meets international standards and customer expectations.</p >
+            <p>We warmly welcome global buyers to cooperate with us. We offer both standard products and customized solutions to meet your diverse needs. Our team keeps fast online response and provides stable and efficient delivery service for all partners.</p >
         </div>
     </div>
+
+    <!-- 菜单交互JS -->
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+    </script>
 </body>
-</html>
+</html> 
