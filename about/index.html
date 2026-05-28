@@ -6,43 +6,46 @@
     <title>About Sunburst Outdoor | Outdoor Furniture Manufacturer</title>
     <meta name="description" content="Learn about Sunburst Outdoor Products Co., Ltd., a professional manufacturer and exporter of high-quality outdoor furniture since 2017.">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif; line-height: 1.8; color: #333; }
         html, body {
             height: 100%;
             min-height: 100vh;
         }
         body {
             background: url('../images/bg-about.webp') center/cover no-repeat fixed;
-            color: #333;
         }
+        /* 完全复制主页导航样式，阴影高度/宽度100%一致 */
         .nav-header {
-            position: fixed;
+            position: absolute;
+            left: 0;
             top: 0;
             width: 100%;
+            height: 60px;
+            background: rgba(0,0,0,0.3);
+            padding: 0 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 50px;
-            background: rgba(0,0,0,0.3);
-            color: white;
-            z-index: 100;
+            z-index: 9999;
         }
         .logo {
             font-size: 20px;
-            font-weight: bold;
+            font-weight: 600;
+            color: #ff6b35;
+            white-space: nowrap;
         }
         .nav a {
             color: white;
             text-decoration: none;
             margin-left: 30px;
-            font-weight: 700 !important;
-            font-size: 17px !important;
+            font-weight: 700;
+            font-size: 17px;
             transition: color 0.3s ease;
         }
         .nav a.active, .nav a:hover {
-            color: #F39C12;
+            color: #ff6b35;
         }
-        /* 关键修改: 将 margin-top 从 120px 改为 80px，使卡片顶部下移 */
+        /* 卡片下移到导航下方，避免被挡住 */
         .about-card {
             background: rgba(255, 255, 255, 0.6);
             max-width: 800px;
@@ -52,7 +55,7 @@
             text-align: left;
         }
         h1 {
-            color: #E67E22;
+            color: #ff6b35;
             margin-bottom: 30px;
             font-size: 2.2rem;
             font-weight: 600;
@@ -60,16 +63,15 @@
         }
         .about-content p {
             margin-bottom: 20px;
-            line-height: 1.8;
             font-size: 16px;
         }
         @media (max-width: 768px) {
             .nav-header {
-                padding: 15px 20px;
+                padding: 0 20px;
             }
             .nav a {
                 margin-left: 15px;
-                font-size: 15px !important;
+                font-size: 15px;
             }
             .about-card {
                 margin: 80px 20px 30px;
@@ -92,10 +94,10 @@
     <div class="about-card">
         <h1>About Sunburst Outdoor | Outdoor Furniture Manufacturer</h1>
         <div class="about-content">
-            <p>Founded in 2017, Sunburst Outdoor Products Co., Ltd. is a professional enterprise engaged in the production and export of outdoor daily supplies. Our core business covers outdoor furniture, outdoor parasols and other related outdoor series products.</p>
+            <p>Founded in 2017, Sunburst Outdoor Products Co., Ltd. is a professional enterprise engaged in the production and export of outdoor daily supplies. Our core business covers outdoor furniture, homeware, parasols and other related outdoor series products.</p>
             <p>Adhering to the business philosophy of "Better, All Ways", we always use durable raw materials and implement rigorous quality control in every production procedure. This ensures that every product we deliver meets international standards and customer expectations.</p>
             <p>We warmly welcome global buyers to cooperate with us. We offer both standard products and customized solutions to meet your diverse needs. Our team keeps fast online response and provides stable and efficient delivery service for all partners.</p>
         </div>
     </div>
 </body>
-</html> 
+</html>
