@@ -11,11 +11,12 @@
             height: 100%;
             min-height: 100vh;
         }
+        /* 路径改为根目录下的 images 文件夹：../images/bg-contact.jpg */
         body {
-            background: url('bg-contact.jpg') center/cover no-repeat fixed;
+            background: url('../images/bg-contact.jpg') center/cover no-repeat fixed;
             color: #333;
         }
-        /* 导航栏样式（原样保留，无任何修改） */
+        /* 导航栏样式（和首页保持一致） */
         .nav-header {
             position: fixed;
             top: 0;
@@ -43,7 +44,7 @@
         .nav a.active, .nav a:hover {
             color: #F39C12;
         }
-        /* 半透明白色卡片 透明度 0.6（原样保留） */
+        /* 半透明白色卡片（透明度 0.6，和 About 页面完全一致） */
         .contact-card {
             background: rgba(255, 255, 255, 0.6);
             max-width: 600px;
@@ -64,7 +65,7 @@
             line-height: 2;
             font-size: 16px;
         }
-        /* 优势板块 */
+        /* Why Choose Us 板块 */
         .choose-us {
             margin: 30px 0;
             line-height: 1.8;
@@ -75,7 +76,7 @@
             margin-bottom: 15px;
             font-size: 18px;
         }
-        /* 表单 */
+        /* 询盘表单 */
         .contact-form {
             margin-top: 20px;
             text-align: left;
@@ -105,7 +106,7 @@
         .submit-btn:hover {
             background-color: #D35400;
         }
-        /* 移动端适配（原样保留） */
+        /* 移动端适配 */
         @media (max-width: 768px) {
             .nav-header {
                 padding: 15px 20px;
@@ -126,9 +127,9 @@
         <div class="logo">Sunburst Outdoor Products Co., Ltd</div>
         <div class="nav">
             <a href="/">Home</a>
-            <a href="/about">About Us</a>
-            <a href="/products">Products</a>
-            <a href="/contact" class="active">Contact Us</a>
+            <a href="/about/">About Us</a>
+            <a href="/products/">Products</a>
+            <a href="/contact/" class="active">Contact Us</a>
         </div>
     </div>
 
@@ -136,7 +137,6 @@
         <h1>Contact Sunburst Outdoor | Get a Free Quote</h1>
 
         <div class="contact-info">
-            <!-- 展示邮箱：info@sunburstltd.com -->
             <p><strong>Email:</strong> info@sunburstltd.com</p>
             <p><strong>WhatsApp/WeChat:</strong> +86 151 6833 8855</p>
             <p><strong>Address:</strong> Xiaoshan Industrial Park, Hangzhou City, Zhejiang Province, China</p>
@@ -154,7 +154,6 @@
         </div>
 
         <div class="contact-form">
-            <!-- 表单接收邮箱：arnold@sunburstltd.com -->
             <form action="https://formsubmit.co/arnold@sunburstltd.com" method="POST">
                 <div class="form-group">
                     <input type="text" name="name" placeholder="Your Full Name" required>
@@ -173,5 +172,4 @@
         </div>
     </div>
 </body>
-</html>
-
+</html> 
