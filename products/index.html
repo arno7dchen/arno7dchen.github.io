@@ -258,8 +258,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </head>
 <body>
     <div class="nav-header">
-        <div class="logo">Sunburst Outdoor Products Co., Ltd</div>
-        <div class="nav">
+        <div class="logo">Sunburst Outdoor Products Co., Ltd</div> 
+          <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div> 
+        <div class="nav" id="navMenu">
   <a href="/">Home</a>
   <a href="/about">About Us</a>
   <a href="/products" class="active">Products</a>
@@ -930,6 +935,13 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.product-card h4').forEach(function(title) {
     title.textContent = title.textContent.replace(/-/g, ' ');
   });
+});
+</script> 
+    <script>
+const menuToggle = document.getElementById('menuToggle');
+const navMenu = document.getElementById('navMenu');
+menuToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
 });
 </script> 
 </body>
