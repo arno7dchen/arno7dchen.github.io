@@ -14,7 +14,7 @@
         body {
             background: url('../images/bg-contact.webp') center/cover no-repeat fixed;
         }
-        /* 完全复制主页导航样式，阴影高度/宽度100%一致 */
+        /* 导航栏基础样式（电脑端） */
         .nav-header {
             position: absolute;
             left: 0;
@@ -34,6 +34,10 @@
             color: #ff6b35;
             white-space: nowrap;
         }
+        .nav {
+            display: flex;
+            align-items: center;
+        }
         .nav a {
             color: white;
             text-decoration: none;
@@ -45,7 +49,20 @@
         .nav a.active, .nav a:hover {
             color: #ff6b35;
         }
-        /* 卡片下移到导航下方，避免被挡住 */
+        /* 汉堡菜单按钮（手机端） */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+        }
+        /* 卡片样式 */
         .contact-card {
             background: rgba(255, 255, 255, 0.6);
             max-width: 600px;
@@ -64,6 +81,7 @@
             margin-bottom: 25px;
             font-size: 16px;
         }
+        /* Why Choose Us 样式 */
         .choose-us {
             margin: 30px auto;
             padding: 0 110px;
@@ -98,8 +116,9 @@
             line-height: 1.5 !important;
             margin: 0 !important;
             padding: 0 !important;
-            white-space: nowrap; /* 强制文字不换行，全部单行 */
+            white-space: nowrap;
         }
+        /* 表单按钮样式 */
         .contact-form {
             margin-top: 20px;
             text-align: left;
@@ -132,20 +151,53 @@
             box-shadow: 0 6px 15px rgba(255, 107, 53, 0.4);
             transform: translateY(-2px);
         } 
+
+        /* ========== 手机端适配（关键！） ========== */
         @media (max-width: 768px) {
             .nav-header {
-                padding: 0 20px;
+                padding: 0 15px;
+                height: 50px;
+            }
+            .logo {
+                font-size: 16px;
+            }
+            /* 隐藏原导航，显示汉堡按钮 */
+            .nav {
+                position: absolute;
+                top: 50px;
+                left: 0;
+                width: 100%;
+                background: rgba(0,0,0,0.8);
+                flex-direction: column;
+                align-items: center;
+                padding: 15px 0;
+                display: none;
+            }
+            .nav.active {
+                display: flex;
             }
             .nav a {
-                margin-left: 15px;
-                font-size: 15px;
+                margin: 10px 0;
+                font-size: 16px;
             }
+            .menu-toggle {
+                display: flex;
+            }
+            /* 卡片适配 */
             .contact-card {
-                margin: 80px 20px 30px;
-                padding: 30px;
+                margin: 70px 15px 30px;
+                padding: 25px 20px;
             }
+            h1 {
+                font-size: 1.6rem;
+            }
+            /* 对勾区域适配 */
             .choose-us {
-                padding: 0 50px;
+                padding: 0 40px;
+                max-width: 100%;
+            }
+            .choose-us-text {
+                font-size: 15px;
             }
         }
     </style>
@@ -153,11 +205,18 @@
 <body>
     <div class="nav-header">
         <div class="logo">Sunburst Outdoor Products Co., Ltd</div>
-        <div class="nav">
-            <a href=" ">Home</a >
-            <a href="../about/">About Us</a >
-            <a href="../products/">Products</a >
-            <a href="./" class="active">Contact Us</a >
+        <!-- 汉堡菜单按钮 -->
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <!-- 导航链接 -->
+        <div class="nav" id="navMenu">
+            <a href="../">Home</a>
+            <a href="../about/">About Us</a>
+            <a href="../products/">Products</a>
+            <a href="./" class="active">Contact Us</a>
         </div>
     </div>
 
@@ -165,11 +224,11 @@
         <h1>Contact Sunburst Outdoor | Get a Free Quote</h1>
 
         <div class="contact-info">
-            <p><strong>Email:</strong> info@sunburstltd.com</p >
-            <p><strong>WhatsApp/WeChat:</strong> +86 151 6833 8855</p >
-            <p><strong>Address:</strong> XS Industrial Park, Hangzhou City, Zhejiang Province, China</p >
-            <p><strong>Working Hours:</strong> Monday - Saturday, 8:00 AM - 5:00 PM (UTC+8)</p >
-            <p>Feel free to contact us anytime. We usually reply within 24 hours.</p >
+            <p><strong>Email:</strong> info@sunburstltd.com</p>
+            <p><strong>WhatsApp/WeChat:</strong> +86 151 6833 8855</p>
+            <p><strong>Address:</strong> XS Industrial Park, Hangzhou City, Zhejiang Province, China</p>
+            <p><strong>Working Hours:</strong> Monday - Saturday, 8:00 AM - 5:00 PM (UTC+8)</p>
+            <p>Feel free to contact us anytime. We usually reply within 24 hours.</p>
         </div>
 
         <div class="choose-us">
@@ -214,5 +273,14 @@
             </form>
         </div>
     </div>
+
+    <!-- 汉堡菜单交互JS -->
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+    </script>
 </body>
 </html> 
