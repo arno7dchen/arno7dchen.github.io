@@ -296,11 +296,7 @@ document.addEventListener('DOMContentLoaded', function() {
         padding: 0 15px !important;
     }
     <style>
-/* ========== 产品编号标签样式（适配你当前结构，不影响导航栏） ========== */
-.product-card {
-  position: relative;
-  overflow: visible;
-}
+/* ========== 产品编号标签样式（零布局影响版） ========== */
 .product-sn-tag {
   position: absolute;
   top: 8px;
@@ -618,7 +614,7 @@ document.addEventListener('DOMContentLoaded', function() {
     categoryCount[abbr] = 1;
   });
 
-  // 直接找所有 .product-card，适配你当前结构
+  // 遍历所有产品卡片，生成编号
   document.querySelectorAll('.product-card').forEach(card => {
     const currentCat = card.dataset.category;
     const abbr = categoryMap[currentCat];
@@ -632,6 +628,8 @@ document.addEventListener('DOMContentLoaded', function() {
     tag.innerText = snText;
 
     const img = card.querySelector('img');
+    // 关键：给图片设置相对定位，作为标签的定位基准
+    img.style.position = 'relative';
     card.insertBefore(tag, img);
 
     categoryCount[abbr]++;
