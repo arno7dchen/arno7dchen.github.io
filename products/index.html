@@ -611,28 +611,30 @@ document.addEventListener('DOMContentLoaded', function() {
     categoryCount[abbr] = 1;
   });
 
-  // 只找“有图片的”product-card，这样顶部的logo区域会被自动过滤掉
+  // 1. 先删除页面里所有已存在的产品编号，避免旧代码残留
+  document.querySelectorAll('.product-code-tag').forEach(tag => tag.remove());
+
+  // 2. 只给真正的产品卡片添加编号
   document.querySelectorAll('.product-card').forEach(card => {
-    const img = card.querySelector('img');
-    if (!img || img.clientWidth === 0) {
-      return;
-    }
-
     const category = card.dataset.category;
-    const abbr = categoryMap[category];
-    if (!abbr) {
+    const img = card.querySelector('img');
+
+    // 关键判断：必须同时有data-category属性、img标签，才会添加编号
+    if (!category || !img || !categoryMap[category]) {
       return;
     }
 
+    const abbr = categoryMap[category];
     const productCode = `S-${abbr}-${String(categoryCount[abbr]).padStart(3, '0')}`;
     categoryCount[abbr]++;
 
     const tag = document.createElement('span');
+    tag.className = 'product-code-tag';
     tag.style.position = 'absolute';
     tag.style.top = '8px';
     tag.style.left = '8px';
     tag.style.background = 'rgba(255, 120, 0, 0.9)';
-    tag.style.color = '#ffffff';
+    tag.style.color = '#fff';
     tag.style.fontSize = '11px';
     tag.style.fontWeight = '500';
     tag.style.fontFamily = "'Segoe UI', Roboto, Arial, sans-serif";
@@ -641,10 +643,11 @@ document.addEventListener('DOMContentLoaded', function() {
     tag.style.zIndex = '10';
     tag.textContent = productCode;
 
+    // 给图片加上定位，确保编号贴在图片左上角
     img.style.position = 'relative';
-    card.insertBefore(tag, img);
+    card.appendChild(tag);
   });
 });
-</script> 
+</script>
 </body>
 </html>
