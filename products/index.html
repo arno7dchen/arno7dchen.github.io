@@ -593,7 +593,6 @@ menuToggle.addEventListener('click', () => {
 </script> 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // 分类与缩写对应表（和你现有data-category完全匹配）
   const categoryMap = {
     "outdoor-chairs": "OC",
     "outdoor-tables": "OT",
@@ -607,31 +606,36 @@ document.addEventListener('DOMContentLoaded', function() {
     "camping-product": "CP"
   };
 
-  // 初始化每个分类的计数器
   let categoryCount = {};
   Object.values(categoryMap).forEach(abbr => {
     categoryCount[abbr] = 1;
   });
 
-  // 遍历所有产品卡片，生成编号
   document.querySelectorAll('.product-card').forEach(card => {
-    const currentCat = card.dataset.category;
-    const abbr = categoryMap[currentCat];
+    const category = card.dataset.category;
+    const abbr = categoryMap[category];
     if (!abbr) return;
 
-    const num = String(categoryCount[abbr]).padStart(3, '0');
-    const snText = `S-${abbr}-${num}`;
+    const productCode = `S-${abbr}-${String(categoryCount[abbr]).padStart(3, '0')}`;
+    categoryCount[abbr]++;
 
     const tag = document.createElement('span');
-    tag.className = 'product-sn-tag';
-    tag.innerText = snText;
+    tag.style.position = 'absolute';
+    tag.style.top = '8px';
+    tag.style.left = '8px';
+    tag.style.background = 'rgba(0, 0, 0, 0.5)'; // 降低背景透明度，更柔和
+    tag.style.color = '#fff';
+    tag.style.fontSize = '11px'; // 稍小一号，更精致
+    tag.style.padding = '3px 8px';
+    tag.style.borderRadius = '3px';
+    tag.style.zIndex = '10';
+    tag.textContent = productCode;
 
     const img = card.querySelector('img');
-    // 关键：给图片设置相对定位，作为标签的定位基准
-    img.style.position = 'relative';
-    card.insertBefore(tag, img);
-
-    categoryCount[abbr]++;
+    if (img) {
+      img.style.position = 'relative';
+      card.insertBefore(tag, img);
+    }
   });
 });
 </script> 
