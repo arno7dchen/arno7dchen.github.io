@@ -623,9 +623,13 @@ document.addEventListener('DOMContentLoaded', function() {
     tag.style.position = 'absolute';
     tag.style.top = '8px';
     tag.style.left = '8px';
-    tag.style.background = 'rgba(0, 0, 0, 0.5)'; // 降低背景透明度，更柔和
-    tag.style.color = '#fff';
-    tag.style.fontSize = '11px'; // 稍小一号，更精致
+    // 和导航栏完全一致的橙色，半透明质感
+    tag.style.background = 'rgba(255, 120, 0, 0.9)';
+    tag.style.color = '#ffffff';
+    tag.style.fontSize = '11px';
+    tag.style.fontWeight = '500';
+    // 和网站全局一致的字体
+    tag.style.fontFamily = "'Segoe UI', Roboto, Arial, sans-serif";
     tag.style.padding = '3px 8px';
     tag.style.borderRadius = '3px';
     tag.style.zIndex = '10';
