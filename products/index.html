@@ -614,7 +614,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // 先清掉所有旧编号
   document.querySelectorAll('.product-code-tag').forEach(tag => tag.remove());
 
-  // 只给真正的产品卡片加编号
+  // 只给真正的产品卡片加编号，不修改图片布局
   document.querySelectorAll('.product-card').forEach(card => {
     const category = card.dataset.category;
     const img = card.querySelector('img');
@@ -633,8 +633,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const tag = document.createElement('span');
     tag.className = 'product-code-tag';
     tag.style.position = 'absolute';
-    tag.style.top = '0px';
-    tag.style.left = '0px';
+    tag.style.top = '0';
+    tag.style.left = '0';
     tag.style.background = 'rgba(255, 120, 0, 0.95)';
     tag.style.color = '#fff';
     tag.style.fontSize = '11px';
@@ -645,13 +645,9 @@ document.addEventListener('DOMContentLoaded', function() {
     tag.style.zIndex = '10';
     tag.textContent = productCode;
 
-    // 自动给图片加上定位容器
-    const wrapper = document.createElement('div');
-    wrapper.style.position = 'relative';
-    wrapper.style.display = 'inline-block';
-    img.parentNode.insertBefore(wrapper, img);
-    wrapper.appendChild(img);
-    wrapper.appendChild(tag);
+    // 关键：直接给卡片加上定位，不修改图片本身
+    card.style.position = 'relative';
+    card.appendChild(tag);
   });
 });
 </script> 
