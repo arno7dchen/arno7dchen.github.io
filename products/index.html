@@ -296,9 +296,8 @@ document.addEventListener('DOMContentLoaded', function() {
         padding: 0 15px !important;
     }
     <style>
-/* ========== 产品编号标签样式（仅作用于产品列表，零冲突版） ========== */
-/* 只给产品列表内的卡片加定位，不影响页面其他元素 */
-.product-grid .product-card {
+/* ========== 产品编号标签样式（适配你当前结构，不影响导航栏） ========== */
+.product-card {
   position: relative;
   overflow: visible;
 }
@@ -598,7 +597,6 @@ menuToggle.addEventListener('click', () => {
 });
 </script> 
 <script>
-// 等页面完全加载完成再执行，避免影响导航栏渲染
 document.addEventListener('DOMContentLoaded', function() {
   // 分类与缩写对应表（和你现有data-category完全匹配）
   const categoryMap = {
@@ -620,8 +618,8 @@ document.addEventListener('DOMContentLoaded', function() {
     categoryCount[abbr] = 1;
   });
 
-  // 只遍历产品列表里的卡片，不影响其他元素
-  document.querySelectorAll('.product-grid .product-card').forEach(card => {
+  // 直接找所有 .product-card，适配你当前结构
+  document.querySelectorAll('.product-card').forEach(card => {
     const currentCat = card.dataset.category;
     const abbr = categoryMap[currentCat];
     if (!abbr) return;
@@ -639,6 +637,6 @@ document.addEventListener('DOMContentLoaded', function() {
     categoryCount[abbr]++;
   });
 });
-</script>
+</script> 
 </body>
 </html>
