@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         /* 👇 导航和另外三页完全一模一样，彻底不偏移 */
         .nav-header {
-            position: absolute;
+            position: absolute ! important;
             left: 0;
             top: 0;
             width: 100%;
@@ -296,8 +296,9 @@ document.addEventListener('DOMContentLoaded', function() {
         padding: 0 15px !important;
     }
     <style>
-/* 产品编号标签样式 */
-.product-card {
+/* ========== 产品编号标签样式（仅作用于产品列表，零冲突版） ========== */
+/* 只给产品列表内的卡片加定位，不影响页面其他元素 */
+.product-grid .product-card {
   position: relative;
   overflow: visible;
 }
@@ -311,7 +312,7 @@ document.addEventListener('DOMContentLoaded', function() {
   padding: 4px 10px;
   border-radius: 4px;
   z-index: 10;
-}
+} 
 </style> 
 }     
     </style>
@@ -596,50 +597,48 @@ menuToggle.addEventListener('click', () => {
     navMenu.classList.toggle('active');
 });
 </script> 
-    <script>
-// 分类与缩写对应表（和你现有data-category完全匹配）
-const categoryMap = {
-  "outdoor-chairs": "OC",
-  "outdoor-tables": "OT",
-  "beach-chairs": "BC",
-  "outdoor-sun-lounger": "SL",
-  "garden-furniture": "GF",
-  "rattan-furniture": "RF",
-  "dining-furniture": "DF",
-  "garden-beach-parasol": "GP",
-  "marketing-umbrella": "MU",
-  "camping-product": "CP"
-};
+<script>
+// 等页面完全加载完成再执行，避免影响导航栏渲染
+document.addEventListener('DOMContentLoaded', function() {
+  // 分类与缩写对应表（和你现有data-category完全匹配）
+  const categoryMap = {
+    "outdoor-chairs": "OC",
+    "outdoor-tables": "OT",
+    "beach-chairs": "BC",
+    "outdoor-sun-lounger": "SL",
+    "garden-furniture": "GF",
+    "rattan-furniture": "RF",
+    "dining-furniture": "DF",
+    "garden-beach-parasol": "GP",
+    "marketing-umbrella": "MU",
+    "camping-product": "CP"
+  };
 
-// 初始化每个分类的计数器
-let categoryCount = {};
-Object.values(categoryMap).forEach(abbr => {
-  categoryCount[abbr] = 1;
+  // 初始化每个分类的计数器
+  let categoryCount = {};
+  Object.values(categoryMap).forEach(abbr => {
+    categoryCount[abbr] = 1;
+  });
+
+  // 只遍历产品列表里的卡片，不影响其他元素
+  document.querySelectorAll('.product-grid .product-card').forEach(card => {
+    const currentCat = card.dataset.category;
+    const abbr = categoryMap[currentCat];
+    if (!abbr) return;
+
+    const num = String(categoryCount[abbr]).padStart(3, '0');
+    const snText = `S-${abbr}-${num}`;
+
+    const tag = document.createElement('span');
+    tag.className = 'product-sn-tag';
+    tag.innerText = snText;
+
+    const img = card.querySelector('img');
+    card.insertBefore(tag, img);
+
+    categoryCount[abbr]++;
+  });
 });
-
-// 自动遍历所有产品、生成编号标签
-document.querySelectorAll('.product-card').forEach(card => {
-  // 获取当前产品的分类
-  const currentCat = card.dataset.category;
-  const abbr = categoryMap[currentCat];
-  if (!abbr) return;
-
-  // 补齐三位数字 001 / 002 ...
-  const num = String(categoryCount[abbr]).padStart(3, '0');
-  const snText = `S-${abbr}-${num}`;
-
-  // 创建编号标签
-  const tag = document.createElement('span');
-  tag.className = 'product-sn-tag';
-  tag.innerText = snText;
-
-  // 把标签插入到图片前面（左上角显示）
-  const img = card.querySelector('img');
-  card.insertBefore(tag, img);
-
-  // 当前分类计数+1
-  categoryCount[abbr]++;
-});
-</script> 
+</script>
 </body>
 </html>
