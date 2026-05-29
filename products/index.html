@@ -633,8 +633,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const tag = document.createElement('span');
     tag.className = 'product-code-tag';
     tag.style.position = 'absolute';
-    tag.style.top = '8px';
-    tag.style.left = '8px';
+    tag.style.top = '6px';      // 顶部距离微调，更贴边
+    tag.style.left = '6px';     // 左边距离微调，往左挪了2px
     tag.style.background = 'rgba(255, 120, 0, 0.9)';
     tag.style.color = '#fff';
     tag.style.fontSize = '11px';
@@ -645,7 +645,7 @@ document.addEventListener('DOMContentLoaded', function() {
     tag.style.zIndex = '10';
     tag.textContent = productCode;
 
-    // 关键：把img包装成一个带定位的容器，确保编号能贴在图片上
+    // 自动给图片加上定位容器
     const wrapper = document.createElement('div');
     wrapper.style.position = 'relative';
     wrapper.style.display = 'inline-block';
