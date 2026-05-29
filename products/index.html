@@ -611,10 +611,18 @@ document.addEventListener('DOMContentLoaded', function() {
     categoryCount[abbr] = 1;
   });
 
+  // 只找“有图片的”product-card，这样顶部的logo区域会被自动过滤掉
   document.querySelectorAll('.product-card').forEach(card => {
+    const img = card.querySelector('img');
+    if (!img || img.clientWidth === 0) {
+      return;
+    }
+
     const category = card.dataset.category;
     const abbr = categoryMap[category];
-    if (!abbr) return;
+    if (!abbr) {
+      return;
+    }
 
     const productCode = `S-${abbr}-${String(categoryCount[abbr]).padStart(3, '0')}`;
     categoryCount[abbr]++;
@@ -623,23 +631,18 @@ document.addEventListener('DOMContentLoaded', function() {
     tag.style.position = 'absolute';
     tag.style.top = '8px';
     tag.style.left = '8px';
-    // 和导航栏完全一致的橙色，半透明质感
     tag.style.background = 'rgba(255, 120, 0, 0.9)';
     tag.style.color = '#ffffff';
     tag.style.fontSize = '11px';
     tag.style.fontWeight = '500';
-    // 和网站全局一致的字体
     tag.style.fontFamily = "'Segoe UI', Roboto, Arial, sans-serif";
     tag.style.padding = '3px 8px';
     tag.style.borderRadius = '3px';
     tag.style.zIndex = '10';
     tag.textContent = productCode;
 
-    const img = card.querySelector('img');
-    if (img) {
-      img.style.position = 'relative';
-      card.insertBefore(tag, img);
-    }
+    img.style.position = 'relative';
+    card.insertBefore(tag, img);
   });
 });
 </script> 
