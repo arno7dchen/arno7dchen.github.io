@@ -96,10 +96,10 @@
     font-size: 16px;
 }
 
-/* 只修改 Why Choose Us 部分，其他内容完全不动 */
+/* 1. 控制整体居中，不改变布局 */
 .choose-us {
     margin: 40px auto 0;
-    width: fit-content; /* 让列表块宽度刚好包裹内容，实现整体居中 */
+    width: fit-content;
 }
 
 .choose-us h3 {
@@ -109,20 +109,27 @@
     text-align: center;
 }
 
-/* 1. 让每个列表项变成固定宽度的两列布局 */
+/* 2. 控制每一行的布局，让两列保持固定间距 */
+.choose-us-row {
+    display: flex;
+    justify-content: center;
+    gap: 40px; /* 控制两列之间的间距，可微调 */
+    margin: 8px 0;
+}
+
+/* 3. 控制每个项目的宽度，强制勾号位置统一 */
 .choose-us-item {
     display: flex;
     align-items: center;
-    margin: 8px 0;
-    width: 320px; /* 控制整行宽度，保证两列对齐 */
+    width: 220px; /* 固定每个项目的宽度，保证两列勾号对齐 */
 }
 
-/* 2. 勾号列固定宽度，强制所有勾号对齐 */
+/* 4. 勾号列固定宽度，保证所有勾号在同一竖线 */
 .choose-us-check {
     width: 28px;    /* 固定勾号列宽度 */
-    text-align: center; /* 勾号居中，保证位置统一 */
+    text-align: center; /* 勾号居中 */
     flex-shrink: 0; /* 防止勾号被压缩 */
-    margin-right: 10px; /* 勾号和文字之间的间距 */
+    margin-right: 10px; /* 勾号和文字的间距 */
 }
 
 .choose-us-text {
@@ -264,29 +271,37 @@
             <p>Feel free to contact us anytime. We usually reply within 24 hours.</p>
         </div>
 
-        <div class="choose-us">
-            <h3>Why Choose Us</h3>
-            <div class="choose-us-item">
-                <span class="choose-us-check">✅</span>
-                <span class="choose-us-text">Factory Direct Price</span>
-            </div>
-            <div class="choose-us-item">
-                <span class="choose-us-check">✅</span>
-                <span class="choose-us-text">OEM & ODM Available</span>
-            </div>
-            <div class="choose-us-item">
-                <span class="choose-us-check">✅</span>
-                <span class="choose-us-text">Strict Quality Control</span>
-            </div>
-            <div class="choose-us-item">
-                <span class="choose-us-check">✅</span>
-                <span class="choose-us-text">Reply within 24 Hours</span>
-            </div>
-            <div class="choose-us-item">
-                <span class="choose-us-check">✅</span>
-                <span class="choose-us-text">Global Shipping Service</span>
-            </div>
-        </div> 
+<div class="choose-us">
+    <h3>Why Choose Us</h3>
+    <!-- 第1行：两个项目 -->
+    <div class="choose-us-row">
+        <div class="choose-us-item">
+            <span class="choose-us-check">✅</span>
+            <span class="choose-us-text">Factory Direct Price</span>
+        </div>
+        <div class="choose-us-item">
+            <span class="choose-us-check">✅</span>
+            <span class="choose-us-text">OEM & ODM Available</span>
+        </div>
+    </div>
+    <!-- 第2行：两个项目 -->
+    <div class="choose-us-row">
+        <div class="choose-us-item">
+            <span class="choose-us-check">✅</span>
+            <span class="choose-us-text">Strict Quality Control</span>
+        </div>
+        <div class="choose-us-item">
+            <span class="choose-us-check">✅</span>
+            <span class="choose-us-text">Reply within 24 Hours</span>
+        </div>
+    </div>
+    <!-- 第3行：单个项目，居中 -->
+    <div class="choose-us-row">
+        <div class="choose-us-item">
+            <span class="choose-us-check">✅</span>
+            <span class="choose-us-text">Global Shipping Service</span>
+        </div>
+    </div>
 
         <div class="contact-form">
             <form action="https://formsubmit.co/arnold@sunburstltd.com" method="POST">
