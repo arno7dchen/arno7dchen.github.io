@@ -96,10 +96,10 @@
     font-size: 16px;
 }
 
-/* ========== Why Choose Us 整体居中 ========== */
+/* 只修改 Why Choose Us 部分，其他内容完全不动 */
 .choose-us {
-    text-align: center;
-    margin: 40px 0 0;
+    margin: 40px auto 0;
+    width: fit-content; /* 让列表块宽度刚好包裹内容，实现整体居中 */
 }
 
 .choose-us h3 {
@@ -109,13 +109,6 @@
     text-align: center;
 }
 
-/* 关键：让列表块居中 */
-.choose-us-list {
-    display: inline-block;
-    text-align: left;
-}
-
-/* 列表项：勾号和文字对齐 */
 .choose-us-item {
     display: flex;
     align-items: center;
@@ -123,10 +116,11 @@
 }
 
 .choose-us-check {
-    width: 24px;
+    width: 24px; /* 勾号固定宽度，保证所有勾号对齐 */
     display: inline-block;
     text-align: center;
     flex-shrink: 0;
+    margin-right: 10px; /* 勾号和文字之间的间距 */
 }
 
 .choose-us-text {
