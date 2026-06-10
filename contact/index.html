@@ -76,7 +76,7 @@
             margin: 80px auto 50px;
             padding: 40px;
             border-radius: 10px;
-            text-align: center;
+            box-sizing: border-box;
         }
         h1 {
             color: #ff6b35;
@@ -207,22 +207,27 @@
                 font-size: 15px;
             }
         }
-        .choose-us {
-    text-align: center;
+.choose-us {
+    text-align: center; /* 让里面的内容整体居中 */
+    margin: 40px 0;     /* 上下留点间距 */
 }
+
 .choose-us > div {
-    display: inline-block;
-    text-align: left;
+    display: inline-block; /* 让列表块宽度刚好包裹内容 */
+    text-align: left;     /* 强制文字左对齐 */
 }
+
 .choose-us-item {
     display: flex;
     align-items: center;
     margin: 8px 0;
 }
+
 .choose-us-check {
-    width: 24px;
+    width: 24px; /* 勾号固定宽度，保证对齐 */
     display: inline-block;
     text-align: center;
+    flex-shrink: 0; /* 防止勾号被压缩 */
 }
     </style>
 </head>
