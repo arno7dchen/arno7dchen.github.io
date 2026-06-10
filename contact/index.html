@@ -69,62 +69,67 @@
             background: white;
             border-radius: 2px;
         }
-        /* 卡片样式 */
-        .contact-card {
-            background: rgba(255, 255, 255, 0.6);
-            max-width: 600px;
-            margin: 80px auto 50px;
-            padding: 40px;
-            border-radius: 10px;
-            box-sizing: border-box;
-        }
-        h1 {
-            color: #ff6b35;
-            margin-bottom: 30px;
-            font-size: 2.2rem;
-            font-weight: 600;
-        }
-        .contact-info {
-            margin-bottom: 25px;
-            font-size: 16px;
-        }
-        /* Why Choose Us 样式 */
-        .choose-us {
-            margin: 30px auto;
-            padding: 0 110px;
-            font-size: 16px;
-            text-align: left;
-            max-width: 420px;
-        }
-        .choose-us h3 {
-            color: #ff6b35;
-            margin-bottom: 15px;
-            font-size: 18px;
-            text-align: center;
-        }
-        .choose-us-item {
-            display: flex !important;
-            align-items: center !important;
-            margin: 8px 0 !important;
-            padding-left: 0 !important;
-        }
-        .choose-us-check {
-            flex: 0 0 22px !important;
-            width: 22px !important;
-            height: 22px !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            margin-right: 10px !important;
-            color: #28a745 !important;
-            font-size: 16px !important;
-        }
-        .choose-us-text {
-            line-height: 1.5 !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            white-space: nowrap;
-        }
+/* ========== 卡片整体设置 ========== */
+.contact-card {
+    background: rgba(255, 255, 255, 0.6);
+    max-width: 600px;
+    margin: 80px auto 50px;
+    padding: 40px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    text-align: left; /* 让联系方式默认左对齐 */
+}
+
+/* ========== 标题单独居中（Contact Sunburst...） ========== */
+.contact-card h1 {
+    text-align: center;
+    color: #ff6b35;
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+    font-weight: 600;
+}
+
+/* ========== 联系方式样式 ========== */
+.contact-info {
+    margin-bottom: 25px;
+    font-size: 16px;
+}
+
+/* ========== Why Choose Us 区域整体居中 ========== */
+.choose-us {
+    text-align: center; /* 让整个列表块居中 */
+    margin: 40px 0 0;
+}
+
+.choose-us h3 {
+    color: #ff6b35;
+    margin-bottom: 15px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.choose-us > div {
+    display: inline-block; /* 让列表块宽度刚好包裹内容 */
+    text-align: left;      /* 列表文字保持左对齐 */
+}
+
+.choose-us-item {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+}
+
+.choose-us-check {
+    width: 24px; /* 勾号固定宽度，保证所有勾号对齐 */
+    display: inline-block;
+    text-align: center;
+    flex-shrink: 0; /* 防止勾号被压缩 */
+}
+
+.choose-us-text {
+    line-height: 1.5;
+    margin: 0;
+}
         /* 表单按钮样式 */
         .contact-form {
             margin-top: 20px;
