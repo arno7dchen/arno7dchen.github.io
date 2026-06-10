@@ -109,17 +109,19 @@
     text-align: center;
 }
 
+/* 1. 让每个列表项变成固定宽度的两列布局 */
 .choose-us-item {
     display: flex;
     align-items: center;
     margin: 8px 0;
+    width: 320px; /* 控制整行宽度，保证两列对齐 */
 }
 
+/* 2. 勾号列固定宽度，强制所有勾号对齐 */
 .choose-us-check {
-    width: 24px; /* 勾号固定宽度，保证所有勾号对齐 */
-    display: inline-block;
-    text-align: center;
-    flex-shrink: 0;
+    width: 28px;    /* 固定勾号列宽度 */
+    text-align: center; /* 勾号居中，保证位置统一 */
+    flex-shrink: 0; /* 防止勾号被压缩 */
     margin-right: 10px; /* 勾号和文字之间的间距 */
 }
 
