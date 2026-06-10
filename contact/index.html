@@ -110,20 +110,18 @@
     text-align: center;
 }
 
-/* 控制每一行的布局 */
+/* 控制每一行的布局，强制统一行距 */
 .choose-row {
     display: flex;
     justify-content: center;
-    gap: 60px; /* 两列之间的间距，可微调 */
-    margin: 0 0 12px 0;
+    gap: 60px; /* 两列之间的间距 */
+    margin-top: 0;
+    margin-bottom: 4px !important; /* 强制设置行间距为4px，覆盖其他所有规则 */
 }
-        /* 只减小第二行的底部间距，让它和第三行更靠近 */
-.choose-row:nth-child(2) {
-    margin-bottom: 4px;
-}
-        /* 👇 这里加在.choose-row的下面，紧挨着它就行 */
+
+/* 取消最后一行的底部间距，避免和表单之间空隙过大 */
 .choose-row:last-child {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
 }
 
 /* 控制每个项目的宽度，强制勾号位置统一 */
