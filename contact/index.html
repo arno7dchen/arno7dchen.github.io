@@ -97,57 +97,6 @@
     font-size: 16px;
 }
 
-/* 只作用于 Why Choose Us 区域，表单完全不受影响 */
-.choose-us {
-    margin: 40px auto 0;
-    width: fit-content;
-}
-
-.choose-us h3 {
-    color: #ff6b35;
-    margin-bottom: 15px;
-    font-size: 18px;
-    text-align: center;
-}
-
-/* 控制每一行的布局，强制统一行距 */
-.choose-row {
-    display: flex;
-    justify-content: center;
-    gap: 60px; /* 两列之间的间距 */
-    margin-top: 0;
-    margin-bottom: 4px !important; /* 强制设置行间距为4px，覆盖其他所有规则 */
-}
-
-/* 取消最后一行的底部间距，避免和表单之间空隙过大 */
-.choose-row:last-child {
-    margin-bottom: 0 !important;
-}
-
-/* 控制每个项目的宽度，强制勾号位置统一 */
-.choose-item {
-    display: flex;
-    align-items: center;
-    width: 220px; /* 固定每个项目的宽度 */
-}
-
-/* 第三行单独处理，居中且勾号对齐第一列 */
-.choose-item.single-item {
-    width: auto;
-}
-
-/* 勾号列固定宽度，保证所有勾号在同一竖线 */
-.check-icon {
-    width: 28px;
-    text-align: center;
-    flex-shrink: 0;
-    margin-right: 10px;
-}
-
-.item-text {
-    line-height: 1.5;
-    margin: 0;
-}
         /* 表单按钮样式 */
         .contact-form {
             margin-top: 20px;
@@ -230,47 +179,50 @@
                 font-size: 15px;
             }
         }
+        /* ========== Why Choose Us 统一适配样式 ========== */
 .choose-us {
-    text-align: center; /* 让里面的内容整体居中 */
-    margin: 40px 0;     /* 上下留点间距 */
+    margin: 40px auto 0;
+    max-width: 520px;
+    width: 100%;
 }
-
-.choose-us > div {
-    display: inline-block; /* 让列表块宽度刚好包裹内容 */
-    text-align: left;     /* 强制文字左对齐 */
+.choose-us h3 {
+    color: #ff6b35;
+    margin-bottom: 15px;
+    font-size: 18px;
+    text-align: center;
 }
-
-.choose-us-item {
+.choose-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 40px;
+}
+.choose-item {
     display: flex;
     align-items: center;
-    margin: 8px 0;
+}
+.check-icon {
+    width: 28px;
+    text-align: center;
+    flex-shrink: 0;
+    margin-right: 10px;
+    color: #28a745;
+}
+.item-text {
+    line-height: 1.5;
+    white-space: nowrap;
 }
 
-.choose-us-check {
-    width: 24px; /* 勾号固定宽度，保证对齐 */
-    display: inline-block;
-    text-align: center;
-    flex-shrink: 0; /* 防止勾号被压缩 */
-}
-/* 手机竖屏 Why Choose Us 强制单列修复 */
+/* 手机竖屏 <600px 单列适配 */
 @media (max-width: 600px) {
     .choose-us {
-        width: 100% !important;
-        padding: 0 15px;
+        padding: 0 10px;
     }
-    .choose-row {
-        flex-direction: column;
+    .choose-grid {
+        grid-template-columns: 1fr;
         gap: 10px;
-        margin-bottom: 10px !important;
-    }
-    .choose-item {
-        width: 100% !important;
-        justify-content: flex-start;
-    }
-    .item-text {
-        white-space: nowrap;
     }
 }
+
     </style>
 </head>
 <body>
@@ -305,37 +257,30 @@
 
 <div class="choose-us">
     <h3>Why Choose Us</h3>
-    <!-- 关键：用一个外层容器包裹两列 -->
-    <div style="display: flex; justify-content: center; gap: 60px;">
-        <!-- 左列：3个项目 -->
-        <div class="choose-column">
-            <div class="choose-item">
-                <span class="check-icon">✅</span>
-                <span class="item-text">Factory Direct Price</span>
-            </div>
-            <div class="choose-item">
-                <span class="check-icon">✅</span>
-                <span class="item-text">OEM & ODM Available</span>
-            </div>
-            <div class="choose-item">
-                <span class="check-icon">✅</span>
-                <span class="item-text">Fast On-Time Delivery</span>
-            </div>
+    <div class="choose-grid">
+        <div class="choose-item">
+            <span class="check-icon">✅</span>
+            <span class="item-text">Factory Direct Price</span>
         </div>
-        <!-- 右列：3个项目 -->
-        <div class="choose-column">
-            <div class="choose-item">
-                <span class="check-icon">✅</span>
-                <span class="item-text">Strict Quality Control</span>
-            </div>
-            <div class="choose-item">
-                <span class="check-icon">✅</span>
-                <span class="item-text">Weather Resistant Design</span>
-            </div>
-            <div class="choose-item">
-                <span class="check-icon">✅</span>
-                <span class="item-text">Reply within 24 Hours</span>
-            </div>
+        <div class="choose-item">
+            <span class="check-icon">✅</span>
+            <span class="item-text">OEM & ODM Available</span>
+        </div>
+        <div class="choose-item">
+            <span class="check-icon">✅</span>
+            <span class="item-text">Strict Quality Control</span>
+        </div>
+        <div class="choose-item">
+            <span class="check-icon">✅</span>
+            <span class="item-text">Weather Resistant Design</span>
+        </div>
+        <div class="choose-item">
+            <span class="check-icon">✅</span>
+            <span class="item-text">Fast On-Time Delivery</span>
+        </div>
+        <div class="choose-item">
+            <span class="check-icon">✅</span>
+            <span class="item-text">Reply within 24 Hours</span>
         </div>
     </div>
 </div>
