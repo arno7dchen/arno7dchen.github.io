@@ -252,23 +252,22 @@
     text-align: center;
     flex-shrink: 0; /* 防止勾号被压缩 */
 }
-        /* 手机端 Why Choose Us 专属修复，不影响电脑端 */
+/* 手机端 Why Choose Us 强制单列修复 */
 @media (max-width: 768px) {
-    /* 强制手机端变成单列布局，避免文字换行 */
     .choose-us {
         width: 100% !important;
-        padding: 0 15px;
+        padding: 0 20px;
     }
     .choose-row {
+        display: flex;
         flex-direction: column;
-        gap: 10px;
-        margin-bottom: 10px !important;
+        gap: 12px;
+        margin-bottom: 12px !important;
     }
     .choose-item {
         width: 100% !important;
         justify-content: flex-start;
     }
-    /* 让勾号和文字强制在同一行，不换行 */
     .item-text {
         white-space: nowrap;
     }
