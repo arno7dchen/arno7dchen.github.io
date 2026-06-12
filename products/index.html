@@ -151,17 +151,12 @@ body {
 .products-area {
     flex: 1;
 }
+/* 还原后的正确写法，不再强制压死高度 */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
     gap: 20px;
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    height: auto !important; /* 新增这一行，强制重置高度 */
-    min-height: 0 !important;
-    max-height: none !important;
-    overflow: visible !important;
-    contain: layout !important;
+    /* 删掉我之前加的 margin-top:0 !important、height:auto !important 等所有强制规则 */
 }
 .product-card {
     border: 1px solid #eee;
@@ -1125,79 +1120,80 @@ menuToggle.addEventListener('click', () => {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const categoryMap = {
-    "outdoor-chairs": "OC",
-    "outdoor-tables": "OT",
-    "beach-chairs": "BC",
-    "outdoor-sun-loungers": "SL",
-    "garden-furniture": "GF",
-    "rattan-furniture": "RF",
-    "dining-furniture": "DF",
-    "outdoor-parasols": "OP",
-    "marketing-umbrellas": "MU",
-    "camping-products": "CP"
-  };
+    // 分类映射（和你页面完全匹配）
+    const categoryMap = {
+        "outdoor-chairs": "OC",
+        "outdoor-tables": "OT",
+        "beach-chairs": "BC",
+        "outdoor-sun-loungers": "SL",
+        "garden-furniture": "GF",
+        "rattan-furniture": "RF",
+        "dining-furniture": "DF",
+        "outdoor-parasols": "OP",
+        "marketing-umbrellas": "MU",
+        "camping-products": "CP"
+    };
 
-  let categoryCount = {};
-  Object.values(categoryMap).forEach(abbr => categoryCount[abbr] = 1);
-
-  const productGrid = document.querySelector('.product-grid');
-  const categoryLinks = document.querySelectorAll('.sidebar a');
-  const allProducts = Array.from(document.querySelectorAll('.product-card'));
-
-  // 重绘编号 + 强制重置容器高度
-  function refreshView() {
-    // 清除旧编号
-    document.querySelectorAll('.product-code-tag').forEach(tag => tag.remove());
-    // 重置计数
-    Object.keys(categoryCount).forEach(key => categoryCount[key] = 1);
-
-    // 只给显示的产品加编号
-    document.querySelectorAll('.product-card[style*="display:block"]').forEach(card => {
-      const category = card.dataset.category;
-      const img = card.querySelector('img');
-      if (!category || !img || !categoryMap[category]) return;
-
-      const abbr = categoryMap[category];
-      const code = `S-${abbr}-${String(categoryCount[abbr]).padStart(3, '0')}`;
-      categoryCount[abbr]++;
-
-      const tag = document.createElement('span');
-      tag.className = 'product-code-tag';
-      tag.style.cssText = 'position:absolute;top:0;left:0;background:rgba(255,120,0,0.95);color:#fff;font-size:11px;padding:2px 6px;border-radius:0 0 4px 0;z-index:10;';
-      card.style.position = 'relative';
-      tag.textContent = code;
-      card.appendChild(tag);
+    let categoryCount = {};
+    Object.values(categoryMap).forEach(abbr => {
+        categoryCount[abbr] = 1;
     });
 
-    // 强力清空高度，解决残留留白
-    productGrid.style.height = '';
-    productGrid.style.minHeight = '';
-    productGrid.style.maxHeight = '';
-    // 触发页面重排
-    productGrid.getBoundingClientRect();
-  }
+    const productGrid = document.querySelector('.product-grid');
+    const categoryLinks = document.querySelectorAll('.sidebar a');
+    const allProducts = Array.from(document.querySelectorAll('.product-card'));
 
-  // 分类点击
-  categoryLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      categoryLinks.forEach(l => l.classList.remove('active'));
-      this.classList.add('active');
+    // 重绘编号 + 温和触发重排，不破坏整体布局
+    function refreshView() {
+        // 1. 清空旧编号
+        document.querySelectorAll('.product-code-tag').forEach(tag => tag.remove());
+        // 2. 重置计数器
+        Object.keys(categoryCount).forEach(key => categoryCount[key] = 1);
 
-      const targetCat = this.dataset.category.toLowerCase().trim();
-      allProducts.forEach(card => {
-        const cardCat = card.dataset.category.toLowerCase().trim();
-        card.style.display = (targetCat === 'all' || cardCat === targetCat) ? 'block' : 'none';
-      });
+        // 3. 给显示的产品加编号
+        document.querySelectorAll('.product-card[style*="display:block"]').forEach(card => {
+            const category = card.dataset.category;
+            const img = card.querySelector('img');
+            if (!category || !img || !categoryMap[category]) return;
 
-      refreshView();
+            const abbr = categoryMap[category];
+            const code = `S-${abbr}-${String(categoryCount[abbr]).padStart(3, '0')}`;
+            categoryCount[abbr]++;
+
+            const tag = document.createElement('span');
+            tag.className = 'product-code-tag';
+            tag.style.cssText = 'position:absolute;top:0;left:0;background:rgba(255,120,0,0.95);color:#fff;font-size:11px;padding:2px 6px;border-radius:0 0 4px 0;z-index:10;';
+            card.style.position = 'relative';
+            tag.textContent = code;
+            card.appendChild(tag);
+        });
+
+        // 4. 关键：只触发重排，不清空高度，不影响列表位置
+        productGrid.style.display = 'none';
+        productGrid.offsetHeight; // 强制浏览器重绘
+        productGrid.style.display = 'grid';
+    }
+
+    // 分类点击事件
+    categoryLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            categoryLinks.forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+
+            const targetCat = this.dataset.category.toLowerCase().trim();
+            allProducts.forEach(card => {
+                const cardCat = card.dataset.category.toLowerCase().trim();
+                card.style.display = (targetCat === 'all' || cardCat === targetCat) ? 'block' : 'none';
+            });
+
+            refreshView();
+        });
     });
-  });
 
-  // 页面初始加载
-  refreshView();
+    // 页面初始加载
+    refreshView();
 });
-</script>
+</script> 
 </body>
 </html>
