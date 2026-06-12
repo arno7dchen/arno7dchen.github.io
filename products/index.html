@@ -12,22 +12,40 @@
     <title>Our Products | Sunburst Outdoor: Metal Frame Outdoor Furniture, Chairs, Tables & Parasols</title>
     <meta name="description" content="Explore Sunburst Outdoor's full range of durable metal frame outdoor furniture, including garden sets, patio chairs, dining tables, sun loungers, rattan pieces and commercial-grade parasols for wholesale projects.">
 
-    <!-- 编号样式兜底 -->
+<!-- 样式：保留你原有产品边框，只加固布局+编号样式 -->
 <style>
-.custom-product-code {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: #ff6b35;
-    color: #fff;
-    padding: 4px 8px;
-    font-size: 12px;
-    font-weight: bold;
-    border-radius: 0 0 4px 0;
-    z-index: 10;
+/* 产品容器 解决留白 */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 20px;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
 }
+
+/* 保留产品卡片原有边框 + 定位（不会丢边框） */
 .product-card {
     position: relative;
+    /* 这里会继承你原本的边框样式，不用改写 */
+}
+
+/* 编号标签：防重叠、固定位置 */
+.custom-product-code {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    background: #ff6b35;
+    color: #fff;
+    padding: 3px 6px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 2px;
+    z-index: 99;
+    line-height: 1;
+    white-space: nowrap;
 }
 </style>
     
@@ -39,90 +57,77 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (!productGrid || allProducts.length === 0) return;
 
-    // 1. 重置布局，消除留白
+    // 重置容器 彻底消除留白
     function resetGrid() {
-        productGrid.style.cssText = `
-            margin-top: 0 !important;
-            padding-top: 0 !important;
-            height: auto !important;
-            min-height: 0 !important;
-            max-height: none !important;
-            transform: translateY(0) !important;
-            position: relative;
-            top: 0;
-        `;
+        productGrid.style.height = 'auto';
+        productGrid.style.minHeight = '0';
+        productGrid.style.maxHeight = 'none';
+        productGrid.style.marginTop = '0';
+        productGrid.style.paddingTop = '0';
         void productGrid.offsetHeight;
     }
 
-    // 2. 核心：绘制产品编号（和你之前的橙色标签效果一致）
-    function drawProductCode() {
-        const visibleCards = document.querySelectorAll('.product-card[style*="display: block"]');
-        
-        visibleCards.forEach((card, index) => {
-            // 确保卡片是相对定位，让编号能悬浮在左上角
-            if (getComputedStyle(card).position !== 'relative') {
-                card.style.position = 'relative';
-            }
+    // 绘制分类专属编号，先清旧标签防重叠
+    function drawProductCode(abbr) {
+        const visible = document.querySelectorAll('.product-card[style*="display:block"]');
+        visible.forEach((card, idx) => {
+            // 移除旧编号，杜绝重叠
+            let oldTag = card.querySelector('.custom-product-code');
+            if (oldTag) oldTag.remove();
 
-            // 移除旧的编号标签，防止重复生成
-            const oldLabel = card.querySelector('.custom-product-code');
-            if (oldLabel) oldLabel.remove();
-
-            // 创建新的编号标签
-            const codeLabel = document.createElement('div');
-            codeLabel.className = 'custom-product-code';
-            // 编号格式：按你之前的规则，例如 S-大类缩写-001
-            codeLabel.innerText = `S-${String(index + 1).padStart(3, '0')}`;
-            
-            // 还原你之前的橙色标签样式
-            codeLabel.style.cssText = `
-                position: absolute;
-                top: 0;
-                left: 0;
-                background: #ff6b35;
-                color: #fff;
-                padding: 4px 8px;
-                font-size: 12px;
-                font-weight: bold;
-                border-radius: 0 0 4px 0;
-                z-index: 10;
-            `;
-
-            card.appendChild(codeLabel);
+            let tag = document.createElement('div');
+            tag.className = 'custom-product-code';
+            tag.innerText = `S-${abbr}-${String(idx + 1).padStart(3, '0')}`;
+            card.appendChild(tag);
         });
     }
 
-    // 3. 产品点击事件委托
-    productGrid.addEventListener('click', function(e) {
-        const linkEl = e.target.closest('.product-card a');
-        if (linkEl && linkEl.href) {
-            window.location.href = linkEl.href;
-        }
+    // 产品点击
+    productGrid.addEventListener('click', e => {
+        let link = e.target.closest('.product-card a');
+        if (link) link.click();
     });
 
-    // 4. 分类点击逻辑
+    // 分类切换逻辑
     categoryLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
+        link.addEventListener('click', e => {
             e.preventDefault();
             categoryLinks.forEach(l => l.classList.remove('active'));
             link.classList.add('active');
 
-            const targetCat = (link.dataset.category || '').toLowerCase().trim();
-            // 控制产品显隐
+            let targetCat = (link.dataset.category || '').toLowerCase().trim();
+            let text = link.textContent.trim();
+            let abbr = 'PR';
+
+            // 分类对应缩写
+            switch(text) {
+                case 'All Products': abbr = 'PR'; break;
+                case 'Outdoor Chairs': abbr = 'OC'; break;
+                case 'Outdoor Tables': abbr = 'OT'; break;
+                case 'Beach Chairs': abbr = 'BC'; break;
+                case 'Outdoor Sun Loungers': abbr = 'SL'; break;
+                case 'Garden Furniture': abbr = 'GF'; break;
+                case 'Rattan Furniture': abbr = 'RF'; break;
+                case 'Dining Furniture': abbr = 'DF'; break;
+                case 'Outdoor Parasols': abbr = 'OP'; break;
+                case 'Marketing Umbrellas': abbr = 'MU'; break;
+                case 'Camping Products': abbr = 'CP'; break;
+            }
+
+            // 产品显隐
             allProducts.forEach(card => {
-                const cardCat = (card.dataset.category || '').toLowerCase().trim();
-                card.style.display = (targetCat === 'all' || cardCat === targetCat) ? 'block' : 'none';
+                let cCat = (card.dataset.category || '').toLowerCase().trim();
+                card.style.display = (targetCat === 'all' || cCat === targetCat) ? 'block' : 'none';
             });
 
             resetGrid();
-            // 关键：切换分类后立刻重绘编号
-            drawProductCode();
+            drawProductCode(abbr);
         });
     });
 
-    // 页面首次加载：初始化布局 + 绘制编号
+    // 页面初始加载
     resetGrid();
-    drawProductCode();
+    drawProductCode('PR');
 });
 </script> 
     
