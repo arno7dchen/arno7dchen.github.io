@@ -19,36 +19,38 @@ document.addEventListener('DOMContentLoaded', function () {
     const productGrid = document.querySelector('.product-grid');
     const allProducts = Array.from(document.querySelectorAll('.product-card'));
 
-    // 防呆：找不到元素就直接退出，避免报错
+    // 防呆：找不到元素就退出
     if (!productGrid || allProducts.length === 0) {
         console.error('❌ 未找到产品容器或产品卡片');
         return;
     }
 
-    // 2. 核心重置函数：彻底消除顶部空白
+    // 2. 强制重置容器：彻底消除空白（CSS兜底+JS强制）
     function resetGrid() {
-        productGrid.style.marginTop = '0';
-        productGrid.style.paddingTop = '0';
-        productGrid.style.transform = 'translateY(0)';
-        productGrid.style.position = 'relative';
-        productGrid.style.top = '0';
-        productGrid.style.height = 'auto';
-        productGrid.style.minHeight = '0px';
-        productGrid.style.maxHeight = 'none';
-        // 强制浏览器重绘，解决缓存渲染问题
+        // 强制重置所有可能导致空白的样式
+        productGrid.style.cssText = `
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+            height: auto !important;
+            min-height: 0 !important;
+            max-height: none !important;
+            transform: translateY(0) !important;
+            position: relative;
+            top: 0;
+        `;
+        // 强制浏览器重绘
         void productGrid.offsetHeight;
     }
 
-    // 3. 事件委托：永久恢复产品点击跳转（和DOM重排无关）
+    // 3. 事件委托：永久恢复产品点击（和DOM重排无关）
     productGrid.addEventListener('click', function(e) {
-        // 找到被点击的产品卡片里的链接
         const linkEl = e.target.closest('.product-card a');
         if (linkEl && linkEl.href) {
             window.location.href = linkEl.href;
         }
     });
 
-    // 4. 分类筛选逻辑：不使用innerHTML清空，只靠display显隐，避免事件丢失
+    // 4. 分类筛选逻辑：不删DOM，只靠display控制，不丢事件
     categoryLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -56,10 +58,10 @@ document.addEventListener('DOMContentLoaded', function () {
             categoryLinks.forEach(l => l.classList.remove('active'));
             link.classList.add('active');
 
-            // 读取分类的data-category属性，和产品卡片完全匹配
+            // 读取data-category，精准匹配
             const targetCat = link.dataset.category.toLowerCase().trim();
 
-            // 遍历所有产品，只靠display控制显隐，不删除DOM
+            // 遍历所有产品，控制显隐
             allProducts.forEach(card => {
                 const cardCat = (card.dataset.category || '').toLowerCase().trim();
                 if (targetCat === 'all' || cardCat === targetCat) {
@@ -74,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // 页面加载时初始化：显示所有产品，重置布局
+    // 页面加载初始化：显示所有产品，重置布局
     allProducts.forEach(card => card.style.display = 'block');
     resetGrid();
 });
@@ -226,6 +228,9 @@ body {
     margin-top: 0 !important;
     padding-top: 0 !important;
     height: auto !important; /* 新增这一行，强制重置高度 */
+    min-height: 0 !important;
+    max-height: none !important;
+}
 }
 }
 .product-card {
