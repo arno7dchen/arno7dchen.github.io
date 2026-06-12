@@ -14,15 +14,34 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // 1. 绑定所有元素
     const categoryLinks = document.querySelectorAll('.category-list a');
     const productGrid = document.querySelector('.product-grid');
     const allProducts = document.querySelectorAll('.product-card');
 
-    // 初始化：给所有产品设置基础的 order 顺序
-    allProducts.forEach((product, index) => {
-        product.style.order = index;
-    });
+    // 2. 关键修复：强制产品网格重置，消除所有可能的偏移
+    function resetGridLayout() {
+        productGrid.style.marginTop = '0 !important';
+        productGrid.style.paddingTop = '0 !important';
+        productGrid.style.transform = 'translateY(0) !important';
+        productGrid.style.position = 'relative !important';
+        productGrid.style.top = '0 !important';
+        // 强制清空flex流，重新渲染
+        productGrid.style.display = 'none';
+        void productGrid.offsetHeight; // 强制重绘
+        productGrid.style.display = 'flex';
+    }
 
+    // 3. 初始化：按All Products顺序排列
+    function initAllProducts() {
+        allProducts.forEach((product, index) => {
+            product.style.order = index;
+            product.style.display = 'block';
+        });
+        resetGridLayout();
+    }
+
+    // 4. 给每个分类绑定点击事件
     categoryLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -34,30 +53,32 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetCategory = this.getAttribute('data-category');
             let orderIndex = 0;
 
-            // 遍历所有产品，处理显示/隐藏和顺序
+            // 核心：用position和order双重控制，彻底解决空白
             allProducts.forEach(product => {
                 const productCategory = product.getAttribute('data-category');
 
                 if (targetCategory === 'all' || productCategory === targetCategory) {
                     product.style.display = 'block';
                     product.style.order = orderIndex++;
+                    product.style.position = 'relative';
+                    product.style.top = '0';
                 } else {
                     product.style.display = 'none';
                     product.style.order = 9999;
+                    product.style.position = 'absolute'; // 把隐藏的产品移出布局流
+                    product.style.top = '-9999px';
                 }
             });
 
-            // 强制重置产品容器的顶部偏移，消除所有可能的空白
-            productGrid.style.marginTop = '0';
-            productGrid.style.paddingTop = '0';
-            productGrid.style.transform = 'translateY(0)';
-            productGrid.style.top = '0';
-            // 强制浏览器重绘，清除布局缓存
-            productGrid.offsetHeight;
+            // 强制重置布局
+            resetGridLayout();
         });
     });
+
+    // 页面加载时初始化
+    initAllProducts();
 });
-</script>
+</script> 
     <style>
         * {
             margin: 0;
@@ -335,12 +356,14 @@ document.addEventListener('DOMContentLoaded', function() {
   border-radius: 4px;
   z-index: 10;
 } 
-    .product-grid {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
+.product-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
     margin-top: 0 !important;
     padding-top: 0 !important;
+    position: relative !important;
+    top: 0 !important;
 }
 
 .product-card {
