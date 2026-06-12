@@ -156,8 +156,9 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
     gap: 20px;
-    /* 删掉我之前加的 margin-top:0 !important、height:auto !important 等所有强制规则 */
+    align-items: start; /* 就加这一行，让卡片永远靠上排列 */
 }
+
 .product-card {
     border: 1px solid #eee;
     border-radius: 4px;
@@ -1120,8 +1121,9 @@ menuToggle.addEventListener('click', () => {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // 分类映射（和你页面完全匹配）
+    // 分类映射，和你页面的 data-category 完全匹配
     const categoryMap = {
+        "all": "ALL",
         "outdoor-chairs": "OC",
         "outdoor-tables": "OT",
         "beach-chairs": "BC",
@@ -1141,11 +1143,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const categoryLinks = document.querySelectorAll('.sidebar a');
     const allProducts = Array.from(document.querySelectorAll('.product-card'));
 
-    // 重绘编号 + 解决留白
+    // 强制重绘编号，保证和你原来的黄色标签完全一致
     function refreshView() {
+        // 清空旧编号，避免重叠
         document.querySelectorAll('.product-code-tag').forEach(tag => tag.remove());
+        // 重置计数器，保证序号从 001 开始
         Object.keys(categoryCount).forEach(key => categoryCount[key] = 1);
 
+        // 给当前显示的产品生成编号，强制写死黄色样式，不依赖任何 CSS
         document.querySelectorAll('.product-card[style*="display:block"]').forEach(card => {
             const category = card.dataset.category;
             const img = card.querySelector('img');
@@ -1157,19 +1162,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const tag = document.createElement('span');
             tag.className = 'product-code-tag';
-            // 强制设置为橙色，和你最开始的样式保持一致
-            tag.style.cssText = 'position:absolute;top:0;left:0;background:rgba(255,120,0,0.95);color:#fff;font-size:11px;padding:2px 6px;border-radius:0 0 4px 0;z-index:10;';
+            // 强制写死你原来的黄色样式，保证可见，不被其他样式影响
+            tag.style.cssText = 'position:absolute;top:0;left:0;background:rgba(255,120,0,0.95);color:#fff;font-size:11px;padding:2px 6px;border-radius:0 0 4px 0;z-index:1000;';
             card.style.position = 'relative';
             tag.textContent = code;
             card.appendChild(tag);
         });
-
-        // 温和重排，不破坏布局，解决底部留白
-        productGrid.style.display = 'none';
-        productGrid.offsetHeight;
-        productGrid.style.display = 'grid';
     }
 
+    // 分类点击事件，切换分类时重绘编号
     categoryLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -1186,8 +1187,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // 页面加载时直接生成编号
     refreshView();
 });
-</script>
+</script> 
 </body>
 </html>
