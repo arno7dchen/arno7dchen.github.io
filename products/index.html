@@ -87,13 +87,14 @@ body {
 
 .content-wrapper {
     max-width: 1200px;
-    margin: 0 auto 40px !important; /* 关键：强制上下边距，上=0，下=40px */
-    padding: 0 30px 30px 30px; /* 关键：顶部内边距清零，左右/底部保留 */
+    margin: 0 auto 40px !important;
+    padding: 0 30px 30px 30px;
     display: flex;
     gap: 30px;
     background: #fff;
     box-shadow: 0 1px 5px rgba(0,0,0,0.08);
     border-radius: 4px;
+    position: static !important; /* 强制清除所有定位影响，回到文档流正常位置 */
 }
 
 /* 侧边分类栏 */
