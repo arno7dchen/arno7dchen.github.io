@@ -12,29 +12,52 @@
     <title>Our Products | Sunburst Outdoor: Metal Frame Outdoor Furniture, Chairs, Tables & Parasols</title>
     <meta name="description" content="Explore Sunburst Outdoor's full range of durable metal frame outdoor furniture, including garden sets, patio chairs, dining tables, sun loungers, rattan pieces and commercial-grade parasols for wholesale projects.">
 
-    <script>
+<script>
 document.addEventListener('DOMContentLoaded', function() {
-  const categoryLinks = document.querySelectorAll('.category-list a');
-  const productCards = document.querySelectorAll('.product-card');
+    const categoryLinks = document.querySelectorAll('.category-list a');
+    const productGrid = document.querySelector('.product-grid');
+    const allProducts = document.querySelectorAll('.product-card');
 
-  categoryLinks.forEach(link => {
-    link.addEventListener('click', function() {
-      categoryLinks.forEach(l => l.classList.remove('active'));
-      this.classList.add('active');
-
-      const filter = this.getAttribute('data-category');
-
-      productCards.forEach(card => {
-        if (filter === 'all' || card.getAttribute('data-category') === filter) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
-      });
+    // 初始化：给所有产品设置基础的 order 顺序
+    allProducts.forEach((product, index) => {
+        product.style.order = index;
     });
-  });
+
+    categoryLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            // 更新选中状态
+            categoryLinks.forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+
+            const targetCategory = this.getAttribute('data-category');
+            let orderIndex = 0;
+
+            // 遍历所有产品，处理显示/隐藏和顺序
+            allProducts.forEach(product => {
+                const productCategory = product.getAttribute('data-category');
+
+                if (targetCategory === 'all' || productCategory === targetCategory) {
+                    product.style.display = 'block';
+                    product.style.order = orderIndex++;
+                } else {
+                    product.style.display = 'none';
+                    product.style.order = 9999;
+                }
+            });
+
+            // 强制重置产品容器的顶部偏移，消除所有可能的空白
+            productGrid.style.marginTop = '0';
+            productGrid.style.paddingTop = '0';
+            productGrid.style.transform = 'translateY(0)';
+            productGrid.style.top = '0';
+            // 强制浏览器重绘，清除布局缓存
+            productGrid.offsetHeight;
+        });
+    });
 });
-</script> 
+</script>
     <style>
         * {
             margin: 0;
@@ -312,6 +335,24 @@ document.addEventListener('DOMContentLoaded', function() {
   border-radius: 4px;
   z-index: 10;
 } 
+    .product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+.product-card {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+.category-list a.active {
+    border-left: 3px solid #ff5722;
+    color: #ff5722;
+    background-color: rgba(255, 87, 34, 0.1);
+}
 </style> 
 
 </head>
