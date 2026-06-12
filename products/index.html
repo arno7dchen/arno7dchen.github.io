@@ -16,42 +16,40 @@
 document.addEventListener('DOMContentLoaded', function () {
     const categoryLinks = document.querySelectorAll('.category-list a');
     const productGrid = document.querySelector('.product-grid');
-    const allProducts = Array.from(document.querySelectorAll('.product-card'));
+    const allProducts = document.querySelectorAll('.product-card');
 
     categoryLinks.forEach(link => {
         link.addEventListener('click', function (e) {
             e.preventDefault();
-            // 切换分类选中高亮
+            // 切换分类选中状态
             categoryLinks.forEach(l => l.classList.remove('active'));
             this.classList.add('active');
 
             const targetCat = this.dataset.category;
-            // 筛选出要显示 / 隐藏的产品
-            const showList = allProducts.filter(item => {
-                return targetCat === 'all' || item.dataset.category === targetCat;
-            });
-            const hideList = allProducts.filter(item => {
-                return targetCat !== 'all' && item.dataset.category !== targetCat;
+            let orderIndex = 0;
+
+            // 遍历所有产品，仅通过 display 和 order 控制显示，不删除DOM节点
+            allProducts.forEach(card => {
+                const productCat = card.dataset.category;
+                if (targetCat === 'all' || productCat === targetCat) {
+                    card.style.display = 'block';
+                    card.style.order = orderIndex++;
+                } else {
+                    card.style.display = 'none';
+                    card.style.order = 9999;
+                }
             });
 
-            // 重新排序：展示的产品置顶，彻底消除顶部空白
-            productGrid.innerHTML = '';
-            showList.forEach(card => {
-                card.style.display = 'block';
-                productGrid.appendChild(card);
-            });
-            hideList.forEach(card => {
-                card.style.display = 'none';
-                productGrid.appendChild(card);
-            });
-
-            // 强制顶格，杜绝留白
+            // 强制重置网格布局，消除顶部空白
             productGrid.style.marginTop = '0';
             productGrid.style.paddingTop = '0';
+            productGrid.style.transform = 'translateY(0)';
+            productGrid.style.position = 'relative';
+            productGrid.style.top = '0';
         });
     });
 });
-</script>
+</script> 
     
     <style>
  * {
