@@ -160,6 +160,8 @@ body {
     height: auto !important; /* 新增这一行，强制重置高度 */
     min-height: 0 !important;
     max-height: none !important;
+    overflow: visible !important;
+    contain: layout !important;
 }
 .product-card {
     border: 1px solid #eee;
@@ -1121,10 +1123,8 @@ menuToggle.addEventListener('click', () => {
 });
 </script>
 
-<!-- 3. 【重点】把你原来的编号脚本 整段替换成下面这段 -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // 分类与缩写（沿用你原来的键名，完全匹配你现有 data-category）
   const categoryMap = {
     "outdoor-chairs": "OC",
     "outdoor-tables": "OT",
@@ -1139,77 +1139,64 @@ document.addEventListener('DOMContentLoaded', function() {
   };
 
   let categoryCount = {};
-  Object.values(categoryMap).forEach(abbr => {
-    categoryCount[abbr] = 1;
-  });
+  Object.values(categoryMap).forEach(abbr => categoryCount[abbr] = 1);
 
-  // 重绘编号函数
-  function drawProductCode() {
-    // 清空旧编号，防止重叠
+  const productGrid = document.querySelector('.product-grid');
+  const categoryLinks = document.querySelectorAll('.sidebar a');
+  const allProducts = Array.from(document.querySelectorAll('.product-card'));
+
+  // 重绘编号 + 强制重置容器高度
+  function refreshView() {
+    // 清除旧编号
     document.querySelectorAll('.product-code-tag').forEach(tag => tag.remove());
     // 重置计数
-    Object.values(categoryMap).forEach(abbr => {
-      categoryCount[abbr] = 1;
-    });
+    Object.keys(categoryCount).forEach(key => categoryCount[key] = 1);
 
-    document.querySelectorAll('.product-card').forEach(card => {
+    // 只给显示的产品加编号
+    document.querySelectorAll('.product-card[style*="display:block"]').forEach(card => {
       const category = card.dataset.category;
       const img = card.querySelector('img');
       if (!category || !img || !categoryMap[category]) return;
 
       const abbr = categoryMap[category];
-      const productCode = `S-${abbr}-${String(categoryCount[abbr]).padStart(3, '0')}`;
+      const code = `S-${abbr}-${String(categoryCount[abbr]).padStart(3, '0')}`;
       categoryCount[abbr]++;
 
       const tag = document.createElement('span');
       tag.className = 'product-code-tag';
-      tag.style.position = 'absolute';
-      tag.style.top = '0';
-      tag.style.left = '0';
-      tag.style.background = 'rgba(255, 120, 0, 0.95)';
-      tag.style.color = '#fff';
-      tag.style.fontSize = '11px';
-      tag.style.fontWeight = '500';
-      tag.style.fontFamily = "'Segoe UI', Roboto, Arial, sans-serif";
-      tag.style.padding = '2px 6px';
-      tag.style.borderRadius = '0 0 4px 0';
-      tag.style.zIndex = '10';
-      tag.textContent = productCode;
-
+      tag.style.cssText = 'position:absolute;top:0;left:0;background:rgba(255,120,0,0.95);color:#fff;font-size:11px;padding:2px 6px;border-radius:0 0 4px 0;z-index:10;';
       card.style.position = 'relative';
+      tag.textContent = code;
       card.appendChild(tag);
     });
+
+    // 强力清空高度，解决残留留白
+    productGrid.style.height = '';
+    productGrid.style.minHeight = '';
+    productGrid.style.maxHeight = '';
+    // 触发页面重排
+    productGrid.getBoundingClientRect();
   }
 
-  // 分类筛选 + 解决留白
-  const categoryLinks = document.querySelectorAll('.sidebar a');
-  const productGrid = document.querySelector('.product-grid');
-  const allProducts = Array.from(document.querySelectorAll('.product-card'));
-
+  // 分类点击
   categoryLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
+    link.addEventListener('click', function(e) {
       e.preventDefault();
       categoryLinks.forEach(l => l.classList.remove('active'));
-      link.classList.add('active');
+      this.classList.add('active');
 
-      const targetCat = (link.dataset.category || '').toLowerCase().trim();
-      // 产品显隐
+      const targetCat = this.dataset.category.toLowerCase().trim();
       allProducts.forEach(card => {
-        const cardCat = (card.dataset.category || '').toLowerCase().trim();
+        const cardCat = card.dataset.category.toLowerCase().trim();
         card.style.display = (targetCat === 'all' || cardCat === targetCat) ? 'block' : 'none';
       });
 
-      // 切换后重绘编号
-      drawProductCode();
-      // 强制收缩高度，消除留白
-      productGrid.style.height = 'auto';
-      productGrid.style.minHeight = '0';
-      void productGrid.offsetHeight;
+      refreshView();
     });
   });
 
-  // 页面初始加载执行
-  drawProductCode();
+  // 页面初始加载
+  refreshView();
 });
 </script>
 </body>
