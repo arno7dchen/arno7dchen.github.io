@@ -14,40 +14,73 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const categoryLinks = document.querySelectorAll('.category-list a');
+    // 1. 锁定关键元素
+    const categoryLinks = document.querySelectorAll('.sidebar a');
     const productGrid = document.querySelector('.product-grid');
-    const allProducts = document.querySelectorAll('.product-card');
+    const allProducts = Array.from(document.querySelectorAll('.product-card'));
 
+    if (!productGrid || allProducts.length === 0) {
+        console.error('❌ 未找到产品容器或产品卡片');
+        return;
+    }
+
+    // 2. 核心重置函数（解决高度+空白）
+    function resetGrid() {
+        // 强制重置所有可能导致空白和高度异常的样式
+        productGrid.style.marginTop = '0';
+        productGrid.style.paddingTop = '0';
+        productGrid.style.transform = 'translateY(0)';
+        productGrid.style.position = 'relative';
+        productGrid.style.top = '0';
+        // 关键：强制高度为auto，让容器随内容自动收缩
+        productGrid.style.height = 'auto';
+        productGrid.style.minHeight = '0';
+        productGrid.style.maxHeight = 'none';
+
+        // 强制浏览器重绘（解决缓存渲染问题）
+        void productGrid.offsetHeight;
+    }
+
+    // 3. 绑定分类点击事件
     categoryLinks.forEach(link => {
         link.addEventListener('click', function (e) {
             e.preventDefault();
-            // 切换分类选中状态
+            // 切换选中状态
             categoryLinks.forEach(l => l.classList.remove('active'));
             this.classList.add('active');
 
-            const targetCat = this.dataset.category;
-            let orderIndex = 0;
+            const targetCat = this.textContent.trim().toLowerCase().replace(/\s+/g, '-');
+            const showList = [];
+            const hideList = [];
 
-            // 遍历所有产品，仅通过 display 和 order 控制显示，不删除DOM节点
+            // 筛选产品
             allProducts.forEach(card => {
-                const productCat = card.dataset.category;
-                if (targetCat === 'all' || productCat === targetCat) {
-                    card.style.display = 'block';
-                    card.style.order = orderIndex++;
+                const cardCat = (card.dataset.category || '').toLowerCase();
+                if (targetCat === 'all-products' || targetCat === 'all' || cardCat.includes(targetCat)) {
+                    showList.push(card);
                 } else {
-                    card.style.display = 'none';
-                    card.style.order = 9999;
+                    hideList.push(card);
                 }
             });
 
-            // 强制重置网格布局，消除顶部空白
-            productGrid.style.marginTop = '0';
-            productGrid.style.paddingTop = '0';
-            productGrid.style.transform = 'translateY(0)';
-            productGrid.style.position = 'relative';
-            productGrid.style.top = '0';
+            // 重新排序产品（置顶显示）
+            productGrid.innerHTML = '';
+            showList.forEach(card => {
+                card.style.display = 'block';
+                productGrid.appendChild(card);
+            });
+            hideList.forEach(card => {
+                card.style.display = 'none';
+                productGrid.appendChild(card);
+            });
+
+            // 关键：重置容器高度，消除空白
+            resetGrid();
         });
     });
+
+    // 页面加载时初始化
+    resetGrid();
 });
 </script> 
     
@@ -196,6 +229,8 @@ body {
     gap: 20px;
     margin-top: 0 !important;
     padding-top: 0 !important;
+    height: auto !important; /* 新增这一行，强制重置高度 */
+}
 }
 .product-card {
     border: 1px solid #eee;
