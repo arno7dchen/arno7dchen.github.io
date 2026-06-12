@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
         productGrid.style.top = '0';
         // 关键：强制高度为auto，让容器随内容自动收缩
         productGrid.style.height = 'auto';
-        productGrid.style.minHeight = '0';
+        productGrid.style.minHeight = '0px';
         productGrid.style.maxHeight = 'none';
 
         // 强制浏览器重绘（解决缓存渲染问题）
@@ -43,13 +43,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 3. 绑定分类点击事件
     categoryLinks.forEach(link => {
-        link.addEventListener('click', function (e) {
+        link.addEventListener('click', (e) => {
             e.preventDefault();
             // 切换选中状态
             categoryLinks.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
+            link.classList.add('active');
 
-            const targetCat = this.textContent.trim().toLowerCase().replace(/\s+/g, '-');
+            const targetCat = link.textContent.trim().toLowerCase().replace(/\s+/g, '-');
             const showList = [];
             const hideList = [];
 
