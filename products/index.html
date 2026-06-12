@@ -165,7 +165,7 @@ body {
     background: #fff;
     text-align: center;
     padding-bottom: 12px;
-    margin-top: 0 !important;
+    margin-top: 0;
     padding-top: 0 !important;
     position: relative;
 }
@@ -1135,22 +1135,17 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     let categoryCount = {};
-    Object.values(categoryMap).forEach(abbr => {
-        categoryCount[abbr] = 1;
-    });
+    Object.values(categoryMap).forEach(abbr => categoryCount[abbr] = 1);
 
     const productGrid = document.querySelector('.product-grid');
     const categoryLinks = document.querySelectorAll('.sidebar a');
     const allProducts = Array.from(document.querySelectorAll('.product-card'));
 
-    // 重绘编号 + 温和触发重排，不破坏整体布局
+    // 重绘编号 + 解决留白
     function refreshView() {
-        // 1. 清空旧编号
         document.querySelectorAll('.product-code-tag').forEach(tag => tag.remove());
-        // 2. 重置计数器
         Object.keys(categoryCount).forEach(key => categoryCount[key] = 1);
 
-        // 3. 给显示的产品加编号
         document.querySelectorAll('.product-card[style*="display:block"]').forEach(card => {
             const category = card.dataset.category;
             const img = card.querySelector('img');
@@ -1162,19 +1157,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const tag = document.createElement('span');
             tag.className = 'product-code-tag';
+            // 强制设置为橙色，和你最开始的样式保持一致
             tag.style.cssText = 'position:absolute;top:0;left:0;background:rgba(255,120,0,0.95);color:#fff;font-size:11px;padding:2px 6px;border-radius:0 0 4px 0;z-index:10;';
             card.style.position = 'relative';
             tag.textContent = code;
             card.appendChild(tag);
         });
 
-        // 4. 关键：只触发重排，不清空高度，不影响列表位置
+        // 温和重排，不破坏布局，解决底部留白
         productGrid.style.display = 'none';
-        productGrid.offsetHeight; // 强制浏览器重绘
+        productGrid.offsetHeight;
         productGrid.style.display = 'grid';
     }
 
-    // 分类点击事件
     categoryLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -1191,9 +1186,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 页面初始加载
     refreshView();
 });
-</script> 
+</script>
 </body>
 </html>
