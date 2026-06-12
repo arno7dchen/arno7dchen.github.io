@@ -11,125 +11,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Products | Sunburst Outdoor: Metal Frame Outdoor Furniture, Chairs, Tables & Parasols</title>
     <meta name="description" content="Explore Sunburst Outdoor's full range of durable metal frame outdoor furniture, including garden sets, patio chairs, dining tables, sun loungers, rattan pieces and commercial-grade parasols for wholesale projects.">
-
-<!-- 样式：保留你原有产品边框，只加固布局+编号样式 -->
-<style>
-/* 产品容器 解决留白 */
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-    gap: 20px;
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
-}
-
-/* 保留产品卡片原有边框 + 定位（不会丢边框） */
-.product-card {
-    position: relative;
-    /* 这里会继承你原本的边框样式，不用改写 */
-}
-
-/* 编号标签：防重叠、固定位置 */
-.custom-product-code {
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    background: #ff6b35;
-    color: #fff;
-    padding: 3px 6px;
-    font-size: 12px;
-    font-weight: bold;
-    border-radius: 2px;
-    z-index: 99;
-    line-height: 1;
-    white-space: nowrap;
-}
-</style>
-    
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const categoryLinks = document.querySelectorAll('.sidebar a');
-    const productGrid = document.querySelector('.product-grid');
-    const allProducts = Array.from(document.querySelectorAll('.product-card'));
-
-    if (!productGrid || allProducts.length === 0) return;
-
-    // 重置容器 彻底消除留白
-    function resetGrid() {
-        productGrid.style.height = 'auto';
-        productGrid.style.minHeight = '0';
-        productGrid.style.maxHeight = 'none';
-        productGrid.style.marginTop = '0';
-        productGrid.style.paddingTop = '0';
-        void productGrid.offsetHeight;
-    }
-
-    // 绘制分类专属编号，先清旧标签防重叠
-    function drawProductCode(abbr) {
-        const visible = document.querySelectorAll('.product-card[style*="display:block"]');
-        visible.forEach((card, idx) => {
-            // 移除旧编号，杜绝重叠
-            let oldTag = card.querySelector('.custom-product-code');
-            if (oldTag) oldTag.remove();
-
-            let tag = document.createElement('div');
-            tag.className = 'custom-product-code';
-            tag.innerText = `S-${abbr}-${String(idx + 1).padStart(3, '0')}`;
-            card.appendChild(tag);
-        });
-    }
-
-    // 产品点击
-    productGrid.addEventListener('click', e => {
-        let link = e.target.closest('.product-card a');
-        if (link) link.click();
-    });
-
-    // 分类切换逻辑
-    categoryLinks.forEach(link => {
-        link.addEventListener('click', e => {
-            e.preventDefault();
-            categoryLinks.forEach(l => l.classList.remove('active'));
-            link.classList.add('active');
-
-            let targetCat = (link.dataset.category || '').toLowerCase().trim();
-            let text = link.textContent.trim();
-            let abbr = 'PR';
-
-            // 分类对应缩写
-            switch(text) {
-                case 'All Products': abbr = 'PR'; break;
-                case 'Outdoor Chairs': abbr = 'OC'; break;
-                case 'Outdoor Tables': abbr = 'OT'; break;
-                case 'Beach Chairs': abbr = 'BC'; break;
-                case 'Outdoor Sun Loungers': abbr = 'SL'; break;
-                case 'Garden Furniture': abbr = 'GF'; break;
-                case 'Rattan Furniture': abbr = 'RF'; break;
-                case 'Dining Furniture': abbr = 'DF'; break;
-                case 'Outdoor Parasols': abbr = 'OP'; break;
-                case 'Marketing Umbrellas': abbr = 'MU'; break;
-                case 'Camping Products': abbr = 'CP'; break;
-            }
-
-            // 产品显隐
-            allProducts.forEach(card => {
-                let cCat = (card.dataset.category || '').toLowerCase().trim();
-                card.style.display = (targetCat === 'all' || cCat === targetCat) ? 'block' : 'none';
-            });
-
-            resetGrid();
-            drawProductCode(abbr);
-        });
-    });
-
-    // 页面初始加载
-    resetGrid();
-    drawProductCode('PR');
-});
-</script> 
     
     <style>
  * {
@@ -280,8 +161,6 @@ body {
     min-height: 0 !important;
     max-height: none !important;
 }
-}
-}
 .product-card {
     border: 1px solid #eee;
     border-radius: 4px;
@@ -308,7 +187,7 @@ body {
 }
 
 /* 产品编号标签 */
-.product-sn-tag {
+.product-code-tag {
   position: absolute;
   top: 8px;
   left: 8px;
@@ -1224,33 +1103,39 @@ body {
             </div>
         </main>
     </div> 
+<!-- 1. 保留：标题替换连字符 【不动】 -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.product-card h4').forEach(function(title) {
     title.textContent = title.textContent.replace(/-/g, ' ');
   });
 });
-</script> 
-    <script>
+</script>
+
+<!-- 2. 保留：移动端菜单切换 【不动】 -->
+<script>
 const menuToggle = document.getElementById('menuToggle');
 const navMenu = document.getElementById('navMenu');
 menuToggle.addEventListener('click', () => {
     navMenu.classList.toggle('active');
 });
-</script> 
+</script>
+
+<!-- 3. 【重点】把你原来的编号脚本 整段替换成下面这段 -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+  // 分类与缩写（沿用你原来的键名，完全匹配你现有 data-category）
   const categoryMap = {
     "outdoor-chairs": "OC",
     "outdoor-tables": "OT",
     "beach-chairs": "BC",
-    "outdoor-sun-lounger": "SL",
+    "outdoor-sun-loungers": "SL",
     "garden-furniture": "GF",
     "rattan-furniture": "RF",
     "dining-furniture": "DF",
-    "garden-beach-parasol": "GP",
-    "marketing-umbrella": "MU",
-    "camping-product": "CP"
+    "outdoor-parasol": "OP",
+    "marketing-umbrellas": "MU",
+    "camping-products": "CP"
   };
 
   let categoryCount = {};
@@ -1258,45 +1143,74 @@ document.addEventListener('DOMContentLoaded', function() {
     categoryCount[abbr] = 1;
   });
 
-  // 先清掉所有旧编号
-  document.querySelectorAll('.product-code-tag').forEach(tag => tag.remove());
+  // 重绘编号函数
+  function drawProductCode() {
+    // 清空旧编号，防止重叠
+    document.querySelectorAll('.product-code-tag').forEach(tag => tag.remove());
+    // 重置计数
+    Object.values(categoryMap).forEach(abbr => {
+      categoryCount[abbr] = 1;
+    });
 
-  // 只给真正的产品卡片加编号，不修改图片布局
-  document.querySelectorAll('.product-card').forEach(card => {
-    const category = card.dataset.category;
-    const img = card.querySelector('img');
+    document.querySelectorAll('.product-card').forEach(card => {
+      const category = card.dataset.category;
+      const img = card.querySelector('img');
+      if (!category || !img || !categoryMap[category]) return;
 
-    // 过滤条件：必须有分类、有图片、分类在预设列表里
-    if (!category || !img || !categoryMap[category]) {
-      return;
-    }
+      const abbr = categoryMap[category];
+      const productCode = `S-${abbr}-${String(categoryCount[abbr]).padStart(3, '0')}`;
+      categoryCount[abbr]++;
 
-    // 生成编号
-    const abbr = categoryMap[category];
-    const productCode = `S-${abbr}-${String(categoryCount[abbr]).padStart(3, '0')}`;
-    categoryCount[abbr]++;
+      const tag = document.createElement('span');
+      tag.className = 'product-code-tag';
+      tag.style.position = 'absolute';
+      tag.style.top = '0';
+      tag.style.left = '0';
+      tag.style.background = 'rgba(255, 120, 0, 0.95)';
+      tag.style.color = '#fff';
+      tag.style.fontSize = '11px';
+      tag.style.fontWeight = '500';
+      tag.style.fontFamily = "'Segoe UI', Roboto, Arial, sans-serif";
+      tag.style.padding = '2px 6px';
+      tag.style.borderRadius = '0 0 4px 0';
+      tag.style.zIndex = '10';
+      tag.textContent = productCode;
 
-    // 创建编号标签
-    const tag = document.createElement('span');
-    tag.className = 'product-code-tag';
-    tag.style.position = 'absolute';
-    tag.style.top = '0';
-    tag.style.left = '0';
-    tag.style.background = 'rgba(255, 120, 0, 0.95)';
-    tag.style.color = '#fff';
-    tag.style.fontSize = '11px';
-    tag.style.fontWeight = '500';
-    tag.style.fontFamily = "'Segoe UI', Roboto, Arial, sans-serif";
-    tag.style.padding = '2px 6px';
-    tag.style.borderRadius = '0 0 4px 0';
-    tag.style.zIndex = '10';
-    tag.textContent = productCode;
+      card.style.position = 'relative';
+      card.appendChild(tag);
+    });
+  }
 
-    // 关键：直接给卡片加上定位，不修改图片本身
-    card.style.position = 'relative';
-    card.appendChild(tag);
+  // 分类筛选 + 解决留白
+  const categoryLinks = document.querySelectorAll('.sidebar a');
+  const productGrid = document.querySelector('.product-grid');
+  const allProducts = Array.from(document.querySelectorAll('.product-card'));
+
+  categoryLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      categoryLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+
+      const targetCat = (link.dataset.category || '').toLowerCase().trim();
+      // 产品显隐
+      allProducts.forEach(card => {
+        const cardCat = (card.dataset.category || '').toLowerCase().trim();
+        card.style.display = (targetCat === 'all' || cardCat === targetCat) ? 'block' : 'none';
+      });
+
+      // 切换后重绘编号
+      drawProductCode();
+      // 强制收缩高度，消除留白
+      productGrid.style.height = 'auto';
+      productGrid.style.minHeight = '0';
+      void productGrid.offsetHeight;
+    });
   });
+
+  // 页面初始加载执行
+  drawProductCode();
 });
-</script> 
+</script>
 </body>
 </html>
