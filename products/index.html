@@ -90,7 +90,7 @@ body {
     max-width: 1200px;
     margin: 0 auto 40px;
     background: #fff;
-    padding: 30px;
+    padding: 0 30px 30px 30px;
     display: flex;
     gap: 30px;
     box-shadow: 0 1px 5px rgba(0,0,0,0.08);
@@ -157,6 +157,8 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
     gap: 20px;
     align-items: start; /* 就加这一行，让卡片永远靠上排列 */
+    margin-top: 0;
+    padding-top: 0;
 }
 
 .product-card {
@@ -1119,9 +1121,53 @@ menuToggle.addEventListener('click', () => {
 });
 </script>
 
+<!-- 1. 标题替换连字符 -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // 分类映射，和你页面的 data-category 完全匹配
+  document.querySelectorAll('.product-card h4').forEach(function(title) {
+    title.textContent = title.textContent.replace(/-/g, ' ');
+  });
+});
+</script>
+
+<!-- 2. 移动端菜单切换（已修复元素获取问题） -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    if(menuToggle && navMenu){
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+    }
+});
+</script>
+
+<!-- 1. 标题替换连字符 -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.product-card h4').forEach(function(title) {
+    title.textContent = title.textContent.replace(/-/g, ' ');
+  });
+});
+</script>
+
+<!-- 2. 移动端菜单切换（已修复） -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    if(menuToggle && navMenu){
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+    }
+});
+</script>
+
+<!-- 3. 分类筛选 + 产品编号（修复版） -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
     const categoryMap = {
         "all": "ALL",
         "outdoor-chairs": "OC",
@@ -1139,22 +1185,18 @@ document.addEventListener('DOMContentLoaded', function() {
     let categoryCount = {};
     Object.values(categoryMap).forEach(abbr => categoryCount[abbr] = 1);
 
-    const productGrid = document.querySelector('.product-grid');
     const categoryLinks = document.querySelectorAll('.sidebar a');
     const allProducts = Array.from(document.querySelectorAll('.product-card'));
 
-    // 强制重绘编号，保证和你原来的黄色标签完全一致
     function refreshView() {
-        // 清空旧编号，避免重叠
         document.querySelectorAll('.product-code-tag').forEach(tag => tag.remove());
-        // 重置计数器，保证序号从 001 开始
         Object.keys(categoryCount).forEach(key => categoryCount[key] = 1);
 
-        // 给当前显示的产品生成编号，强制写死黄色样式，不依赖任何 CSS
-        document.querySelectorAll('.product-card[style*="display:block"]').forEach(card => {
+        allProducts.forEach(card => {
+            if(getComputedStyle(card).display !== 'block') return;
+
             const category = card.dataset.category;
-            const img = card.querySelector('img');
-            if (!category || !img || !categoryMap[category]) return;
+            if(!category || !categoryMap[category]) return;
 
             const abbr = categoryMap[category];
             const code = `S-${abbr}-${String(categoryCount[abbr]).padStart(3, '0')}`;
@@ -1162,7 +1204,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const tag = document.createElement('span');
             tag.className = 'product-code-tag';
-            // 强制写死你原来的黄色样式，保证可见，不被其他样式影响
             tag.style.cssText = 'position:absolute;top:0;left:0;background:rgba(255,120,0,0.95);color:#fff;font-size:11px;padding:2px 6px;border-radius:0 0 4px 0;z-index:1000;';
             card.style.position = 'relative';
             tag.textContent = code;
@@ -1170,7 +1211,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 分类点击事件，切换分类时重绘编号
     categoryLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -1187,7 +1227,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 页面加载时直接生成编号
     refreshView();
 });
 </script> 
