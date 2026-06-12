@@ -12,22 +12,35 @@
     <title>Our Products | Sunburst Outdoor: Metal Frame Outdoor Furniture, Chairs, Tables & Parasols</title>
     <meta name="description" content="Explore Sunburst Outdoor's full range of durable metal frame outdoor furniture, including garden sets, patio chairs, dining tables, sun loungers, rattan pieces and commercial-grade parasols for wholesale projects.">
 
+    <!-- 编号样式兜底 -->
+<style>
+.custom-product-code {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #ff6b35;
+    color: #fff;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 0 0 4px 0;
+    z-index: 10;
+}
+.product-card {
+    position: relative;
+}
+</style>
+    
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // 1. 锁定关键元素
     const categoryLinks = document.querySelectorAll('.sidebar a');
     const productGrid = document.querySelector('.product-grid');
     const allProducts = Array.from(document.querySelectorAll('.product-card'));
 
-    // 防呆：找不到元素就退出
-    if (!productGrid || allProducts.length === 0) {
-        console.error('❌ 未找到产品容器或产品卡片');
-        return;
-    }
+    if (!productGrid || allProducts.length === 0) return;
 
-    // 2. 强制重置容器：彻底消除空白（CSS兜底+JS强制）
+    // 1. 重置布局，消除留白
     function resetGrid() {
-        // 强制重置所有可能导致空白的样式
         productGrid.style.cssText = `
             margin-top: 0 !important;
             padding-top: 0 !important;
@@ -38,11 +51,48 @@ document.addEventListener('DOMContentLoaded', function () {
             position: relative;
             top: 0;
         `;
-        // 强制浏览器重绘
         void productGrid.offsetHeight;
     }
 
-    // 3. 事件委托：永久恢复产品点击（和DOM重排无关）
+    // 2. 核心：绘制产品编号（和你之前的橙色标签效果一致）
+    function drawProductCode() {
+        const visibleCards = document.querySelectorAll('.product-card[style*="display: block"]');
+        
+        visibleCards.forEach((card, index) => {
+            // 确保卡片是相对定位，让编号能悬浮在左上角
+            if (getComputedStyle(card).position !== 'relative') {
+                card.style.position = 'relative';
+            }
+
+            // 移除旧的编号标签，防止重复生成
+            const oldLabel = card.querySelector('.custom-product-code');
+            if (oldLabel) oldLabel.remove();
+
+            // 创建新的编号标签
+            const codeLabel = document.createElement('div');
+            codeLabel.className = 'custom-product-code';
+            // 编号格式：按你之前的规则，例如 S-大类缩写-001
+            codeLabel.innerText = `S-${String(index + 1).padStart(3, '0')}`;
+            
+            // 还原你之前的橙色标签样式
+            codeLabel.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                background: #ff6b35;
+                color: #fff;
+                padding: 4px 8px;
+                font-size: 12px;
+                font-weight: bold;
+                border-radius: 0 0 4px 0;
+                z-index: 10;
+            `;
+
+            card.appendChild(codeLabel);
+        });
+    }
+
+    // 3. 产品点击事件委托
     productGrid.addEventListener('click', function(e) {
         const linkEl = e.target.closest('.product-card a');
         if (linkEl && linkEl.href) {
@@ -50,35 +100,29 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // 4. 分类筛选逻辑：不删DOM，只靠display控制，不丢事件
+    // 4. 分类点击逻辑
     categoryLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            // 切换选中高亮
             categoryLinks.forEach(l => l.classList.remove('active'));
             link.classList.add('active');
 
-            // 读取data-category，精准匹配
-            const targetCat = link.dataset.category.toLowerCase().trim();
-
-            // 遍历所有产品，控制显隐
+            const targetCat = (link.dataset.category || '').toLowerCase().trim();
+            // 控制产品显隐
             allProducts.forEach(card => {
                 const cardCat = (card.dataset.category || '').toLowerCase().trim();
-                if (targetCat === 'all' || cardCat === targetCat) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
+                card.style.display = (targetCat === 'all' || cardCat === targetCat) ? 'block' : 'none';
             });
 
-            // 重置容器高度，消除空白
             resetGrid();
+            // 关键：切换分类后立刻重绘编号
+            drawProductCode();
         });
     });
 
-    // 页面加载初始化：显示所有产品，重置布局
-    allProducts.forEach(card => card.style.display = 'block');
+    // 页面首次加载：初始化布局 + 绘制编号
     resetGrid();
+    drawProductCode();
 });
 </script> 
     
