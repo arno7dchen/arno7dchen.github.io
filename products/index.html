@@ -1276,6 +1276,7 @@ document.querySelectorAll('.category-list a').forEach(link => {
         this.classList.add('active');
         // 重置布局+高度
         resetGrid();
+        window.scrollTo(0, 450);
     });
 });
 
@@ -1288,16 +1289,6 @@ function resetGrid(){
     grid.style.alignContent = 'start';
 }
 </script> 
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  // 监听所有分类点击
-  document.querySelectorAll('.category-item').forEach(function(btn) {
-    btn.addEventListener('click', function(){
-      // 固定滚动到距离顶部 420px 位置
-      window.scrollTo(0, 420);
-    });
-  });
-});
-</script>
+
 </body>
 </html>
