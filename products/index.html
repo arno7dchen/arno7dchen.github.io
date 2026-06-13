@@ -1228,15 +1228,16 @@ document.addEventListener('DOMContentLoaded', function() {
             refreshView();
 
             // 自动定位到产品容器，跳过视频区块
-            setTimeout(() => {
-                const productWrap = document.querySelector('.content-wrapper');
-                if(productWrap){
-                    productWrap.scrollIntoView({
-                        behavior: 'auto',
-                        block: 'start'
-                    });
-                }
-            }, 120);
+setTimeout(() => {
+    // 直接定位产品网格容器，滚动到产品卡片顶部
+    const productGrid = document.querySelector('.product-grid');
+    if(productGrid){
+        productGrid.scrollIntoView({
+            behavior: 'auto',
+            block: 'start'
+        });
+    }
+}, 120);
         });
     });
 
