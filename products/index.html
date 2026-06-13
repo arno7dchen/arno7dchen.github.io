@@ -1116,7 +1116,7 @@ body {
             </div>
         </main>
     </div> 
-<!-- 1. 保留：标题替换连字符 【不动】 -->
+<!-- 标题替换连字符 -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.product-card h4').forEach(function(title) {
@@ -1125,25 +1125,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- 2. 保留：移动端菜单切换 【不动】 -->
-<script>
-const menuToggle = document.getElementById('menuToggle');
-const navMenu = document.getElementById('navMenu');
-menuToggle.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-});
-</script>
-
-<!-- 1. 标题替换连字符 -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.product-card h4').forEach(function(title) {
-    title.textContent = title.textContent.replace(/-/g, ' ');
-  });
-});
-</script>
-
-<!-- 2. 移动端菜单切换（已修复元素获取问题） -->
+<!-- 移动端汉堡菜单 -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
     const menuToggle = document.getElementById('menuToggle');
@@ -1156,29 +1138,7 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 
-<!-- 1. 标题替换连字符 -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.product-card h4').forEach(function(title) {
-    title.textContent = title.textContent.replace(/-/g, ' ');
-  });
-});
-</script>
-
-<!-- 2. 移动端菜单切换（已修复） -->
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-    const menuToggle = document.getElementById('menuToggle');
-    const navMenu = document.getElementById('navMenu');
-    if(menuToggle && navMenu){
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-    }
-});
-</script>
-
-<!-- 3. 分类筛选 + 产品编号（修复版） -->
+<!-- 分类筛选+自动编号+点击自动定位到产品区域（修复重复绑定BUG） -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const categoryMap = {
@@ -1201,104 +1161,88 @@ document.addEventListener('DOMContentLoaded', function() {
     const categoryLinks = document.querySelectorAll('.sidebar a');
     const allProducts = Array.from(document.querySelectorAll('.product-card'));
 
-function refreshView() {
-    document.querySelectorAll('.product-code-tag').forEach(tag => tag.remove());
-    Object.keys(categoryCount).forEach(key => categoryCount[key] = 1);
-
-    allProducts.forEach(card => {
-        if(getComputedStyle(card).display !== 'block') return;
-
-        const category = card.dataset.category;
-        if(!category || !categoryMap[category]) return;
-
-        const abbr = categoryMap[category];
-        const code = `S-${abbr}-${String(categoryCount[abbr]).padStart(3, '0')}`;
-        categoryCount[abbr]++;
-
-        const tag = document.createElement('span');
-        tag.className = 'product-code-tag';
-        tag.style.cssText = 'position:absolute;top:0;left:0;background:rgba(255,120,0,0.95);color:#fff;font-size:11px;padding:2px 6px;border-radius:0 0 4px 0;z-index:1000;';
-        card.style.position = 'relative';
-        tag.textContent = code;
-        card.appendChild(tag);
-    });
-
-    // --------------------------
-    // 【新增：关键重置代码】渲染完产品后强制修正高度和布局
-    // --------------------------
-    const grid = document.querySelector('.product-grid');
-    if (grid) {
-        grid.style.cssText = `
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-            gap: 20px;
-            align-items: start;
-            justify-content: start;
-            align-content: start;
-            width: 100%;
-            height: auto !important;
-            min-height: auto !important;
-            max-height: unset !important;
-            margin: 0;
-            padding: 0;
-        `;
+    // 布局重置函数
+    function resetGrid(){
+        const grid = document.querySelector('.product-grid');
+        grid.style.height = 'auto';
+        grid.style.minHeight = 'auto';
+        grid.style.justifyContent = 'start';
+        grid.style.alignContent = 'start';
     }
-}
 
-categoryLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        categoryLinks.forEach(l => l.classList.remove('active'));
-        this.classList.add('active');
+    function refreshView() {
+        document.querySelectorAll('.product-code-tag').forEach(tag => tag.remove());
+        Object.keys(categoryCount).forEach(key => categoryCount[key] = 1);
 
-        const targetCat = this.dataset.category.toLowerCase().trim();
         allProducts.forEach(card => {
-            const cardCat = card.dataset.category.toLowerCase().trim();
-            card.style.display = (targetCat === 'all' || cardCat === targetCat) ? 'block' : 'none';
+            if(getComputedStyle(card).display !== 'block') return;
+
+            const category = card.dataset.category;
+            if(!category || !categoryMap[category]) return;
+
+            const abbr = categoryMap[category];
+            const code = `S-${abbr}-${String(categoryCount[abbr]).padStart(3, '0')}`;
+            categoryCount[abbr]++;
+
+            const tag = document.createElement('span');
+            tag.className = 'product-code-tag';
+            tag.style.cssText = 'position:absolute;top:0;left:0;background:rgba(255,120,0,0.95);color:#fff;font-size:11px;padding:2px 6px;border-radius:0 0 4px 0;z-index:1000;';
+            card.style.position = 'relative';
+            tag.textContent = code;
+            card.appendChild(tag);
         });
 
-        refreshView();
+        const grid = document.querySelector('.product-grid');
+        if (grid) {
+            grid.style.cssText = `
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+                gap: 20px;
+                align-items: start;
+                justify-content: start;
+                align-content: start;
+                width: 100%;
+                height: auto !important;
+                min-height: auto !important;
+                max-height: unset !important;
+                margin: 0;
+                padding: 0;
+            `;
+        }
+    }
+
+    // 分类点击事件（内置跳转定位，不再重复绑定）
+    categoryLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            categoryLinks.forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+
+            const targetCat = this.dataset.category.toLowerCase().trim();
+            allProducts.forEach(card => {
+                const cardCat = card.dataset.category.toLowerCase().trim();
+                card.style.display = (targetCat === 'all' || cardCat === targetCat) ? 'block' : 'none';
+            });
+
+            resetGrid();
+            refreshView();
+
+            // 自动定位到产品容器，跳过视频区块
+            setTimeout(() => {
+                const productWrap = document.querySelector('.content-wrapper');
+                if(productWrap){
+                    productWrap.scrollIntoView({
+                        behavior: 'auto',
+                        block: 'start'
+                    });
+                }
+            }, 120);
+        });
     });
+
+    refreshView();
 });
-
-refreshView();
-});
-// 页面初次加载重置
-document.addEventListener('DOMContentLoaded', function(){
-    resetGrid();
-});
-
-document.querySelectorAll('.category-list a').forEach(link => {
-  link.addEventListener('click', function(e) {
-    // 1. 彻底阻止浏览器默认行为，从根源上禁止页面跳回顶部
-    e.preventDefault();
-
-    // 2. 切换选中状态（不变）
-    document.querySelectorAll('.category-list a').forEach(a => a.classList.remove('active'));
-    this.classList.add('active');
-
-    // 3. 重置布局（不变）
-    resetGrid();
-
-    // 4. 延迟执行，只做一次滚动，精准跳到产品列表的位置
-    setTimeout(() => {
-      window.scrollTo({
-        top: 400, // 这个数值我帮你调过了，能跳过顶部图片+视频，直接落在产品区
-        behavior: 'auto'
-      });
-    }, 150);
-    });
-});
-
-// 统一重置函数：所有分类共用
-function resetGrid(){
-    const grid = document.querySelector('.product-grid');
-    grid.style.height = 'auto';
-    grid.style.minHeight = 'auto';
-    grid.style.justifyContent = 'start';
-    grid.style.alignContent = 'start';
-}
-</script> 
+</script>
 
 </body>
 </html>
