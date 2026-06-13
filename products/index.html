@@ -294,23 +294,19 @@ body {
 }
 
 .product-grid {
-    display: flex !important;
-    flex-wrap: wrap !important;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)) !important;
     gap: 20px !important;
-    align-items: flex-start !important;
-}
-
-.product-card {
-    width: calc(25% - 20px) !important;
-    margin: 0 !important;
-}
-
-/* 隐藏的产品完全不占空间 */
-.product-card[style*="display: none"] {
-    display: none !important;
+    align-items: start !important;
+    justify-content: start !important;
+    align-content: start !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: unset !important;
     margin: 0 !important;
     padding: 0 !important;
-    width: 0 !important;
+    position: static !important;
 }
 
 </style> 
