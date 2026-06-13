@@ -1270,26 +1270,20 @@ document.addEventListener('DOMContentLoaded', function(){
 
 document.querySelectorAll('.category-list a').forEach(link => {
   link.addEventListener('click', function(e) {
-    // 1. 彻底阻止浏览器默认行为，禁止页面跳回顶部
+    // 1. 彻底阻止浏览器默认行为，从根源上禁止页面跳回顶部
     e.preventDefault();
 
-    // 2. 记录当前的滚动位置，防止被顶回去
-    const currentScroll = window.pageYOffset;
-
-    // 3. 切换选中状态
+    // 2. 切换选中状态（不变）
     document.querySelectorAll('.category-list a').forEach(a => a.classList.remove('active'));
     this.classList.add('active');
 
-    // 4. 重置布局
+    // 3. 重置布局（不变）
     resetGrid();
 
-    // 5. 延迟执行，先恢复滚动位置，再跳转到产品区
+    // 4. 延迟执行，只做一次滚动，精准跳到产品列表的位置
     setTimeout(() => {
-      // 先恢复点击前的位置，防止被布局重置顶回去
-      window.scrollTo(0, currentScroll);
-      // 再跳转到产品区，这里的数值就是你第一张图里产品列表的位置
       window.scrollTo({
-        top: 280, // 这个数值是根据你截图里产品列表的位置估算的，比之前的520更精准
+        top: 400, // 这个数值我帮你调过了，能跳过顶部图片+视频，直接落在产品区
         behavior: 'auto'
       });
     }, 150);
