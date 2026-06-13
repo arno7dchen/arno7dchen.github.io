@@ -1194,26 +1194,24 @@ document.addEventListener('DOMContentLoaded', function() {
             card.appendChild(tag);
         });
 
-        const grid = document.querySelector('.product-grid');
-        if (grid) {
-            grid.style.cssText = `
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-                gap: 20px;
-                align-items: start;
-                justify-content: start;
-                align-content: start;
-                width: 100%;
-                height: auto !important;
-                min-height: auto !important;
-                max-height: unset !important;
-                margin: 0;
-                padding: 0;
-            `;
-        }
-    }
+const grid = document.querySelector('.product-grid');
+    if (grid) {
+        grid.style.cssText = `
+            display: grid !important;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)) !important;
+            gap: 20px !important;
+            align-items: start !important;
+            justify-content: start !important;
+            align-content: start !important;
+            width: 100% !important;
+            height: auto !important;
+            min-height: auto !important;
+            max-height: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        `;
+    } 
 
-    // 分类点击事件（内置跳转定位，不再重复绑定）
     categoryLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
