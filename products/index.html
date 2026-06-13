@@ -1162,7 +1162,7 @@ document.addEventListener('DOMContentLoaded', function() {
     Object.values(categoryMap).forEach(abbr => categoryCount[abbr] = 1);
 
     const categoryLinks = document.querySelectorAll('.sidebar a');
-    const allProducts = Array.from(document.querySelectorAll('.product-card'));
+    let allProducts = [];
 
     function resetGrid() {
         const grid = document.querySelector('.product-grid');
@@ -1215,21 +1215,46 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 分类点击事件
-    categoryLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            categoryLinks.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
+    // 备份所有产品（只在页面加载时执行一次）
+let allProductsBackup = [];
 
-            const targetCat = this.dataset.category.toLowerCase().trim();
-            allProducts.forEach(card => {
-                const cardCat = card.dataset.category.toLowerCase().trim();
-                card.style.display = (targetCat === 'all' || cardCat === targetCat) ? 'block' : 'none';
-            });
+function initProductBackup() {
+    allProductsBackup = Array.from(document.querySelectorAll('.product-card'));
+}
 
-            resetGrid();
+// 切换分类时，重新构建 DOM
+categoryLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        categoryLinks.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+
+        const targetCat = this.dataset.category.toLowerCase().trim();
+        const grid = document.querySelector('.product-grid');
+        
+        // 清空当前产品网格
+        grid.innerHTML = '';
+        
+        // 筛选并添加符合条件的产品
+        allProductsBackup.forEach(card => {
+            const cardCat = card.dataset.category.toLowerCase().trim();
+            if (targetCat === 'all' || cardCat === targetCat) {
+                // 克隆卡片，避免引用问题
+                const clonedCard = card.cloneNode(true);
+                grid.appendChild(clonedCard);
+            }
+        });
+        
+        // 重新生成编号
+        setTimeout(() => {
             refreshView();
+        }, 50);
+    });
+});
+
+// 页面加载时备份
+initProductBackup();
+refreshView();
 
             setTimeout(() => {
                 const contentWrap = document.querySelector('.content-wrapper');
