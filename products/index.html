@@ -150,15 +150,24 @@ body {
 /* 产品区域 & 网格布局 */
 .products-area {
     flex: 1;
+    padding: 20px; /* 给产品区域加一点内边距，避免贴边 */
+    min-height: auto; /* 强制取消固定高度，高度随产品内容自动变化 */
+    height: auto;
 }
-/* 还原后的正确写法，不再强制压死高度 */
+        
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
     gap: 20px;
-    align-items: start; /* 就加这一行，让卡片永远靠上排列 */
-    margin-top: 0;
-    padding-top: 0;
+    align-items: start;
+    justify-content: start;
+    align-content: start;
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    margin: 0;
+    padding: 0;
+    position: static;
 }
 
 .product-card {
@@ -1229,6 +1238,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
     refreshView();
 });
+// 页面初次加载重置
+document.addEventListener('DOMContentLoaded', function(){
+    resetGrid();
+});
+
+// 点击任意分类都执行重置
+document.querySelectorAll('.category-list a').forEach(link => {
+    link.addEventListener('click', function(){
+        // 先切换选中状态
+        document.querySelectorAll('.category-list a').forEach(a=>a.classList.remove('active'));
+        this.classList.add('active');
+        // 重置布局+高度
+        resetGrid();
+    });
+});
+
+// 统一重置函数：所有分类共用
+function resetGrid(){
+    const grid = document.querySelector('.product-grid');
+    grid.style.height = 'auto';
+    grid.style.minHeight = 'auto';
+    grid.style.justifyContent = 'start';
+    grid.style.alignContent = 'start';
+}
 </script> 
 </body>
 </html>
