@@ -147,27 +147,30 @@ body {
     background: #ff6b6b;
 }
 
-/* 产品区域 & 网格布局 */
 .products-area {
-    flex: 1;
-    padding: 20px; /* 给产品区域加一点内边距，避免贴边 */
-    min-height: auto; /* 强制取消固定高度，高度随产品内容自动变化 */
-    height: auto;
+    flex: 1 !important;
+    padding: 20px !important;
+    min-height: auto !important;
+    height: auto !important;
+    max-height: unset !important;
+    margin: 0 !important;
+    padding-bottom: 0 !important;
 }
-        
+
 .product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-    gap: 20px;
-    align-items: start;
-    justify-content: start;
-    align-content: start;
-    width: 100%;
-    height: auto;
-    min-height: auto;
-    margin: 0;
-    padding: 0;
-    position: static;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)) !important;
+    gap: 20px !important;
+    align-items: start !important;
+    justify-content: start !important;
+    align-content: start !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: unset !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: static !important;
 }
 
 .product-card {
@@ -1197,46 +1200,67 @@ document.addEventListener('DOMContentLoaded', function() {
     const categoryLinks = document.querySelectorAll('.sidebar a');
     const allProducts = Array.from(document.querySelectorAll('.product-card'));
 
-    function refreshView() {
-        document.querySelectorAll('.product-code-tag').forEach(tag => tag.remove());
-        Object.keys(categoryCount).forEach(key => categoryCount[key] = 1);
+function refreshView() {
+    document.querySelectorAll('.product-code-tag').forEach(tag => tag.remove());
+    Object.keys(categoryCount).forEach(key => categoryCount[key] = 1);
 
-        allProducts.forEach(card => {
-            if(getComputedStyle(card).display !== 'block') return;
+    allProducts.forEach(card => {
+        if(getComputedStyle(card).display !== 'block') return;
 
-            const category = card.dataset.category;
-            if(!category || !categoryMap[category]) return;
+        const category = card.dataset.category;
+        if(!category || !categoryMap[category]) return;
 
-            const abbr = categoryMap[category];
-            const code = `S-${abbr}-${String(categoryCount[abbr]).padStart(3, '0')}`;
-            categoryCount[abbr]++;
+        const abbr = categoryMap[category];
+        const code = `S-${abbr}-${String(categoryCount[abbr]).padStart(3, '0')}`;
+        categoryCount[abbr]++;
 
-            const tag = document.createElement('span');
-            tag.className = 'product-code-tag';
-            tag.style.cssText = 'position:absolute;top:0;left:0;background:rgba(255,120,0,0.95);color:#fff;font-size:11px;padding:2px 6px;border-radius:0 0 4px 0;z-index:1000;';
-            card.style.position = 'relative';
-            tag.textContent = code;
-            card.appendChild(tag);
-        });
-    }
-
-    categoryLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            categoryLinks.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-
-            const targetCat = this.dataset.category.toLowerCase().trim();
-            allProducts.forEach(card => {
-                const cardCat = card.dataset.category.toLowerCase().trim();
-                card.style.display = (targetCat === 'all' || cardCat === targetCat) ? 'block' : 'none';
-            });
-
-            refreshView();
-        });
+        const tag = document.createElement('span');
+        tag.className = 'product-code-tag';
+        tag.style.cssText = 'position:absolute;top:0;left:0;background:rgba(255,120,0,0.95);color:#fff;font-size:11px;padding:2px 6px;border-radius:0 0 4px 0;z-index:1000;';
+        card.style.position = 'relative';
+        tag.textContent = code;
+        card.appendChild(tag);
     });
 
-    refreshView();
+    // --------------------------
+    // 【新增：关键重置代码】渲染完产品后强制修正高度和布局
+    // --------------------------
+    const grid = document.querySelector('.product-grid');
+    if (grid) {
+        grid.style.cssText = `
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 20px;
+            align-items: start;
+            justify-content: start;
+            align-content: start;
+            width: 100%;
+            height: auto !important;
+            min-height: auto !important;
+            max-height: unset !important;
+            margin: 0;
+            padding: 0;
+        `;
+    }
+}
+
+categoryLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        categoryLinks.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+
+        const targetCat = this.dataset.category.toLowerCase().trim();
+        allProducts.forEach(card => {
+            const cardCat = card.dataset.category.toLowerCase().trim();
+            card.style.display = (targetCat === 'all' || cardCat === targetCat) ? 'block' : 'none';
+        });
+
+        refreshView();
+    });
+});
+
+refreshView();
 });
 // 页面初次加载重置
 document.addEventListener('DOMContentLoaded', function(){
