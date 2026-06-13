@@ -301,6 +301,31 @@ body {
     transform: translateY(0) !important;
 }
 
+        /* 终极暴力修复 - 强制所有产品容器从顶部开始 */
+html, body {
+    height: auto !important;
+    min-height: 0 !important;
+}
+
+.content-wrapper,
+.products-area,
+.product-grid {
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+}
+
+.product-grid {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    position: static !important;
+    transform: none !important;
+}
+
+.product-grid > *:first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
 </style> 
 
 </head>
