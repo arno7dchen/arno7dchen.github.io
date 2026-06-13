@@ -1223,10 +1223,18 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.add('active');
 
             const targetCat = this.dataset.category.toLowerCase().trim();
-            allProducts.forEach(card => {
-                const cardCat = card.dataset.category.toLowerCase().trim();
-                card.style.display = (targetCat === 'all' || cardCat === targetCat) ? 'block' : 'none';
-            });
+        allProducts.forEach(card => {
+    const cardCat = card.dataset.category.toLowerCase().trim();
+
+    // 找到外层的 a 标签
+    const wrapper = card.closest('a');
+
+    if (targetCat === 'all' || cardCat === targetCat) {
+        wrapper.style.display = 'block';
+    } else {
+        wrapper.style.display = 'none';
+    }
+});
 
             resetGrid();
             refreshView();
