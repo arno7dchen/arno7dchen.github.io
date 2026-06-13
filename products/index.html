@@ -1121,28 +1121,6 @@ body {
 <!-- 标题替换连字符 -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.product-card h4').forEach(function(title) {
-    title.textContent = title.textContent.replace(/-/g, ' ');
-  });
-});
-</script>
-
-<!-- 移动端汉堡菜单 -->
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-    const menuToggle = document.getElementById('menuToggle');
-    const navMenu = document.getElementById('navMenu');
-    if(menuToggle && navMenu){
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-    }
-});
-</script>
-
-<!-- 分类筛选+自动编号+点击自动定位到产品区域（修复重复绑定BUG） -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
     const categoryMap = {
         "all": "ALL",
         "outdoor-chairs": "OC",
@@ -1163,13 +1141,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const categoryLinks = document.querySelectorAll('.sidebar a');
     const allProducts = Array.from(document.querySelectorAll('.product-card'));
 
-    // 布局重置函数
-    function resetGrid(){
+    function resetGrid() {
         const grid = document.querySelector('.product-grid');
-        grid.style.height = 'auto';
-        grid.style.minHeight = 'auto';
-        grid.style.justifyContent = 'start';
-        grid.style.alignContent = 'start';
+        if (grid) {
+            grid.style.height = 'auto';
+            grid.style.minHeight = 'auto';
+            grid.style.justifyContent = 'start';
+            grid.style.alignContent = 'start';
+        }
     }
 
     function refreshView() {
@@ -1177,10 +1156,10 @@ document.addEventListener('DOMContentLoaded', function() {
         Object.keys(categoryCount).forEach(key => categoryCount[key] = 1);
 
         allProducts.forEach(card => {
-            if(getComputedStyle(card).display !== 'block') return;
+            if (getComputedStyle(card).display !== 'block') return;
 
             const category = card.dataset.category;
-            if(!category || !categoryMap[category]) return;
+            if (!category || !categoryMap[category]) return;
 
             const abbr = categoryMap[category];
             const code = `S-${abbr}-${String(categoryCount[abbr]).padStart(3, '0')}`;
@@ -1194,24 +1173,26 @@ document.addEventListener('DOMContentLoaded', function() {
             card.appendChild(tag);
         });
 
-const grid = document.querySelector('.product-grid');
-    if (grid) {
-        grid.style.cssText = `
-            display: grid !important;
-            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)) !important;
-            gap: 20px !important;
-            align-items: start !important;
-            justify-content: start !important;
-            align-content: start !important;
-            width: 100% !important;
-            height: auto !important;
-            min-height: auto !important;
-            max-height: none !important;
-            margin: 0 !important;
-            padding: 0 !important;
-        `;
-    } 
+        const grid = document.querySelector('.product-grid');
+        if (grid) {
+            grid.style.cssText = `
+                display: grid !important;
+                grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)) !important;
+                gap: 20px !important;
+                align-items: start !important;
+                justify-content: start !important;
+                align-content: start !important;
+                width: 100% !important;
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            `;
+        }
+    }
 
+    // 分类点击事件
     categoryLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -1227,22 +1208,18 @@ const grid = document.querySelector('.product-grid');
             resetGrid();
             refreshView();
 
-            // 自动定位到产品容器，跳过视频区块
-setTimeout(() => {
-    const contentWrap = document.querySelector('.content-wrapper');
-    if(contentWrap){
-        contentWrap.scrollIntoView({
-            behavior: 'auto',
-            block: 'nearest'
-        });
-    }
-}, 120);
+            setTimeout(() => {
+                const contentWrap = document.querySelector('.content-wrapper');
+                if (contentWrap) {
+                    contentWrap.scrollIntoView({ behavior: 'auto', block: 'nearest' });
+                }
+            }, 120);
         });
     });
 
     refreshView();
 });
-</script>
+</script> 
 
 </body>
 </html>
