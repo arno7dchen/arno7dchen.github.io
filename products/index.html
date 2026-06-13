@@ -158,19 +158,18 @@ body {
 }
 
 .product-grid {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)) !important;
-    gap: 20px !important;
-    align-items: start !important;
-    justify-content: start !important;
-    align-content: start !important;
-    width: 100% !important;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 20px;
+    align-items: start;
+    justify-content: start;
+    align-content: start;
+    width: 100%;
     height: auto !important;
     min-height: auto !important;
     max-height: unset !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    position: static !important;
+    margin: 0;
+    padding: 0;
 }
 
 .product-card {
@@ -1222,6 +1221,15 @@ function refreshView() {
         card.appendChild(tag);
     });
 
+        // ========== 【在这里插入修复代码】==========
+    const grid = document.querySelector('.product-grid');
+    if (grid) {
+        grid.removeAttribute('style');
+        grid.style.height = 'auto';
+        grid.style.minHeight = 'auto';
+        grid.style.justifyContent = 'start';
+        grid.style.alignContent = 'start';
+    }
     // --------------------------
     // 【关键修复：根治底部留白】
     // --------------------------
