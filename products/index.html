@@ -278,6 +278,27 @@ body {
         word-break: break-word;
     }
 }
+        /* 终极修复 - 强制消除所有白色区域 */
+.content-wrapper {
+    align-items: flex-start !important;
+    overflow: visible !important;
+}
+
+.products-area {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    display: block !important;
+}
+
+.product-grid {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    position: relative !important;
+    top: 0 !important;
+    transform: translateY(0) !important;
+}
 
 </style> 
 
