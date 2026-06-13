@@ -276,9 +276,7 @@ body {
         word-break: break-word;
     }
 }
-        html {
-  scroll-padding-top: 420px !important;
-}
+
 </style> 
 
 </head>
@@ -1290,5 +1288,16 @@ function resetGrid(){
     grid.style.alignContent = 'start';
 }
 </script> 
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  // 监听所有分类点击
+  document.querySelectorAll('.category-item').forEach(function(btn) {
+    btn.addEventListener('click', function(){
+      // 固定滚动到距离顶部 420px 位置
+      window.scrollTo(0, 420);
+    });
+  });
+});
+</script>
 </body>
 </html>
