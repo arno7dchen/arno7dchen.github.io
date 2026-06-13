@@ -1276,7 +1276,12 @@ document.querySelectorAll('.category-list a').forEach(link => {
         this.classList.add('active');
         // 重置布局+高度
         resetGrid();
-        window.scrollTo(0, 450);
+        setTimeout(() => {
+  window.scrollTo({
+    top: 520,
+    behavior: 'auto'
+  });
+}, 150);
     });
 });
 
