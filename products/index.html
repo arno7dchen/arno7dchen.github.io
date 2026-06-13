@@ -1268,20 +1268,31 @@ document.addEventListener('DOMContentLoaded', function(){
     resetGrid();
 });
 
-// 点击任意分类都执行重置
 document.querySelectorAll('.category-list a').forEach(link => {
-    link.addEventListener('click', function(){
-        // 先切换选中状态
-        document.querySelectorAll('.category-list a').forEach(a=>a.classList.remove('active'));
-        this.classList.add('active');
-        // 重置布局+高度
-        resetGrid();
-        setTimeout(() => {
-  window.scrollTo({
-    top: 520,
-    behavior: 'auto'
-  });
-}, 150);
+  link.addEventListener('click', function(e) {
+    // 1. 彻底阻止浏览器默认行为，禁止页面跳回顶部
+    e.preventDefault();
+
+    // 2. 记录当前的滚动位置，防止被顶回去
+    const currentScroll = window.pageYOffset;
+
+    // 3. 切换选中状态
+    document.querySelectorAll('.category-list a').forEach(a => a.classList.remove('active'));
+    this.classList.add('active');
+
+    // 4. 重置布局
+    resetGrid();
+
+    // 5. 延迟执行，先恢复滚动位置，再跳转到产品区
+    setTimeout(() => {
+      // 先恢复点击前的位置，防止被布局重置顶回去
+      window.scrollTo(0, currentScroll);
+      // 再跳转到产品区，这里的数值就是你第一张图里产品列表的位置
+      window.scrollTo({
+        top: 280, // 这个数值是根据你截图里产品列表的位置估算的，比之前的520更精准
+        behavior: 'auto'
+      });
+    }, 150);
     });
 });
 
