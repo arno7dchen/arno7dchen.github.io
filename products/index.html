@@ -1231,12 +1231,6 @@ document.addEventListener('DOMContentLoaded', function() {
             resetGrid();
             refreshView();
 
-            setTimeout(() => {
-                const contentWrap = document.querySelector('.content-wrapper');
-                if (contentWrap) {
-                    contentWrap.scrollIntoView({ behavior: 'auto', block: 'nearest' });
-                }
-            }, 120);
         });
     });
 
