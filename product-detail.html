@@ -1,84 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Detail - Sunburst Outdoor</title>
-    <style>
-        *{box-sizing: border-box;margin:0;padding:0;}
-        body{max-width: 1200px;margin: 0 auto;padding: 20px;font-family: Arial,sans-serif;line-height: 1.6;}
-        h1{margin: 20px 0;color: #333;font-size: 24px;}
-        .img-gallery{display: flex;flex-wrap: wrap;gap: 15px;margin: 30px 0;}
-        .img-gallery img{width: 280px;height: auto;border-radius: 4px;}
-        .info-block{margin: 25px 0;}
-        .info-block h3{color: #ff7700;margin-bottom: 8px;font-size: 18px;}
-        .info-block p{color: #555;font-size: 16px;}
-        .info-block ul{margin-left: 20px;color: #555;}
-    </style>
+<meta charset="UTF-8">
+<title>Product Detail</title>
+<style>
+body { font-family: Arial; margin: 20px; }
+.container { max-width: 900px; margin: auto; }
+
+.images img {
+    width: 100%;
+    max-width: 400px;
+    margin: 10px;
+    border-radius: 8px;
+}
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+h1 { margin-bottom: 10px; }
+
+.info {
+    margin-top: 20px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+</style>
 </head>
+
 <body>
-    <div class="container">
-        <h1 id="p-name"></h1>
-        <div class="img-gallery" id="p-gallery"></div>
 
-        <div class="info-block">
-            <h3>Dimensions</h3>
-            <p id="p-size"></p>
-        </div>
+<div class="container">
 
-        <div class="info-block">
-            <h3>Material</h3>
-            <p id="p-material"></p>
-        </div>
+    <h1 id="title"></h1>
+    <p id="code"></p >
 
-        <div class="info-block">
-            <h3>Description</h3>
-            <p id="p-desc"></p>
-        </div>
+    <div class="grid" id="images"></div>
 
-        <div class="info-block">
-            <h3>Features</h3>
-            <ul id="p-feature"></ul>
-        </div>
+    <div class="info">
+        <p><b>Material:</b> <span id="material"></span></p >
+        <p><b>Dimensions:</b> <span id="dimensions"></span></p >
+        <p id="description"></p >
     </div>
 
-    <script>
-        const params = new URLSearchParams(location.search);
-        const pid = params.get('id');
+    <button onclick="inquiry()">Send Inquiry</button>
 
-        fetch('./products.json')
-        .then(res => res.json())
-        .then(list => {
-            let product = list.find(item => item.product_id === pid);
-            if(!product){
-                document.body.innerHTML = "<h2>Product Not Found</h2>";
-                return;
-            }
+</div>
 
-            document.getElementById('p-name').innerText = product.product_name;
+<script>
+// === 固定测试数据（先跑通用） ===
+const product = {
+    id: "S-OC-001",
+    name: "Outdoor Dining Chair",
+    material: "Aluminum + Textilene",
+    dimensions: "W58 × D62 × H88 cm",
+    description: "Modern outdoor chair suitable for garden and patio use.",
+    images: [
+        "images/products/S-OC-001/1.jpg",
+        "images/products/S-OC-001/2.jpg",
+        "images/products/S-OC-001/3.jpg",
+        "images/products/S-OC-001/4.jpg",
+        "images/products/S-OC-001/5.jpg",
+        "images/products/S-OC-001/6.jpg"
+    ]
+};
 
-            let imgArr = product.img_list.split(',');
-            let gallery = document.getElementById('p-gallery');
-            gallery.innerHTML = "";
-            imgArr.forEach(src=>{
-                let img = document.createElement('img');
-                img.src = src.trim();
-                gallery.appendChild(img);
-            });
+// === 渲染页面 ===
+document.getElementById("title").innerText = product.name;
+document.getElementById("code").innerText = product.id;
+document.getElementById("material").innerText = product.material;
+document.getElementById("dimensions").innerText = product.dimensions;
+document.getElementById("description").innerText = product.description;
 
-            document.getElementById('p-size').innerText = product.dimensions;
-            document.getElementById('p-material').innerText = product.material;
-            document.getElementById('p-desc').innerText = product.description;
+const imgBox = document.getElementById("images");
+product.images.forEach(src => {
+    const img = document.createElement("img");
+    img.src = src;
+    imgBox.appendChild(img);
+});
 
-            let featArr = product.features.split(',');
-            let featUl = document.getElementById('p-feature');
-            featUl.innerHTML = "";
-            featArr.forEach(text=>{
-                let li = document.createElement('li');
-                li.innerText = text.trim();
-                featUl.appendChild(li);
-            });
-        })
-    </script>
+function inquiry() {
+    alert("Inquiry sent for " + product.id);
+}
+</script>
+
 </body>
 </html>
