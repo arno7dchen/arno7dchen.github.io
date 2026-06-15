@@ -5,7 +5,6 @@
 <title>Product Detail</title>
 
 <style>
-
 body {
     font-family: Arial;
     margin: 20px;
@@ -16,29 +15,24 @@ body {
     margin: auto;
 }
 
-/* ===== 标题 ===== */
-h1 {
-    margin-bottom: 10px;
-}
+/* 标题 */
+h1 { margin-bottom: 10px; }
 
-/* ===== 信息 ===== */
-.info {
-    margin-top: 20px;
-}
+/* 信息 */
+.info { margin-top: 20px; }
 
-/* ===== 图片区域（核心重构）===== */
+/* 图片网格 */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 12px;
 }
 
-/* ⭐彻底去掉灰色，统一白底 */
+/* 图片盒子（无灰底版） */
 .img-box {
     width: 100%;
     aspect-ratio: 1 / 1;
     background: #fff;
-
     border: 1px solid #eee;
     border-radius: 8px;
 
@@ -49,32 +43,19 @@ h1 {
     overflow: hidden;
 }
 
-/* 图片统一适配（不裁切） */
 .img-box img {
     max-width: 90%;
     max-height: 90%;
     object-fit: contain;
-
     cursor: pointer;
-    transition: 0.25s ease;
+    transition: 0.2s;
 }
 
 .img-box img:hover {
     transform: scale(1.05);
 }
 
-/* ===== 按钮 ===== */
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background: black;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-/* ===== Lightbox ===== */
+/* Lightbox（100%稳定） */
 #lightbox {
     display: none;
     position: fixed;
@@ -92,6 +73,15 @@ button {
     object-fit: contain;
 }
 
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
 </style>
 </head>
 
@@ -111,36 +101,34 @@ button {
     </div>
 
     <button onclick="inquiry()">Send Inquiry</button>
-
 </div>
 
-<!-- Lightbox（必须存在） -->
+<!-- Lightbox（必须） -->
 <div id="lightbox">
-    <img id="lightboxImg">
+    < img id="lightboxImg">
 </div>
 
 <script>
-const params = new URLSearchParams(window.location.search);
-const productId = params.get("id") || "S-OC-001";
+const productId = "S-OC-001"; // ⭐先固定（最稳定）
 
 let product = null;
 
 // =========================
-// 1. 加载 JSON
+// 1. 加载 JSON（GitHub Pages正确路径）
 // =========================
-fetch(`/data/products/${productId}.json`)
-  .then(res => {
-      if (!res.ok) throw new Error("JSON not found");
-      return res.json();
-  })
-  .then(data => {
-      product = data;
-      render();
-  })
-  .catch(err => {
-      console.error(err);
-      document.body.innerHTML = "<h2>Product Not Found</h2>";
-  });
+fetch(`./data/products/${productId}.json`)
+.then(res => {
+    if (!res.ok) throw new Error("JSON not found");
+    return res.json();
+})
+.then(data => {
+    product = data;
+    render();
+})
+.catch(err => {
+    console.error(err);
+    document.body.innerHTML = "<h2>Product Not Found</h2>";
+});
 
 // =========================
 // 2. 渲染
@@ -159,9 +147,9 @@ function render() {
 
     imgBox.innerHTML = "";
 
-    const base = `/images/products/${product.id}/`;
+    const base = `./images/products/${product.id}/`;
 
-    product.images.forEach((imgName) => {
+    product.images.forEach(imgName => {
 
         const wrapper = document.createElement("div");
         wrapper.className = "img-box";
@@ -169,9 +157,9 @@ function render() {
         const img = document.createElement("img");
         img.src = base + imgName;
 
-        // ❗防止404导致灰层
+        // ❗防404
         img.onerror = () => {
-            wrapper.style.display = "none";
+            wrapper.remove();
         };
 
         img.onclick = () => {
@@ -183,10 +171,17 @@ function render() {
         imgBox.appendChild(wrapper);
     });
 
-    // ❗只绑定一次（关键）
+    // 只绑定一次
     lightbox.onclick = () => {
         lightbox.style.display = "none";
     };
+}
+
+// =========================
+// 3. 询盘
+// =========================
+function inquiry() {
+    alert("Inquiry sent for " + productId);
 }
 </script>
 
