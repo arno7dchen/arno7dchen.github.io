@@ -3,49 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <title>Product Detail</title>
+
 <style>
 body { font-family: Arial; margin: 20px; }
-.container { max-width: 900px; margin: auto; }
 
-/* ===== 主图区域（统一尺寸）===== */
-.main-image {
-    width: 100%;
-    max-width: 600px;
-    aspect-ratio: 4 / 3;
-    margin: 0 auto 20px auto;
-    overflow: hidden;
-    border-radius: 10px;
-    background: #f5f5f5;
+.container {
+    max-width: 900px;
+    margin: auto;
 }
 
-/* 主图本体 */
-.main-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
+/* =========================
+   图片网格
+========================= */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 10px;
 }
 
-.grid img {
-    width: 100%;
-    height: 170px;          /* ⭐统一高度 */
-    object-fit: contain;    /* ⭐不裁切 */
+/* 每个图片外框（统一高度关键） */
+.grid-item {
+    height: 170px;
     background: #f5f5f5;
-    padding: 6px;
     border-radius: 6px;
-    display: block;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-    .grid img:hover {
-    transform: scale(1.03);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
 }
 
+/* 图片本体 */
+.grid-item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+}
+
+.grid-item img:hover {
+    transform: scale(1.05);
+}
+
+/* 信息区 */
 h1 { margin-bottom: 10px; }
 
 .info {
@@ -59,6 +61,31 @@ button {
     color: white;
     border: none;
     cursor: pointer;
+}
+
+/* =========================
+   lightbox（点击放大）
+========================= */
+#lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.85);
+
+    justify-content: center;
+    align-items: center;
+
+    z-index: 9999;
+}
+
+#lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
 }
 </style>
 </head>
@@ -82,8 +109,16 @@ button {
 
 </div>
 
+<!-- lightbox -->
+<div id="lightbox">
+    < img id="lightboxImg">
+</div>
+
 <script>
-// === 固定测试数据（先跑通用） ===
+
+// =========================
+// 1. 产品数据
+// =========================
 const product = {
     id: "S-OC-001",
     name: "Outdoor Dining Chair",
@@ -100,23 +135,52 @@ const product = {
     ]
 };
 
-// === 渲染页面 ===
+// =========================
+// 2. 填充信息
+// =========================
 document.getElementById("title").innerText = product.name;
 document.getElementById("code").innerText = product.id;
 document.getElementById("material").innerText = product.material;
 document.getElementById("dimensions").innerText = product.dimensions;
 document.getElementById("description").innerText = product.description;
 
+// =========================
+// 3. 图片渲染 + 点击放大
+// =========================
 const imgBox = document.getElementById("images");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightboxImg");
+
 product.images.forEach(src => {
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "grid-item";
+
     const img = document.createElement("img");
     img.src = src;
-    imgBox.appendChild(img);
+
+    // 点击放大
+    img.onclick = () => {
+        lightbox.style.display = "flex";
+        lightboxImg.src = src;
+    };
+
+    wrapper.appendChild(img);
+    imgBox.appendChild(wrapper);
 });
 
+// 关闭放大
+lightbox.onclick = () => {
+    lightbox.style.display = "none";
+};
+
+// =========================
+// 4. 询盘
+// =========================
 function inquiry() {
     alert("Inquiry sent for " + product.id);
 }
+
 </script>
 
 </body>
