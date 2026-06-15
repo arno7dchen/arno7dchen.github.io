@@ -158,9 +158,16 @@ function render() {
         img.src = base + imgName;
 
         // ❗防404
-        img.onerror = () => {
-            wrapper.remove();
-        };
+    img.onerror = () => {
+    img.src = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+            <rect width="100%" height="100%" fill="#f2f2f2"/>
+            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#999">
+                Image Missing
+            </text>
+        </svg>
+    `);
+};
 
         img.onclick = () => {
             lightbox.style.display = "flex";
