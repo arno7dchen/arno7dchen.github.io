@@ -1,1 +1,14 @@
-
+{
+  "id": "S-OC-001",
+  "name": "Outdoor Dining Chair",
+  "material": "Aluminum + Textilene",
+  "dimensions": "W58 × D62 × H88 cm",
+  "description": "Modern outdoor chair suitable for garden and patio use.",
+  "images": [
+    "1.jpg",
+    "2.jpg",
+    "3.jpg",
+    "4.jpg",
+    "5.jpg"
+  ]
+}
