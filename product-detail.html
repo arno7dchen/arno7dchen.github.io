@@ -120,73 +120,67 @@ button {
 </div>
 
 <script>
+const params = new URLSearchParams(window.location.search);
+const productId = params.get("id") || "S-OC-001";
 
-/* =========================
-产品数据（以后只改这里）
-========================= */
-const product = {
-    id: "S-OC-001",
-    name: "Outdoor Dining Chair",
-    material: "Aluminum + Textilene",
-    dimensions: "W58 × D62 × H88 cm",
-    description: "Modern outdoor chair suitable for garden and patio use.",
-    images: [
-        "images/products/S-OC-001/1.jpg",
-        "images/products/S-OC-001/2.jpg",
-        "images/products/S-OC-001/3.jpg",
-        "images/products/S-OC-001/4.jpg",
-        "images/products/S-OC-001/5.jpg",
-        "images/products/S-OC-001/6.jpg"
-    ]
-};
+let product = null;
 
-/* =========================
-填充文字
-========================= */
-document.getElementById("title").innerText = product.name;
-document.getElementById("code").innerText = product.id;
-document.getElementById("material").innerText = product.material;
-document.getElementById("dimensions").innerText = product.dimensions;
-document.getElementById("description").innerText = product.description;
+// =========================
+// 1. 加载JSON
+// =========================
+fetch(`/data/products/${productId}.json`)
+  .then(res => res.json())
+  .then(data => {
+      product = data;
+      renderProduct();
+  });
 
-/* =========================
-渲染图片
-========================= */
-const imgBox = document.getElementById("images");
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightboxImg");
+// =========================
+// 2. 渲染页面
+// =========================
+function renderProduct() {
 
-product.images.forEach(src => {
+    document.getElementById("title").innerText = product.name;
+    document.getElementById("code").innerText = product.id;
+    document.getElementById("material").innerText = product.material;
+    document.getElementById("dimensions").innerText = product.dimensions;
+    document.getElementById("description").innerText = product.description;
 
-    const box = document.createElement("div");
-    box.className = "img-box";
+    const imgBox = document.getElementById("images");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightboxImg");
 
-    const img = document.createElement("img");
-    img.src = src;
+    imgBox.innerHTML = "";
 
-    img.onclick = () => {
-        lightbox.style.display = "flex";
-        lightboxImg.src = src;
+    product.images.forEach((imgName) => {
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "img-box";
+
+        const img = document.createElement("img");
+        img.src = `/images/products/${productId}/${imgName}`;
+
+        img.onclick = () => {
+            lightbox.style.display = "flex";
+            lightboxImg.src = img.src;
+        };
+
+        wrapper.appendChild(img);
+        imgBox.appendChild(wrapper);
+    });
+
+    // 关闭 lightbox
+    lightbox.onclick = () => {
+        lightbox.style.display = "none";
     };
-
-    box.appendChild(img);
-    imgBox.appendChild(box);
-});
-
-/* =========================
-关闭放大
-========================= */
-lightbox.onclick = () => {
-    lightbox.style.display = "none";
-};
-
-/* =========================
-询盘
-========================= */
-function inquiry() {
-    alert("Inquiry sent for " + product.id);
 }
 
+// =========================
+// 3. 询盘按钮
+// =========================
+function inquiry() {
+    alert("Inquiry sent for " + productId);
+}
 </script>
 
 </body>
