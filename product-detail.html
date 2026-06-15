@@ -5,6 +5,7 @@
 <title>Product Detail</title>
 
 <style>
+
 body {
     font-family: Arial;
     margin: 20px;
@@ -20,41 +21,45 @@ h1 {
     margin-bottom: 10px;
 }
 
-/* ===== 信息区 ===== */
+/* ===== 信息 ===== */
 .info {
     margin-top: 20px;
 }
 
-/* ===== 图片网格 ===== */
+/* ===== 图片区域（核心重构）===== */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 12px;
 }
 
-/* ===== 图片统一框（关键）===== */
-.grid-item {
-    height: 180px;
-    background: #f5f5f5;
+/* ⭐彻底去掉灰色，统一白底 */
+.img-box {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #fff;
+
+    border: 1px solid #eee;
     border-radius: 8px;
-    overflow: hidden;
 
     display: flex;
     align-items: center;
     justify-content: center;
+
+    overflow: hidden;
 }
 
-/* 图片本体 */
-.grid-item img {
-    max-width: 100%;
-    max-height: 100%;
+/* 图片统一适配（不裁切） */
+.img-box img {
+    max-width: 90%;
+    max-height: 90%;
     object-fit: contain;
+
     cursor: pointer;
-    transition: transform 0.25s ease;
+    transition: 0.25s ease;
 }
 
-/* hover效果 */
-.grid-item img:hover {
+.img-box img:hover {
     transform: scale(1.05);
 }
 
@@ -69,20 +74,15 @@ button {
     border-radius: 4px;
 }
 
-/* ===== Lightbox（放大层）===== */
+/* ===== Lightbox ===== */
 #lightbox {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-
+    inset: 0;
     background: rgba(0,0,0,0.85);
 
     justify-content: center;
     align-items: center;
-
     z-index: 9999;
 }
 
@@ -91,8 +91,8 @@ button {
     max-height: 90%;
     object-fit: contain;
 }
-</style>
 
+</style>
 </head>
 
 <body>
@@ -111,9 +111,10 @@ button {
     </div>
 
     <button onclick="inquiry()">Send Inquiry</button>
+
 </div>
 
-<!-- ⭐ Lightbox 必须放在 body 最后 -->
+<!-- Lightbox（必须存在） -->
 <div id="lightbox">
     < img id="lightboxImg">
 </div>
@@ -121,7 +122,7 @@ button {
 <script>
 
 /* =========================
-1. 产品数据（后面150个你只换这里）
+产品数据（以后只改这里）
 ========================= */
 const product = {
     id: "S-OC-001",
@@ -140,7 +141,7 @@ const product = {
 };
 
 /* =========================
-2. 填充信息
+填充文字
 ========================= */
 document.getElementById("title").innerText = product.name;
 document.getElementById("code").innerText = product.id;
@@ -149,17 +150,16 @@ document.getElementById("dimensions").innerText = product.dimensions;
 document.getElementById("description").innerText = product.description;
 
 /* =========================
-3. 图片渲染 + 点击放大
+渲染图片
 ========================= */
 const imgBox = document.getElementById("images");
-
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightboxImg");
 
 product.images.forEach(src => {
 
-    const wrapper = document.createElement("div");
-    wrapper.className = "grid-item";
+    const box = document.createElement("div");
+    box.className = "img-box";
 
     const img = document.createElement("img");
     img.src = src;
@@ -169,19 +169,19 @@ product.images.forEach(src => {
         lightboxImg.src = src;
     };
 
-    wrapper.appendChild(img);
-    imgBox.appendChild(wrapper);
+    box.appendChild(img);
+    imgBox.appendChild(box);
 });
 
 /* =========================
-4. 关闭放大
+关闭放大
 ========================= */
 lightbox.onclick = () => {
     lightbox.style.display = "none";
 };
 
 /* =========================
-5. 询盘按钮
+询盘
 ========================= */
 function inquiry() {
     alert("Inquiry sent for " + product.id);
