@@ -126,19 +126,26 @@ const productId = params.get("id") || "S-OC-001";
 let product = null;
 
 // =========================
-// 1. 加载JSON
+// 1. 加载 JSON
 // =========================
 fetch(`/data/products/${productId}.json`)
-  .then(res => res.json())
+  .then(res => {
+      if (!res.ok) throw new Error("JSON not found");
+      return res.json();
+  })
   .then(data => {
       product = data;
-      renderProduct();
+      render();
+  })
+  .catch(err => {
+      console.error(err);
+      document.body.innerHTML = "<h2>Product Not Found</h2>";
   });
 
 // =========================
-// 2. 渲染页面
+// 2. 渲染
 // =========================
-function renderProduct() {
+function render() {
 
     document.getElementById("title").innerText = product.name;
     document.getElementById("code").innerText = product.id;
@@ -152,13 +159,20 @@ function renderProduct() {
 
     imgBox.innerHTML = "";
 
+    const base = `/images/products/${product.id}/`;
+
     product.images.forEach((imgName) => {
 
         const wrapper = document.createElement("div");
         wrapper.className = "img-box";
 
         const img = document.createElement("img");
-        img.src = `/images/products/${productId}/${imgName}`;
+        img.src = base + imgName;
+
+        // ❗防止404导致灰层
+        img.onerror = () => {
+            wrapper.style.display = "none";
+        };
 
         img.onclick = () => {
             lightbox.style.display = "flex";
@@ -169,17 +183,10 @@ function renderProduct() {
         imgBox.appendChild(wrapper);
     });
 
-    // 关闭 lightbox
+    // ❗只绑定一次（关键）
     lightbox.onclick = () => {
         lightbox.style.display = "none";
     };
-}
-
-// =========================
-// 3. 询盘按钮
-// =========================
-function inquiry() {
-    alert("Inquiry sent for " + productId);
 }
 </script>
 
