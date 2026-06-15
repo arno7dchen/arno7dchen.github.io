@@ -5,10 +5,7 @@
 <title>Product Detail</title>
 
 <style>
-body {
-    font-family: Arial;
-    margin: 20px;
-}
+body { font-family: Arial; margin: 20px; }
 
 .container {
     max-width: 900px;
@@ -19,23 +16,22 @@ body {
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 12px;
+    gap: 10px;
 }
 
-/* 每张图统一容器（关键） */
+/* 每张图统一容器（关键：避免大小不一） */
 .img-box {
     width: 100%;
     height: 160px;
-    background: #fff; /* 去掉灰色问题 */
+    background: #f5f5f5;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
+    border-radius: 6px;
     overflow: hidden;
-    border: 1px solid #eee;
 }
 
-/* 图片统一显示（不裁切、不变形） */
+/* 图片本体（不裁切） */
 .img-box img {
     max-width: 100%;
     max-height: 100%;
@@ -45,33 +41,17 @@ body {
 }
 
 .img-box img:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
 
-/* 文字 */
-h1 { margin-bottom: 6px; }
-#code { color: #666; }
-
-/* info */
-.info {
-    margin-top: 20px;
-}
-
-/* button */
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background: black;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-/* ===== LIGHTBOX（重点修复）===== */
+/* ===== lightbox（放大层）===== */
 #lightbox {
     display: none;
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: rgba(0,0,0,0.85);
     justify-content: center;
     align-items: center;
@@ -81,8 +61,18 @@ button {
 #lightbox img {
     max-width: 90%;
     max-height: 90%;
-    object-fit: contain;
-    background: white;
+}
+
+/* info */
+.info { margin-top: 20px; }
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: black;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
 </style>
 </head>
@@ -92,7 +82,7 @@ button {
 <div class="container">
 
     <h1 id="title"></h1>
-    <div id="code"></div>
+    <p id="code"></p >
 
     <div class="grid" id="images"></div>
 
@@ -105,15 +95,16 @@ button {
     <button onclick="inquiry()">Send Inquiry</button>
 </div>
 
-<!-- LIGHTBOX（必须在body里！否则你现在就是404/空） -->
+<!-- lightbox 必须存在（你之前问题就是缺/错/重复） -->
 <div id="lightbox">
     < img id="lightboxImg">
 </div>
 
 <script>
-// =========================
-// 1. 产品数据
-// =========================
+
+// =======================
+// 1. 产品数据（测试）
+// =======================
 const product = {
     id: "S-OC-001",
     name: "Outdoor Dining Chair",
@@ -130,18 +121,18 @@ const product = {
     ]
 };
 
-// =========================
-// 2. 基本信息
-// =========================
+// =======================
+// 2. 填充文字
+// =======================
 document.getElementById("title").innerText = product.name;
 document.getElementById("code").innerText = product.id;
 document.getElementById("material").innerText = product.material;
 document.getElementById("dimensions").innerText = product.dimensions;
 document.getElementById("description").innerText = product.description;
 
-// =========================
-// 3. 图片渲染（核心修复）
-// =========================
+// =======================
+// 3. 渲染图片 + 点击放大
+// =======================
 const imgBox = document.getElementById("images");
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightboxImg");
@@ -163,19 +154,20 @@ product.images.forEach(src => {
     imgBox.appendChild(box);
 });
 
-// =========================
-// 4. 关闭放大
-// =========================
+// =======================
+// 4. 关闭 lightbox
+// =======================
 lightbox.onclick = () => {
     lightbox.style.display = "none";
 };
 
-// =========================
+// =======================
 // 5. inquiry
-// =========================
+// =======================
 function inquiry() {
     alert("Inquiry sent for " + product.id);
 }
+
 </script>
 
 </body>
