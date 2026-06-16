@@ -109,7 +109,13 @@ button {
 </div>
 
 <script>
-const productId = "S-OC-001"; // ⭐先固定（最稳定）
+const urlParams = new URLSearchParams(window.location.search);
+const productId = urlParams.get("id");
+
+if (!productId) {
+    document.body.innerHTML = "<h2>No Product ID Found</h2>";
+    throw new Error("Missing product ID");
+}
 
 let product = null;
 
