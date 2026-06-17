@@ -15,31 +15,23 @@ body {
     margin: auto;
 }
 
-/* 标题 */
 h1 { margin-bottom: 10px; }
 
-/* 信息 */
-.info { margin-top: 20px; }
-
-/* 图片网格 */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 12px;
 }
 
-/* 图片盒子（无灰底版） */
 .img-box {
     width: 100%;
     aspect-ratio: 1 / 1;
     background: #fff;
     border: 1px solid #eee;
     border-radius: 8px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     overflow: hidden;
 }
 
@@ -48,20 +40,13 @@ h1 { margin-bottom: 10px; }
     max-height: 90%;
     object-fit: contain;
     cursor: pointer;
-    transition: 0.2s;
 }
 
-.img-box img:hover {
-    transform: scale(1.05);
-}
-
-/* Lightbox（100%稳定） */
 #lightbox {
     display: none;
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.85);
-
     justify-content: center;
     align-items: center;
     z-index: 9999;
@@ -70,17 +55,28 @@ h1 { margin-bottom: 10px; }
 #lightbox img {
     max-width: 90%;
     max-height: 90%;
-    object-fit: contain;
 }
 
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background: black;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
+/* 询盘弹窗 */
+#inquiryBox {
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.6);
+}
+
+#inquiryInner {
+    background:#fff;
+    width:320px;
+    margin:100px auto;
+    padding:20px;
+    border-radius:8px;
+}
+
+input, textarea {
+    width:100%;
+    margin:5px 0;
+    padding:8px;
 }
 </style>
 </head>
@@ -94,52 +90,58 @@ button {
 
     <div class="grid" id="images"></div>
 
-    <div class="info">
+    <div>
         <p><b>Material:</b> <span id="material"></span></p >
         <p><b>Dimensions:</b> <span id="dimensions"></span></p >
         <p id="description"></p >
     </div>
 
-    <button onclick="inquiry()">Send Inquiry</button>
+    <button onclick="openInquiry()">Send Inquiry</button>
+
 </div>
 
-<!-- Lightbox（必须） -->
+<!-- lightbox -->
 <div id="lightbox">
-    <img id="lightboxImg">
+    < img id="lightboxImg">
+</div>
+
+<!-- inquiry -->
+<div id="inquiryBox">
+  <div id="inquiryInner">
+
+    <h3>Inquiry</h3>
+
+    <input id="inq_name" placeholder="Name">
+    <input id="inq_email" placeholder="Email">
+    <input id="inq_country" placeholder="Country">
+    <textarea id="inq_msg" placeholder="Message"></textarea>
+
+    <button onclick="sendInquiry()">Send</button>
+    <button onclick="closeInquiry()">Close</button>
+
+  </div>
 </div>
 
 <script>
-const urlParams = new URLSearchParams(window.location.search);
-const productId = urlParams.get("id");
-
-if (!productId) {
-    document.body.innerHTML = "<h2>No Product ID Found</h2>";
-    throw new Error("Missing product ID");
-}
+const params = new URLSearchParams(window.location.search);
+const productId = params.get("id") || "S-OC-001";
 
 let product = null;
 
-// =========================
-// 1. 加载 JSON（GitHub Pages正确路径）
-// =========================
-fetch(`./data/products/${productId}.json`)
-.then(res => {
-    if (!res.ok) throw new Error("JSON not found");
-    return res.json();
-})
-.then(data => {
-    product = data;
-    render();
-})
-.catch(err => {
-    console.error(err);
-    document.body.innerHTML = "<h2>Product Not Found</h2>";
-});
+/* ======================
+   1. LOAD PRODUCT JSON
+====================== */
+fetch(`/data/products/${productId}.json`)
+  .then(res => res.json())
+  .then(data => {
+      product = data;
+      renderProduct();
+  });
 
-// =========================
-// 2. 渲染
-// =========================
-function render() {
+/* ======================
+   2. RENDER PRODUCT
+====================== */
+function renderProduct() {
 
     document.getElementById("title").innerText = product.name;
     document.getElementById("code").innerText = product.id;
@@ -153,47 +155,41 @@ function render() {
 
     imgBox.innerHTML = "";
 
-    const base = `./images/products/${product.id}/`;
-
     product.images.forEach(imgName => {
 
-        const wrapper = document.createElement("div");
-        wrapper.className = "img-box";
+        const box = document.createElement("div");
+        box.className = "img-box";
 
         const img = document.createElement("img");
-        img.src = base + imgName;
-
-        // ❗防404
-    img.onerror = () => {
-    img.src = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(`
-        <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
-            <rect width="100%" height="100%" fill="#f2f2f2"/>
-            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#999">
-                Image Missing
-            </text>
-        </svg>
-    `);
-};
+        img.src = `/images/products/${product.id}/${imgName}`;
 
         img.onclick = () => {
             lightbox.style.display = "flex";
             lightboxImg.src = img.src;
         };
 
-        wrapper.appendChild(img);
-        imgBox.appendChild(wrapper);
+        box.appendChild(img);
+        imgBox.appendChild(box);
     });
 
-    // 只绑定一次
     lightbox.onclick = () => {
         lightbox.style.display = "none";
     };
 }
 
-// =========================
-// 3. 询盘
-// =========================
-function inquiry() {
+/* ======================
+   3. INQUIRY SYSTEM
+====================== */
+
+function openInquiry(){
+    document.getElementById("inquiryBox").style.display = "block";
+}
+
+function closeInquiry(){
+    document.getElementById("inquiryBox").style.display = "none";
+}
+
+function sendInquiry(){
 
     fetch("https://formspree.io/f/mjgddevd", {
         method: "POST",
@@ -203,26 +199,28 @@ function inquiry() {
         body: JSON.stringify({
             product_id: product.id,
             product_name: product.name,
-            url: window.location.href
+            name: document.getElementById("inq_name").value,
+            email: document.getElementById("inq_email").value,
+            country: document.getElementById("inq_country").value,
+            message: document.getElementById("inq_msg").value,
+            page_url: window.location.href,
+            time: new Date().toISOString()
         })
     })
-    .then(async (res) => {
-
-        const data = await res.json().catch(() => ({}));
-
+    .then(res => {
         if (res.ok) {
-            console.log("Formspree success:", data);
-            alert("Inquiry sent for " + product.id);
+            alert("Inquiry sent successfully!");
+            closeInquiry();
         } else {
-            console.error("Formspree failed:", data);
             alert("Failed to send inquiry");
         }
     })
     .catch(err => {
-        console.error("Network error:", err);
-        alert("Network error, not sent");
+        console.error(err);
+        alert("Network error");
     });
 }
+
 </script>
 
 </body>
