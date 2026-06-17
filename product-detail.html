@@ -203,21 +203,24 @@ function inquiry() {
         body: JSON.stringify({
             product_id: product.id,
             product_name: product.name,
-            material: product.material,
-            dimensions: product.dimensions,
-            description: product.description
+            url: window.location.href
         })
     })
-    .then(res => {
+    .then(async (res) => {
+
+        const data = await res.json().catch(() => ({}));
+
         if (res.ok) {
+            console.log("Formspree success:", data);
             alert("Inquiry sent for " + product.id);
         } else {
+            console.error("Formspree failed:", data);
             alert("Failed to send inquiry");
         }
     })
     .catch(err => {
-        console.error(err);
-        alert("Error sending inquiry");
+        console.error("Network error:", err);
+        alert("Network error, not sent");
     });
 }
 </script>
