@@ -194,7 +194,31 @@ function render() {
 // 3. 询盘
 // =========================
 function inquiry() {
-    alert("Inquiry sent for " + productId);
+
+    fetch("https://formspree.io/f/mjgddevd", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            product_id: product.id,
+            product_name: product.name,
+            material: product.material,
+            dimensions: product.dimensions,
+            description: product.description
+        })
+    })
+    .then(res => {
+        if (res.ok) {
+            alert("Inquiry sent for " + product.id);
+        } else {
+            alert("Failed to send inquiry");
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Error sending inquiry");
+    });
 }
 </script>
 
