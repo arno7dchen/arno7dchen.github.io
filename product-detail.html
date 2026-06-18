@@ -224,6 +224,52 @@ function inquiry() {
     });
 }
 </script>
+    
+    <div id="inquiryModal" style="
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.6);
+    z-index:9999;
+    justify-content:center;
+    align-items:center;
+">
+
+  <div style="
+      background:white;
+      width:350px;
+      padding:20px;
+      border-radius:10px;
+      font-family:Arial;
+  ">
+
+    <h3>Product Inquiry</h3>
+
+    <input id="inq_name" placeholder="Name" style="width:100%;margin:5px 0;padding:8px;">
+    <input id="inq_email" placeholder="Email" style="width:100%;margin:5px 0;padding:8px;">
+    <input id="inq_country" placeholder="Country" style="width:100%;margin:5px 0;padding:8px;">
+    <textarea id="inq_msg" placeholder="Message" style="width:100%;height:80px;margin:5px 0;padding:8px;"></textarea>
+
+    <button onclick="submitInquiry()" style="
+        width:100%;
+        background:orange;
+        color:white;
+        padding:10px;
+        border:none;
+        margin-top:10px;
+        cursor:pointer;
+        font-weight:bold;
+    ">Submit Inquiry</button>
+
+    <button onclick="closeInquiry()" style="
+        width:100%;
+        margin-top:5px;
+        padding:8px;
+    ">Close</button>
+
+  </div>
+
+</div>
 
 </body>
 </html>
