@@ -93,39 +93,46 @@ button {
 <script>
 
 let files = [];
-let jsonData = null;
 
 document.getElementById("folderInput").addEventListener("change", function(e) {
-    files = Array.from(e.target.files);
+
+    files = Array.from(e.target.files || []);
+
+    console.log("UPLOAD OK:", files.length);
 
     const preview = document.getElementById("previewImages");
     preview.innerHTML = "";
 
-    files.sort((a,b) => a.name.localeCompare(b.name));
+    files
+        .slice()
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .forEach(file => {
 
-    files.forEach(file => {
-        const img = document.createElement("img");
-        img.src = URL.createObjectURL(file);
-        preview.appendChild(img);
-    });
+            const img = document.createElement("img");
+            img.src = URL.createObjectURL(file);
+
+            img.style.width = "80px";
+            img.style.margin = "5px";
+
+            preview.appendChild(img);
+        });
 });
 
 function generate() {
 
-    const id = document.getElementById("productId").value;
-
-    // ✅ 先排序（真正有效）
-    files.sort((a, b) => a.name.localeCompare(b.name));
-
-    const imageNames = files.map(f => f.name); // ✅ 再生成数组
+    console.log("FILES IN GENERATE:", files.length);
 
     const jsonData = {
-        id: id,
+        id: document.getElementById("productId").value,
         name: document.getElementById("name").value || "",
         material: document.getElementById("material").value || "",
         dimensions: document.getElementById("dimensions").value || "",
         description: document.getElementById("description").value || "",
-        images: imageNames
+
+        images: files
+            .slice()
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map(f => f.name)
     };
 
     document.getElementById("output").innerText =
