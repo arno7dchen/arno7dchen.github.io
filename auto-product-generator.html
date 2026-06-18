@@ -114,16 +114,18 @@ function generate() {
 
     const id = document.getElementById("productId").value;
 
-    const imageNames = files
-        .sort((a,b) => a.localeCompare(b));
+    // ✅ 先排序（真正有效）
+    files.sort((a, b) => a.name.localeCompare(b.name));
 
-    jsonData = {
+    const imageNames = files.map(f => f.name); // ✅ 再生成数组
+
+    const jsonData = {
         id: id,
         name: document.getElementById("name").value || "",
         material: document.getElementById("material").value || "",
         dimensions: document.getElementById("dimensions").value || "",
         description: document.getElementById("description").value || "",
-        images: files.map(f => f.name)
+        images: imageNames
     };
 
     document.getElementById("output").innerText =
