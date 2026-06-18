@@ -230,6 +230,48 @@ function inquiry() {
 function closeInquiry(){
     document.getElementById("inquiryModal").style.display = "none";
 }
+
+    function submitInquiry(){
+
+    const name = document.getElementById("inq_name").value.trim();
+    const email = document.getElementById("inq_email").value.trim();
+    const country = document.getElementById("inq_country").value.trim();
+    const msg = document.getElementById("inq_msg").value.trim();
+
+    // ❗强制验证（必须填完）
+    if(!name || !email || !country || !msg){
+        alert("Please fill all fields");
+        return;
+    }
+
+    fetch("https://formspree.io/f/mjgddevd", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            product_id: product.id,
+            product_name: product.name,
+            name: name,
+            email: email,
+            country: country,
+            message: msg,
+            page_url: window.location.href
+        })
+    })
+    .then(res => {
+        if(res.ok){
+            alert("Inquiry sent successfully!");
+            closeInquiry();
+        }else{
+            alert("Failed to send inquiry");
+        }
+    })
+    .catch(err => {
+        alert("Network error");
+        console.log(err);
+    });
+}
     
 </script>
     
