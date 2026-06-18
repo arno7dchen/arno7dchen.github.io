@@ -115,7 +115,6 @@ function generate() {
     const id = document.getElementById("productId").value;
 
     const imageNames = files
-        .map(f => f.name)
         .sort((a,b) => a.localeCompare(b));
 
     jsonData = {
@@ -124,7 +123,7 @@ function generate() {
         material: document.getElementById("material").value || "",
         dimensions: document.getElementById("dimensions").value || "",
         description: document.getElementById("description").value || "",
-        images: imageNames
+        images: files.map(f => f.name)
     };
 
     document.getElementById("output").innerText =
