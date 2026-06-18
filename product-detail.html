@@ -100,7 +100,7 @@ button {
         <p id="description"></p >
     </div>
 
-    <button onclick="inquiry()">Send Inquiry</button>
+    <button onclick="openInquiry()">Send Inquiry</button>
 </div>
 
 <!-- Lightbox（必须） -->
@@ -223,6 +223,14 @@ function inquiry() {
         alert("Network error, not sent");
     });
 }
+    function openInquiry(){
+    document.getElementById("inquiryModal").style.display = "flex";
+}
+
+function closeInquiry(){
+    document.getElementById("inquiryModal").style.display = "none";
+}
+    
 </script>
     
     <div id="inquiryModal" style="
