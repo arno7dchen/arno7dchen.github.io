@@ -82,6 +82,43 @@ button {
     cursor: pointer;
     border-radius: 4px;
 }
+    #inquiryModal * {
+    font-family: Arial, Helvetica, sans-serif !important;
+    box-sizing: border-box;
+}
+
+/* 统一输入框视觉 */
+#inquiryModal input,
+#inquiryModal textarea {
+    width: 100%;
+    margin: 0;
+    padding: 12px 12px;
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+
+    font-size: 14px;
+    color: #111;
+
+    display: block;
+}
+
+/* 统一间距（关键） */
+#inquiryModal input,
+#inquiryModal textarea {
+    margin-bottom: 10px;
+}
+
+/* placeholder统一 */
+#inquiryModal input::placeholder,
+#inquiryModal textarea::placeholder {
+    color: #999;
+}
+
+/* textarea统一高度 */
+#inquiryModal textarea {
+    min-height: 90px;
+    resize: none;
+}
 </style>
 </head>
 
