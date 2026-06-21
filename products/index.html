@@ -26,7 +26,7 @@ body {
 
 /* 导航头部 */
 .nav-header {
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     width: 100%;
@@ -44,13 +44,17 @@ body {
     font-weight: 600;
     white-space: nowrap;
 }
+.nav {
+    display: flex;
+    gap: 30px;
+}
 .nav a {
     color: #fff;
     text-decoration: none;
-    margin-left: 30px;
     font-size: 17px !important;
     font-weight: 700 !important;
     white-space: nowrap;
+    margin: 0;
 }
 .nav a.active {
     color: #ff6b35;
