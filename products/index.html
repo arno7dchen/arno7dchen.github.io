@@ -913,6 +913,16 @@ body {
 <!-- 标题替换连字符 -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    
+    const toggle = document.querySelector(".menu-toggle");
+    const nav = document.querySelector(".nav");
+
+    if (toggle && nav) {
+        toggle.addEventListener("click", function () {
+            nav.classList.toggle("active");
+        });
+    }
+    
     const categoryMap = {
         "all": "ALL",
         "outdoor-chairs": "OC",
@@ -997,7 +1007,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 找到外层的 a 标签
     const wrapper = card.closest('a');
-
+            
+    if (wrapper) { 
     if (targetCat === 'all' || cardCat === targetCat) {
         wrapper.style.display = '';
     } else {
