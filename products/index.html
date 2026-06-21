@@ -1008,7 +1008,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 找到外层的 a 标签
     const wrapper = card.closest('a');
             
-    if (wrapper) { 
+    if (!wrapper) return;
     if (targetCat === 'all' || cardCat === targetCat) {
         wrapper.style.display = '';
     } else {
