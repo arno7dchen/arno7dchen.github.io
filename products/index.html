@@ -891,7 +891,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function refreshView() {
         document.querySelectorAll('.product-code-tag').forEach(tag => tag.remove());
-        Object.keys(categoryCount).forEach(key => categoryCount[key] = 1);
+    
 
         allProducts.forEach(card => {
             if (getComputedStyle(card).display !== 'block') return;
@@ -899,10 +899,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const category = card.dataset.category;
             if (!category || !categoryMap[category]) return;
 
-            const abbr = categoryMap[category];
-            const code = `S-${abbr}-${String(categoryCount[abbr]).padStart(3, '0')}`;
-            categoryCount[abbr]++;
-
+            const link = card.parentElement;
+            const url = new URL(link.href);
+            const code = url.searchParams.get('id');
+        
             const tag = document.createElement('span');
             tag.className = 'product-code-tag';
             tag.style.cssText = 'position:absolute;top:0;left:0;background:rgba(255,120,0,0.95);color:#fff;font-size:11px;padding:2px 6px;border-radius:0 0 4px 0;z-index:1000;';
