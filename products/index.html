@@ -342,47 +342,40 @@ body {
 }
 
 #backToTopBtn {
-  position: fixed !important;
-  right: 25px !important;
-  bottom: 25px !important;
-  left: auto !important;
-  top: auto !important;
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
 
-  inset: auto !important;
-
-  width: 55px;
-  height: 55px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
+
+  background: #FF6B35;
+  color: white;
   border: none;
 
-  background: #f47c2c;
-  color: white;
-
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: bold;
 
   cursor: pointer;
+  z-index: 99999;
 
-  z-index: 999999;
-
-  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
-
-  transition: all 0.25s ease;
+  box-shadow: 0 6px 18px rgba(255,107,53,0.35);
 
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
+  transition: all 0.25s ease;
 }
 
-/* hover更高级一点 */
+#backToTopBtn.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
 #backToTopBtn:hover {
   transform: scale(1.08);
-  background: #ff6a00;
-}
-
-/* 点击效果 */
-#backToTopBtn:active {
-  transform: scale(0.92);
 }
 
 </style> 
