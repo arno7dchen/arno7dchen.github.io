@@ -341,27 +341,37 @@ body {
     }
 }
 
-  #backToTopBtn {
-  position: fixed;
-  right: 25px;
-  bottom: 25px;
+#backToTopBtn {
+  position: fixed !important;
+  right: 25px !important;
+  bottom: 25px !important;
+#backToTopBtn:active {
+  transform: scale(0.92);
 
-  width: 45px;
-  height: 45px;
+  left: auto !important;   /* 🔥防止跑左边 */
+
+  width: 55px;
+  height: 55px;
+
   border-radius: 50%;
   border: none;
 
-  background: #222;
+  background: #f47c2c;   /* 🔥橙色统一你的品牌 */
   color: white;
-  font-size: 16px;
+
+  font-size: 18px;
+  font-weight: bold;
 
   cursor: pointer;
 
-  display: none;
-  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
 
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);    
-  transition: opacity 0.3s ease;
+  z-index: 99999;
+
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+
+  transition: all 0.25s ease;
 }
 
 </style> 
@@ -961,9 +971,11 @@ const btn = document.getElementById("backToTopBtn");
 // 滚动超过300px显示按钮
 window.addEventListener("scroll", function () {
   if (window.scrollY > 300) {
-    btn.style.display = "block";
+    btn.style.opacity = "1";
+    btn.style.visibility = "visible";
   } else {
-    btn.style.display = "none";
+   btn.style.opacity = "0";
+   btn.style.visibility = "hidden";
   }
 });
 
