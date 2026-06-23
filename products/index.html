@@ -341,6 +341,28 @@ body {
     }
 }
 
+  #backToTopBtn {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+
+  background: #222;
+  color: white;
+  font-size: 16px;
+
+  cursor: pointer;
+
+  display: none;
+  z-index: 9999;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);    
+  transition: opacity 0.3s ease;
+}
 
 </style> 
 
@@ -930,6 +952,30 @@ document.addEventListener('DOMContentLoaded', function() {
     refreshView();
 });
 </script> 
+
+<button id="backToTopBtn">↑ Top</button>
+
+<script>
+const btn = document.getElementById("backToTopBtn");
+
+// 滚动超过300px显示按钮
+window.addEventListener("scroll", function () {
+  if (window.scrollY > 300) {
+    btn.style.display = "block";
+  } else {
+    btn.style.display = "none";
+  }
+});
+
+// 点击回到顶部
+btn.addEventListener("click", function () {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});
+</script>
+    
 
 </body>
 </html>
