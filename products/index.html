@@ -348,6 +348,8 @@ body {
   left: auto !important;
   top: auto !important;
 
+  inset: auto !important;
+
   width: 55px;
   height: 55px;
   border-radius: 50%;
@@ -979,13 +981,17 @@ const btn = document.getElementById("backToTopBtn");
 
 // 滚动显示
 window.addEventListener("scroll", function () {
-  const y = document.documentElement.scrollTop || document.body.scrollTop;
-
-  if (y > 300) {
-    btn.style.display = "block";
-    btn.style.opacity = "1";
-    btn.style.visibility = "visible";
-    btn.style.transform = "translateY(0)";
+  if (window.scrollY > 300) {
+    btn.style.cssText = `
+      position: fixed;
+      right: 25px;
+      bottom: 25px;
+      left: auto;
+      top: auto;
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    `;
   } else {
     btn.style.opacity = "0";
     btn.style.visibility = "hidden";
