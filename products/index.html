@@ -345,33 +345,29 @@ body {
   position: fixed !important;
   right: 25px !important;
   bottom: 25px !important;
-#backToTopBtn:active {
-  transform: scale(0.92);
-
-  left: auto !important;   /* 🔥防止跑左边 */
-
+  left: auto !important;
   width: 55px;
   height: 55px;
-
   border-radius: 50%;
   border: none;
-
-  background: #f47c2c;   /* 🔥橙色统一你的品牌 */
+  background: #f47c2c;
   color: white;
-
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
-
   cursor: pointer;
-
-  opacity: 0;
-  visibility: hidden;
-
-  z-index: 99999;
-
+  z-index: 999999;
   box-shadow: 0 6px 15px rgba(0,0,0,0.25);
 
+  /* 默认隐藏（关键） */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
   transition: all 0.25s ease;
+}
+
+/* active效果 */
+#backToTopBtn:active {
+  transform: scale(0.92);
 }
 
 </style> 
@@ -968,14 +964,16 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
 const btn = document.getElementById("backToTopBtn");
 
-// 滚动超过300px显示按钮
+// 滚动显示
 window.addEventListener("scroll", function () {
   if (window.scrollY > 300) {
     btn.style.opacity = "1";
     btn.style.visibility = "visible";
+    btn.style.transform = "translateY(0)";
   } else {
-   btn.style.opacity = "0";
-   btn.style.visibility = "hidden";
+    btn.style.opacity = "0";
+    btn.style.visibility = "hidden";
+    btn.style.transform = "translateY(10px)";
   }
 });
 
