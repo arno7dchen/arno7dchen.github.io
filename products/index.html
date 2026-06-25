@@ -217,13 +217,14 @@ body {
   z-index: 10;
 }
 
-/* 移动端汉堡菜单 */
+        /* 移动端汉堡菜单 */
 .menu-toggle {
     display: none;
     flex-direction: column;
     cursor: pointer;
     gap: 5px;
 }
+
 .menu-toggle span {
     width: 25px;
     height: 3px;
@@ -231,15 +232,22 @@ body {
     border-radius: 2px;
 }
 
-/* 移动端适配（已合并所有重复查询） */
+/* 移动端适配 */
 @media (max-width: 768px) {
+
     .nav-header {
         padding: 0 15px;
         height: 50px;
     }
+
     .logo {
         font-size: 16px;
     }
+
+    .menu-toggle {
+        display: flex;
+    }
+
     .nav {
         position: absolute;
         top: 50px;
@@ -249,18 +257,20 @@ body {
         flex-direction: column;
         padding: 15px 0;
         display: none;
-        align-items: center;   
-        text-align: center;   
-}
+        align-items: center;
+        text-align: center;
     }
+
     .nav.active {
         display: flex;
     }
+
     .nav a {
         margin: 10px 0;
         font-size: 16px;
         margin-left: 0;
     }
+
     .hero-banner h1 {
         font-size: 1.4rem !important;
         line-height: 1.2 !important;
@@ -268,6 +278,7 @@ body {
         white-space: normal !important;
         word-break: break-word !important;
     }
+
     .hero-banner p {
         white-space: normal !important;
         padding: 0 15px !important;
@@ -280,8 +291,8 @@ body {
         white-space: normal !important;
         word-break: break-word;
     }
-    
 }
+
 
 .products-area {
     padding-top: 0 !important;
