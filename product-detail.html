@@ -383,7 +383,7 @@ const WATERMARK_CONFIG = {
   rotate: -12
 };
 
-// 绘制水印核心函数
+// 绘制水印函数
 function runDraw(img) {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
@@ -403,32 +403,30 @@ function runDraw(img) {
   ctx.fillText(WATERMARK_CONFIG.text, 0, 0);
   ctx.restore();
 
-  // 返回带水印base64
   return canvas.toDataURL("image/png");
 }
 
-// 给单张图片加水印，返回处理后地址
+// 给图片加水印，同时把水印地址存到自定义属性里
 function addWatermarkToImage(img) {
-  if (img.dataset.watermarked === "1") return Promise.resolve(img.src);
+  if (img.dataset.watermarked === "1") return;
   img.dataset.watermarked = "1";
   img.crossOrigin = "anonymous";
 
-  return new Promise((resolve) => {
-    if (img.complete && img.naturalWidth > 0) {
-      const newSrc = runDraw(img);
-      img.src = newSrc;
-      resolve(newSrc);
-    } else {
-      img.onload = () => {
-        const newSrc = runDraw(img);
-        img.src = newSrc;
-        resolve(newSrc);
-      };
-    }
-  });
+  function process() {
+    const waterSrc = runDraw(img);
+    img.src = waterSrc;
+    // 把水印大图地址存在自定义属性里，给弹窗调用
+    img.dataset.waterSrc = waterSrc;
+  }
+
+  if (img.complete && img.naturalWidth > 0) {
+    process();
+  } else {
+    img.onload = process;
+  }
 }
 
-// 监听动态新增图片
+// 监听动态加载的产品图
 const observer = new MutationObserver(function(mutations) {
   mutations.forEach(function(mut) {
     mut.addedNodes.forEach(function(node) {
@@ -443,17 +441,8 @@ const observer = new MutationObserver(function(mutations) {
 });
 observer.observe(document.body, { childList: true, subtree: true });
 
-// 页面已有缩略图初始化
-document.querySelectorAll(".img-box img").forEach(async img => {
-  const waterSrc = await addWatermarkToImage(img);
-  // 重写点击弹窗逻辑，弹窗直接使用带水印图片
-  img.onclick = () => {
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImg = document.getElementById("lightboxImg");
-    lightboxImg.src = waterSrc;
-    lightbox.style.display = "flex";
-  };
-});
+// 处理页面已有的产品缩略图
+document.querySelectorAll(".img-box img").forEach(addWatermarkToImage);
 </script>
         
 </body>
