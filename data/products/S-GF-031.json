@@ -1,13 +1,16 @@
 {
-  "id": "S-OC-031",
-  "name": "Outdoor PP Armchair (custom color)",
-  "material": "high quality PP raw material",
-  "dimensions": "54 × 58 × 79cmH",
-  "description": "This PP chair with its airy design, it is a real eye-catcher. The seat with armrest is very comfortable and the colour creates a fresh look on the terrace. This PP outdoor chair is stackable, making it easy to store! UV treated.",
+  "id": "S-GF-031",
+  "name": "4pc Patio Outdoor Sofa Set",
+  "material": "steel frame w/t powder coated. w/t polyester fabric cushion. Coffee table w/t a simulated woodgrain finish",
+  "dimensions": "double: 74 × 16 × 69cmH single: 74 × 6 × 69cmH, table: 80 × 48 × 41cmH",
+  "description": "This set features plush, weather-resistant cushions and a chic, modern design that creates an inviting atmosphere for relaxation or entertaining. Whether you're hosting guests or enjoying a quiet evening, this sofa set turns your patio into a cozy retreat.",
   "images": [
-    "1.jpg",
-    "2.jpg",
-    "3.jpg",
-    "4.jpg"
+    "1.webp",
+    "2.webp",
+    "3.webp",
+    "4.webp",
+    "5.webp",
+    "6.webp",
+    "7.webp"
   ]
 }
