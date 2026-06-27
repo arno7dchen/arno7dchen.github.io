@@ -380,6 +380,7 @@ function closeInquiry(){
 </div>
 
 <script>
+// 水印全局配置
 const WATERMARK_CONFIG = {
   text: "Sunburst Outdoor",
   opacity: 0.12,
@@ -387,24 +388,7 @@ const WATERMARK_CONFIG = {
   rotate: -12
 };
 
-function addWatermarkToImage(img) {
-  if (img.dataset.watermarked === "1") return;
-  img.dataset.watermarked = "1";
-  img.crossOrigin = "anonymous";
-
-  // 解决缓存冲突：给图片URL加随机后缀，强制刷新图片，绕开旧缓存
-  if (!img.src.includes('?t=')) {
-    img.src = img.src + '?t=' + new Date().getTime();
-  }
-
-  // 容错：图片加载完成直接绘制，没加载完等待onload
-  if (img.complete && img.naturalWidth > 0) {
-    runDraw(img);
-  } else {
-    img.onload = () => runDraw(img);
-  }
-}
-
+// 绘制水印核心函数
 function runDraw(img) {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
@@ -424,28 +408,57 @@ function runDraw(img) {
   ctx.fillText(WATERMARK_CONFIG.text, 0, 0);
   ctx.restore();
 
-  img.src = canvas.toDataURL("image/png");
+  // 返回带水印base64
+  return canvas.toDataURL("image/png");
 }
 
-// 放宽选择器，覆盖所有产品图
-const productImgSelector = "main img";
-document.querySelectorAll(productImgSelector).forEach(addWatermarkToImage);
+// 给单张图片加水印，返回处理后地址
+function addWatermarkToImage(img) {
+  if (img.dataset.watermarked === "1") return Promise.resolve(img.src);
+  img.dataset.watermarked = "1";
+  img.crossOrigin = "anonymous";
 
-// 监听JSON动态加载的详情图
+  return new Promise((resolve) => {
+    if (img.complete && img.naturalWidth > 0) {
+      const newSrc = runDraw(img);
+      img.src = newSrc;
+      resolve(newSrc);
+    } else {
+      img.onload = () => {
+        const newSrc = runDraw(img);
+        img.src = newSrc;
+        resolve(newSrc);
+      };
+    }
+  });
+}
+
+// 监听动态新增图片
 const observer = new MutationObserver(function(mutations) {
   mutations.forEach(function(mut) {
     mut.addedNodes.forEach(function(node) {
-      if (node.tagName === "IMG") {
+      if (node.tagName === "IMG" && node.closest(".img-box")) {
         addWatermarkToImage(node);
       }
       if (node.querySelectorAll) {
-        node.querySelectorAll(productImgSelector).forEach(addWatermarkToImage);
+        node.querySelectorAll(".img-box img").forEach(addWatermarkToImage);
       }
     });
   });
 });
-
 observer.observe(document.body, { childList: true, subtree: true });
+
+// 页面已有缩略图初始化
+document.querySelectorAll(".img-box img").forEach(async img => {
+  const waterSrc = await addWatermarkToImage(img);
+  // 重写点击弹窗逻辑，弹窗直接使用带水印图片
+  img.onclick = () => {
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightboxImg");
+    lightboxImg.src = waterSrc;
+    lightbox.style.display = "flex";
+  };
+});
 </script>
         
 </body>
