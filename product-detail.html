@@ -233,6 +233,11 @@ function render() {
     `);
 };
 
+        img.onclick = () => {
+        lightbox.style.display = "flex";
+        lightboxImg.src = img.dataset.waterSrc || img.src;
+        };
+
         wrapper.appendChild(img);
         imgBox.appendChild(wrapper);
     });
