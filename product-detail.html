@@ -380,58 +380,63 @@ function closeInquiry(){
 </div>
 
 <script>
-// 水印全局配置
 const WATERMARK_CONFIG = {
   text: "Sunburst Outdoor",
-  opacity: 0.16,
-  fontSize: 26,
+  opacity: 0.12,
+  scalePercent: 7,
   rotate: -12
 };
 
-// 单张图片绘制水印函数
 function addWatermarkToImage(img) {
   if (img.dataset.watermarked === "1") return;
   img.dataset.watermarked = "1";
   img.crossOrigin = "anonymous";
 
-  img.onload = function() {
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    canvas.width = img.naturalWidth;
-    canvas.height = img.naturalHeight;
+  // 解决缓存冲突：给图片URL加随机后缀，强制刷新图片，绕开旧缓存
+  if (!img.src.includes('?t=')) {
+    img.src = img.src + '?t=' + new Date().getTime();
+  }
 
-    // 绘制原图
-    ctx.drawImage(img, 0, 0);
-
-    // 绘制居中倾斜淡水印
-    ctx.save();
-    ctx.translate(canvas.width / 2, canvas.height / 2);
-    ctx.rotate(WATERMARK_CONFIG.rotate * Math.PI / 180);
-    ctx.fillStyle = `rgba(255, 107, 53, ${WATERMARK_CONFIG.opacity})`;
-    ctx.font = `bold ${WATERMARK_CONFIG.fontSize}px Arial`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText(WATERMARK_CONFIG.text, 0, 0);
-    ctx.restore();
-
-    // 替换页面图片为带水印画布
-    img.src = canvas.toDataURL("image/png");
-  };
+  // 容错：图片加载完成直接绘制，没加载完等待onload
+  if (img.complete && img.naturalWidth > 0) {
+    runDraw(img);
+  } else {
+    img.onload = () => runDraw(img);
+  }
 }
 
-// 精准筛选：只匹配产品卡片图 + 详情页产品图库图
-const productImgSelector = ".product-card img, .detail-gallery img";
+function runDraw(img) {
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
+
+  ctx.drawImage(img, 0, 0);
+  const fontSize = canvas.width * (WATERMARK_CONFIG.scalePercent / 100);
+
+  ctx.save();
+  ctx.translate(canvas.width / 2, canvas.height / 2);
+  ctx.rotate(WATERMARK_CONFIG.rotate * Math.PI / 180);
+  ctx.fillStyle = `rgba(255, 107, 53, ${WATERMARK_CONFIG.opacity})`;
+  ctx.font = `bold ${fontSize}px Arial`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(WATERMARK_CONFIG.text, 0, 0);
+  ctx.restore();
+
+  img.src = canvas.toDataURL("image/png");
+}
+
+// 放宽选择器，覆盖所有产品图
+const productImgSelector = "main img";
 document.querySelectorAll(productImgSelector).forEach(addWatermarkToImage);
 
-// 监听JSON动态加载新增的产品图
+// 监听JSON动态加载的详情图
 const observer = new MutationObserver(function(mutations) {
   mutations.forEach(function(mut) {
     mut.addedNodes.forEach(function(node) {
       if (node.tagName === "IMG") {
-        // 只处理产品区域图片
-        if(node.closest(".product-card, .detail-gallery")){
-            addWatermarkToImage(node);
-        }
+        addWatermarkToImage(node);
       }
       if (node.querySelectorAll) {
         node.querySelectorAll(productImgSelector).forEach(addWatermarkToImage);
