@@ -255,7 +255,7 @@ body {
     max-height: 220px;
     background: rgba(0,0,0,0.8);
     flex-direction: column;
-    padding: 12px 0 !important; /* 统一容器内边距 */
+    padding: 16px 0 !important; /* 统一容器内边距 */
     margin: 0 !important;
     display: none;
     align-items: center;
@@ -263,6 +263,7 @@ body {
     overflow-y: auto;
     z-index: 10000;
     gap: 0 !important; /* 清除flex自带间隙 */
+    justify-content: flex-start !important; /* 关键：内容从顶部开始排列，不自动撑开均分间距 */
 }
 
     .nav.active {
@@ -270,11 +271,10 @@ body {
     }
 
      .nav a {
-        margin: 6px 0 !important;  /* 统一上下间距，缩小行距 */
-        padding: 4px 0 !important;
+        margin: 0 !important;  /* 统一上下间距，缩小行距 */
+        padding: 8px 0 !important;
         font-size: 16px;
-        margin-left: 0;
-        line-height: 1.3 !important; /* 固定行高，防止Products页面被撑开 */
+        line-height: 1.2 !important; /* 固定行高，防止Products页面被撑开 */
         display: block !important;
         width: 100%;
     }
