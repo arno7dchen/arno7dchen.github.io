@@ -252,20 +252,24 @@ body {
     top: 50px;
     left: 0;
     width: 100%;
-    height: fit-content; /* 关键新增：强制高度仅贴合文字内容，不会被页面拉长 */
     background: rgba(0,0,0,0.8);
     flex-direction: column;
-    padding: 15px 0;
+    /* 上下内边距缩小，给内部文字固定间距让路 */
+    padding: 8px 0;
     display: none;
     align-items: center;
     text-align: center;
+    /* 强制内容从顶部堆叠，绝不自动均分空白 */
+    justify-content: flex-start;
+    /* 限制容器最大高度，不会无限拉长 */
+    max-height: 240px;
 }
 .nav.active {
     display: flex;
 }
 /* 标准10px上下外边距，复刻首页行距 */
 .nav a {
-    margin: 10px 0 !important;
+    margin: 6px 0 !important;
     font-size: 16px;
     margin-left: 0;
     line-height: 1.2;
