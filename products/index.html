@@ -176,7 +176,7 @@ body {
     padding: 0 !important;
     position: static !important;
 }
-
+        
 .product-card {
     border: 1px solid #eee;
     border-radius: 4px;
@@ -301,29 +301,6 @@ body {
     display: block !important;
 }
 
-.product-grid {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    position: relative !important;
-    top: 0 !important;
-    transform: translateY(0) !important;
-}
-
-.product-grid {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)) !important;
-    gap: 20px !important;
-    align-items: start !important;
-    justify-content: start !important;
-    align-content: start !important;
-    width: 100% !important;
-    height: auto !important;
-    min-height: auto !important;
-    max-height: unset !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    position: static !important;
-}
         /* 强制隐藏的产品不占空间 */
 .product-card[style*="display: none"] {
     display: none !important;
@@ -331,17 +308,14 @@ body {
     html, body {
     overflow-x: hidden !important;
 }
-    @media (max-width: 768px) {
-
+@media (max-width: 768px) {
     .content-wrapper {
         flex-direction: column !important;
         gap: 15px !important;
     }
-
     .sidebar {
         width: 100% !important;
     }
-    @media (max-width: 768px) {
     .product-grid {
         grid-template-columns: repeat(2, 1fr) !important;
     }
@@ -699,7 +673,7 @@ body {
 <div class="product-card" data-category="outdoor-chairs"><img src="/images/outdoor-pink-stripe-deck-folding-chair.jpg"><h4>Outdoor Pink Stripe Deck Folding Chair</h4></div>
 </a>
 <a href="/product-detail.html?id=S-OC-022" style="text-decoration: none; color: inherit; display: block;">
-<div class="product-card" data-category="outdoor-chairs"><img src="/images/stackable-metal-dining-armchair-brown.jpg"><h4>Stackable Metal Dining Armhair Brown</h4></div>
+<div class="product-card" data-category="outdoor-chairs"><img src="/images/stackable-metal-dining-armchair-brown.jpg"><h4>Stackable Metal Dining Armchair Brown</h4></div>
 </a>
 <a href="/product-detail.html?id=S-OC-023" style="text-decoration: none; color: inherit; display: block;">
 <div class="product-card" data-category="outdoor-chairs"><img src="/images/stackable-metal-dining-armchair-grey.jpg"><h4>Stackable Metal Dining Armchair Grey</h4></div>
