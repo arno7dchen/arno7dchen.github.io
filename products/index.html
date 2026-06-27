@@ -355,9 +355,9 @@ body {
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: #FF6B35;
-  color: white;
-  border: none;
+  background: #FF6B35; !important
+  color: white; !important
+  border: none; !important
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
@@ -421,7 +421,7 @@ body {
 </div> 
          
     <div class="content-wrapper" id="productSection">
-        <aside class="sidebar">
+        <aside class="sidebar id="productCategory">
             <h3>Product Category</h3>
             <ul class="category-list">
     <li><a href="javascript:void(0)" class="active" data-category="all">All Products</a></li>
@@ -1015,12 +1015,17 @@ window.addEventListener("scroll", function () {
 
 // 点击回到顶部
 btn.addEventListener("click", function () {
-    const target = document.getElementById("productSection");
+  const target = document.getElementById("productCategory");
 
-    window.scrollTo({
-        top: target.offsetTop - 70,
-        behavior: "smooth"
-    });
+  const y =
+    target.getBoundingClientRect().top +
+    window.pageYOffset -
+    80; // 给导航栏留空间
+
+  window.scrollTo({
+    top: y,
+    behavior: "smooth"
+  });
 });
 </script>
     
