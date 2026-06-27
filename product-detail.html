@@ -219,6 +219,7 @@ function render() {
         wrapper.className = "img-box";
 
         const img = document.createElement("img");
+        img.crossOrigin = "anonymous";
         img.src = base + imgName;
 
         // ❗防404
