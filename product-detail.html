@@ -384,7 +384,7 @@ function closeInquiry(){
 // 水印全局配置
 const WATERMARK_CONFIG = {
   text: "Sunburst Outdoor",
-  opacity: 0.05,
+  opacity: 0.01,
   scalePercent: 6,
   rotate: -12
 };
@@ -413,9 +413,8 @@ function runDraw(img) {
 }
 
 function addWatermarkToImage(img) {
-  // 双重锁：DOM标记 + 本地缓存标记，彻底杜绝重复绘制
-  const markKey = "marked_" + img.src;
-  if (img.dataset.watermarked === "1" || localStorage.getItem(markKey)) return;
+
+  if (img.dataset.watermarked === "1") return;
   img.dataset.watermarked = "1";
   img.crossOrigin = "anonymous";
 
@@ -423,8 +422,6 @@ function addWatermarkToImage(img) {
     const waterSrc = runDraw(img);
     img.src = waterSrc;
     img.dataset.waterSrc = waterSrc;
-    // 写入本地缓存，永久标记这张原图已生成水印
-    localStorage.setItem(markKey, "1");
   }
 
   if (img.complete && img.naturalWidth > 0) {
@@ -437,8 +434,7 @@ function addWatermarkToImage(img) {
 // 监听动态加载的产品图
 const observer = new MutationObserver(function(mutations) {
   mutations.forEach(function(mut) {
-    // 只处理新增节点，忽略属性修改、样式重绘
-    if(mut.type !== "childList") return;
+
     mut.addedNodes.forEach(function(node) {
       if (node.tagName === "IMG" && node.closest(".img-box")) {
         addWatermarkToImage(node);
@@ -449,7 +445,7 @@ const observer = new MutationObserver(function(mutations) {
     });
   });
 });
-observer.observe(document.body, { childList: true, subtree: true, attributes: false });
+observer.observe(document.body, { childList: true, subtree: true });
 
 // 处理页面已有的产品缩略图
 document.querySelectorAll(".img-box img").forEach(addWatermarkToImage);
