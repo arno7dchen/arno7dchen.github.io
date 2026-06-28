@@ -61,18 +61,6 @@ h1 { margin-bottom: 10px; }
     transform: scale(1.05);
 }
 
-/* Lightbox（100%稳定） */
-#lightbox {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.85);
-
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
 #lightbox img {
     max-width: 90%;
     max-height: 90%;
@@ -297,25 +285,7 @@ function updateArrowState() {
     nextBtn.disabled = currentIndex >= imgList.length - 1;
 }
 
-// 上一张
-document.querySelector(".prev-btn").onclick = function(e) {
-    e.stopPropagation();
-    if (currentIndex > 0) {
-        currentIndex--;
-        lightboxImg.src = imgList[currentIndex].dataset.waterSrc || imgList[currentIndex].src;
-        updateArrowState();
-    }
-};
-
-// 下一张
-document.querySelector(".next-btn").onclick = function(e) {
-    e.stopPropagation();
-    if (currentIndex < imgList.length - 1) {
-        currentIndex++;
-        lightboxImg.src = imgList[currentIndex].dataset.waterSrc || imgList[currentIndex].src;
-        updateArrowState();
-    }
-};
+}
 
 // =========================
 // 3. 询盘
@@ -517,6 +487,30 @@ observer.observe(document.body, { childList: true, subtree: true });
 
 // 处理页面已有的产品缩略图
 document.querySelectorAll(".img-box img").forEach(addWatermarkToImage);
+
+// 页面加载完成后绑定左右箭头，彻底解决刷新报错
+document.addEventListener('DOMContentLoaded', function(){
+    const prevBtn = document.querySelector(".prev-btn");
+    const nextBtn = document.querySelector(".next-btn");
+
+    prevBtn.onclick = function(e) {
+        e.stopPropagation();
+        if (currentIndex > 0) {
+            currentIndex--;
+            lightboxImg.src = imgList[currentIndex].dataset.waterSrc || imgList[currentIndex].src;
+            updateArrowState();
+        }
+    };
+
+    nextBtn.onclick = function(e) {
+        e.stopPropagation();
+        if (currentIndex < imgList.length - 1) {
+            currentIndex++;
+            lightboxImg.src = imgList[currentIndex].dataset.waterSrc || imgList[currentIndex].src;
+            updateArrowState();
+        }
+    };
+});
 </script>
         
 </body>
