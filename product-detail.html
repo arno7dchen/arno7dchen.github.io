@@ -194,7 +194,6 @@ if (!productId) {
     throw new Error("Missing product ID");
 }
 
-// 仅新增两行全局变量，其余不变
 let product = null;
 let imgList = [];
 let currentIndex = 0;
@@ -222,7 +221,6 @@ fetch(`./data/products/${productId}.json`)
 // 2. 渲染
 // =========================
 function render() {
-    // 新增两行：把DOM赋值给全局变量，供底部箭头JS读取
     lightbox = document.getElementById("lightbox");
     lightboxImg = document.getElementById("lightboxImg");
 
@@ -238,7 +236,6 @@ function render() {
 
     const base = `./images/products/${product.id}/`;
 
-// 先清空数组，保证下标正确
 imgList = [];
 
 product.images.forEach((imgName, index) => {
@@ -262,7 +259,6 @@ img.src = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(`
 `);
 };
 
-// 直接用循环的 index 赋值，彻底避开 indexOf 失效问题
 img.onclick = () => {
     currentIndex = index;
     lightbox.style.display = "flex";
@@ -283,14 +279,14 @@ lightbox.onclick = (e) => {
     }
 };
 
-// 更新箭头是否可点击
+}
+
+// 【关键修复】把箭头状态更新函数移到全局，切换图片时实时刷新
 function updateArrowState() {
     const prevBtn = document.querySelector(".prev-btn");
     const nextBtn = document.querySelector(".next-btn");
     prevBtn.disabled = currentIndex <= 0;
     nextBtn.disabled = currentIndex >= imgList.length - 1;
-}
-
 }
 
 // =========================
@@ -425,7 +421,7 @@ function closeInquiry(){
 </div>
 
 <script>
-// 水印全局配置 完全原样保留，一丝未改
+// 水印全局配置 完全原样保留
 const WATERMARK_CONFIG = {
   text: "Sunburst Outdoor",
   opacity: 0.01,
@@ -494,7 +490,7 @@ observer.observe(document.body, { childList: true, subtree: true });
 // 处理页面已有的产品缩略图
 document.querySelectorAll(".img-box img").forEach(addWatermarkToImage);
 
-// 页面加载完成后绑定左右箭头，彻底解决刷新报错
+// 页面加载完成后绑定左右箭头
 document.addEventListener('DOMContentLoaded', function(){
     const prevBtn = document.querySelector(".prev-btn");
     const nextBtn = document.querySelector(".next-btn");
