@@ -1,16 +1,17 @@
 {
   "id": "S-OC-001",
-  "name": "Outdoor Dining Chair",
-  "material": "Steel frame + 2*1 Textilene",
-  "dimensions": "W54 × D72 × H90 cm",
-  "description": "Modern outdoor chair suitable for garden and patio use，stackable.",
+  "name": "Outdoor Stackable Dining Chair ",
+  "material": "2*1 teslin fabrics, steel frame w/t powder coated",
+  "dimensions": "54 × 72 × 90cmH",
+  "description": "This sling chair has a streamlined look with a powder coated steel frame and a comfortable textilene fabric material that is breathable. Create a comfortable seating arrangement with multiple chairs that are stackable up to four, for long or short-term storage. For longevity, care should be taken to protect from long periods of wet weather.",
   "images": [
+    "1.jpg",
     "2.jpg",
     "3.jpg",
-    "8.jpg",
-    "1.jpg",
     "4.jpg",
     "5.jpg",
-    "7.jpg"
+    "6.jpg",
+    "7.jpg",
+    "8.jpg"
   ]
 }
