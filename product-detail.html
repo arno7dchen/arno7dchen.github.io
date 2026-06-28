@@ -234,40 +234,42 @@ function render() {
 
     const base = `./images/products/${product.id}/`;
 
-    product.images.forEach(imgName => {
+// 先清空数组，保证下标正确
+imgList = [];
 
-        const wrapper = document.createElement("div");
-        wrapper.className = "img-box";
+product.images.forEach((imgName, index) => {
 
-        const img = document.createElement("img");
-        img.crossOrigin = "anonymous";
-        img.src = base + imgName;
+    const wrapper = document.createElement("div");
+    wrapper.className = "img-box";
 
-        // ❗防404
-    img.onerror = () => {
-    img.src = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(`
-        <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
-            <rect width="100%" height="100%" fill="#f2f2f2"/>
-            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#999">
-                Image Missing
-            </text>
-        </svg>
-    `);
+    const img = document.createElement("img");
+    img.crossOrigin = "anonymous";
+    img.src = base + imgName;
+
+    // ❗防404
+img.onerror = () => {
+img.src = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+        <rect width="100%" height="100%" fill="#f2f2f2"/>
+        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#999">
+            Image Missing
+        </text>
+    </svg>
+`);
 };
 
-    // 点击缩略图打开大图
-    img.onclick = () => {
-        currentIndex = imgList.indexOf(img);
-        lightbox.style.display = "flex";
-        lightboxImg.src = img.dataset.waterSrc || img.src;
-        updateArrowState();
-    };
+// 直接用循环的 index 赋值，彻底避开 indexOf 失效问题
+img.onclick = () => {
+    currentIndex = index;
+    lightbox.style.display = "flex";
+    lightboxImg.src = img.dataset.waterSrc || img.src;
+    updateArrowState();
+};
 
-    wrapper.appendChild(img);
-    imgBox.appendChild(wrapper);
+wrapper.appendChild(img);
+imgBox.appendChild(wrapper);
 
-    // 存入图片数组，用于翻页
-    imgList.push(img);
+imgList.push(img);
 });
 
 // 只绑定一次，点击黑色背景关闭弹窗
