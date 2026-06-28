@@ -194,9 +194,12 @@ if (!productId) {
     throw new Error("Missing product ID");
 }
 
+// 仅新增两行全局变量，其余不变
 let product = null;
 let imgList = [];
 let currentIndex = 0;
+let lightbox;
+let lightboxImg;
 
 // =========================
 // 1. 加载 JSON（GitHub Pages正确路径）
@@ -219,6 +222,9 @@ fetch(`./data/products/${productId}.json`)
 // 2. 渲染
 // =========================
 function render() {
+    // 新增两行：把DOM赋值给全局变量，供底部箭头JS读取
+    lightbox = document.getElementById("lightbox");
+    lightboxImg = document.getElementById("lightboxImg");
 
     document.getElementById("title").innerText = product.name;
     document.getElementById("code").innerText = product.id;
@@ -227,8 +233,6 @@ function render() {
     document.getElementById("description").innerText = product.description;
 
     const imgBox = document.getElementById("images");
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImg = document.getElementById("lightboxImg");
 
     imgBox.innerHTML = "";
 
@@ -421,7 +425,7 @@ function closeInquiry(){
 </div>
 
 <script>
-// 水印全局配置
+// 水印全局配置 完全原样保留，一丝未改
 const WATERMARK_CONFIG = {
   text: "Sunburst Outdoor",
   opacity: 0.01,
@@ -511,8 +515,7 @@ nextBtn.onclick = function(e) {
         lightboxImg.src = imgList[currentIndex].dataset.waterSrc || imgList[currentIndex].src;
     }
     updateArrowState();
-        }
-    };
+};
 });
 </script>
         
